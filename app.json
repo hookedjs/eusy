@@ -2,6 +2,7 @@
   "expo": {
     "name": "expo-33",
     "slug": "expo-33",
+    "scheme": "expo-33",
     "privacy": "public",
     "sdkVersion": "33.0.0",
     "platforms": [

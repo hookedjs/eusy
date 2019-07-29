@@ -29,16 +29,13 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-ui-kitten": "^4.1.0",
     "react-native-web": "^0.11.4",
-    "react-router-dom": "^5.0.1",
-    "react-router-native": "^5.0.1",
+    "react-navigation": "^3.11.1",
     "react-router-native-stack": "^0.0.16"
   },
   "devDependencies": {
     "@types/jest": "^24.0.15",
     "@types/react": "^16.8.19",
     "@types/react-native": "^0.57.60",
-    "@types/react-router-dom": "^4.3.4",
-    "@types/react-router-native": "^4.2.4",
     "babel-jest": "24.7.1",
     "babel-preset-expo": "^5.1.1",
     "jest": "^24.8.0",

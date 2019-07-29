@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
+import {Linking} from "expo";
 import {mapping, light as lightTheme} from '@eva-design/eva';
 import {ApplicationProvider} from 'react-native-ui-kitten';
-import {Router, Route, Switch, Stack} from './src/helpers/Routing';
 import {cacheAssets, cacheFonts} from "./src/helpers/AssetsCaching";
 import {AppLoading} from "./src/components/AppLoading";
 import {Sleep} from "./src/helpers/Sleep";
+import {createAppContainer, createStackNavigator} from "react-navigation";
 
 import {Header} from "./src/components/Header";
 
@@ -14,6 +15,21 @@ import Home from "./src/Home";
 import InnerPage from "./src/InnerPage";
 import Error from "./src/Error";
 import {Footer} from "./src/components/Footer";
+
+const prefix = Linking.makeUrl('/');
+const AppNavigator = () => {
+  const Container = createAppContainer(createStackNavigator({
+    Home: {
+      screen: Home,
+      path: ''
+    },
+    Page: {
+      screen: InnerPage,
+      path: 'page'
+    }
+  }));
+  return <Container uriPrefix={prefix}/>;
+};
 
 export default function App() {
   const [isReady, setIsReady] = useState(false);
@@ -50,13 +66,7 @@ export default function App() {
       mapping={mapping}
       theme={lightTheme}
     >
-      <Router>
-        <Stack>
-          <Route path="/" exact component={Home} headerComponent={Header} footerComponent={Footer}/>
-          <Route path="/page" component={InnerPage} headerComponent={Header} footerComponent={Footer}/>
-          <Route component={Error}/>
-        </Stack>
-      </Router>
+      <AppNavigator/>
     </ApplicationProvider>
   );
 }
