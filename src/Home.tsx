@@ -1,7 +1,20 @@
-import React, {useState} from "react";
+import React from "react";
 import {Button, Layout, Text} from "react-native-ui-kitten";
 import {StyleSheet} from "react-native";
 import {withRouter} from "./helpers/Routing";
+
+export const Home = withRouter(({history}) => {
+  return (
+    <Layout style={styles.container}>
+      <Text style={styles.text} category='h4'>Welcome to UI Kitten</Text>
+      <Text style={styles.text}>We also recommend React-Native-Elements, but it's a little bloated at 30% more code.</Text>
+      <Text style={styles.text}>Use react native for native AND web.</Text>
+      <Button onPress={() => history.push('/page')} style={styles.button}>Get Started</Button>
+    </Layout>
+  );
+});
+
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
@@ -17,16 +30,3 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   }
 });
-
-export const Home = withRouter(({history}) => {
-  return (
-    <Layout style={styles.container}>
-      <Text style={styles.text} category='h4'>Welcome to UI Kitten</Text>
-      <Text style={styles.text}>We also recommend React-Native-Elements, but it's a little bloated at 30% more code.</Text>
-      <Text style={styles.text}>Use react native for native AND web.</Text>
-      <Button onPress={() => history.push('/page')} style={styles.button}>Get Started</Button>
-    </Layout>
-  );
-});
-
-export default Home;
