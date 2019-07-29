@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import {mapping, light as lightTheme} from '@eva-design/eva';
 import {ApplicationProvider} from 'react-native-ui-kitten';
-import {Router, Route, Switch, Stack} from './src/helpers/Routing';
+import {Router, Route, Stack} from './src/helpers/Routing';
 import {cacheAssets, cacheFonts} from "./src/helpers/AssetsCaching";
 import {AppLoading} from "./src/components/AppLoading";
-import {Sleep} from "./src/helpers/Sleep";
 
 import {Header} from "./src/components/Header";
 
@@ -15,7 +14,7 @@ import InnerPage from "./src/InnerPage";
 import Error from "./src/Error";
 import {Footer} from "./src/components/Footer";
 
-export default function App() {
+function App() {
   const [isReady, setIsReady] = useState(false);
 
   const loadAssetsAsync = async () => {
@@ -59,4 +58,11 @@ export default function App() {
       </Router>
     </ApplicationProvider>
   );
+}
+
+// HotReload Requirement: Export a class instead of a function
+export default class AppClassComponent extends React.PureComponent {
+  render () {
+    return <App/>
+  }
 }

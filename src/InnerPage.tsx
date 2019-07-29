@@ -5,7 +5,7 @@ import {withRouter} from "./helpers/Routing";
 
 export const Page = withRouter(({history}) => (
   <Layout style={styles.container}>
-    <Text style={styles.text} category='h4'>Welcome to an inner pages.</Text>
+    <Text style={styles.text} category='h4'>Welcome to an inner page.</Text>
     <Button onPress={() => history.goBack()}>Go Back</Button>
   </Layout>
 ));

@@ -17,11 +17,9 @@ const Route = (
     footerComponent = () => <Fragment/>,
     ...props
   }
-    : {
-    component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,
+    : RouteProps & {
     headerComponent: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,
     footerComponent: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,
-    props: RouteProps,
   }
 ) => {
   const RouteComponent = component;

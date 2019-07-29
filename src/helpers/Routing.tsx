@@ -11,13 +11,10 @@ import React, {Fragment} from "react";
 import {ScrollView} from "react-native";
 
 const Route = (
-  {
-    component,
-    ...props
-  }
-    : {
-    component: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,
-    props: RouteProps,
+  {component, ...props}
+  : RouteProps & {
+    headerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,
+    footerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,
   }
 ) => {
   const RouteComponent = component;
