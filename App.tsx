@@ -24,12 +24,6 @@ function App() {
 
     const fontAssets = cacheFonts({
       // "FontAwesome": require("@expo/vector-icons/fonts/FontAwesome.ttf"),
-      // "Ionicons": require("@expo/vector-icons/fonts/Ionicons.ttf"),
-      // "Entypo": require("@expo/vector-icons/fonts/Entypo.ttf"),
-      // "SimpleLineIcons": require("@expo/vector-icons/fonts/SimpleLineIcons.ttf"),
-      // "MaterialIcons": require("@expo/vector-icons/fonts/MaterialIcons.ttf"),
-      // //TODO: What's wrong with MaterialCommunityIcons ???
-      // "MaterialCommunityIcons": require("@expo/vector-icons/fonts/MaterialCommunityIcons.ttf"),
     });
 
     await Promise.all([imageAssets, fontAssets]);
