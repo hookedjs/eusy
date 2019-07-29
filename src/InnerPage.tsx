@@ -3,6 +3,14 @@ import {Button, Layout, Text} from "react-native-ui-kitten";
 import {StyleSheet} from "react-native";
 import {withRouter} from "./helpers/Routing";
 
+export const Page = withRouter(({history}) => (
+  <Layout style={styles.container}>
+    <Text style={styles.text} category='h4'>Welcome to an inner pages.</Text>
+    <Button onPress={() => history.goBack()}>Go Back</Button>
+  </Layout>
+));
+export default Page;
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -17,13 +25,3 @@ const styles = StyleSheet.create({
     marginVertical: 16,
   }
 });
-
-export const Page = withRouter(({history}) => (
-  <Layout style={styles.container}>
-    <Text style={styles.text} category='h4'>Welcome to an inner page.</Text>
-    <Button onPress={() => history.goBack()}>Go Back</Button>
-  </Layout>
-));
-
-
-export default Page;
