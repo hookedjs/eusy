@@ -3,8 +3,9 @@
     "noEmit": true,
     "lib": ["dom", "esnext"],
     "jsx": "react-native",
+    "allowJs": true,
     "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "esModuleInterop": true
   }
 }
