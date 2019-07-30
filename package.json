@@ -48,6 +48,7 @@
     "@types/react-router-native": "^4.2.4",
     "babel-jest": "24.7.1",
     "babel-preset-expo": "^5.2.0",
+    "babel-register": "^6.26.0",
     "jest": "^24.8.0",
     "prettier": "^1.18.2",
     "react-test-renderer": "^16.8.6",
@@ -56,6 +57,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-eslint-rules": "^5.4.0",
     "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "webpack-isomorphic-tools": "^3.0.6"
   }
 }
