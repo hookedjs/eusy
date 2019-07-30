@@ -3,8 +3,8 @@ import {Button, Layout, Text} from "react-native-ui-kitten";
 import {StyleSheet} from "react-native";
 import {withRouter} from "./helpers/Routing";
 
-import Test3 from "./Test3";
-import Test3b from "./Test3b";
+import Test3 from './Test3';
+import Test4 from './Test3b';
 
 
 export const Home = withRouter(({history}) => {
@@ -15,7 +15,7 @@ export const Home = withRouter(({history}) => {
       <Text style={styles.text}>Use react native for native AND web.</Text>
       <Button onPress={() => history.push('/page')} style={styles.button}>Get Started</Button>
       <Test3/>
-      <Test3b/>
+      <Test4/>
     </Layout>
   );
 });

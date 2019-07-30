@@ -1,31 +1,42 @@
+import React, {Fragment} from "react";
 import {
-  NativeRouter as Router,
+  BrowserRouter as Router,
   Link,
   Route as RouteOrig,
+  RouteProps,
   Redirect,
   Switch,
-  withRouter, RouteComponentProps, RouteProps
-} from "react-router-native";
-import Stack from 'react-router-native-stack';
-import React, {Fragment} from "react";
-import {ScrollView} from "react-native";
+  withRouter, RouteComponentProps
+} from "react-router-dom";
+
 
 const Route = (
-  {component, ...props}
-  : RouteProps & {
-    headerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,
-    footerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,
+  {
+    component,
+    headerComponent = () => <Fragment/>,
+    footerComponent = () => <Fragment/>,
+    ...props
+  }
+    : RouteProps & {
+    headerComponent: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,
+    footerComponent: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>,
   }
 ) => {
   const RouteComponent = component;
+  const HeaderComponent = headerComponent;
+  const FooterComponent = footerComponent;
   return <RouteOrig
     render={(routeProps) => (
-      <ScrollView>
+      <Fragment>
+        <HeaderComponent {...routeProps}/>
         <RouteComponent {...routeProps}/>
-      </ScrollView>
+        <FooterComponent {...routeProps}/>
+      </Fragment>
     )}
     {...props}
   />
 };
 
-export { Link, Route, Redirect, Router, Switch, Stack, withRouter };
+const Stack = ({children}: { children: React.ReactNode }) => <Switch>{children}</Switch>;
+
+export {Link, Route, Redirect, Router, Switch, Stack, withRouter};
