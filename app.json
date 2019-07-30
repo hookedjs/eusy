@@ -1,9 +1,10 @@
 {
   "expo": {
-    "name": "expo-33",
-    "slug": "expo-33",
+    "name": "EUS",
+    "slug": "expo-unversal-starter",
+    "description": "Coming soon",
     "privacy": "public",
-    "sdkVersion": "33.0.0",
+    "sdkVersion": "34.0.0",
     "platforms": [
       "ios",
       "android",
@@ -11,9 +12,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./src/static/favicon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/static/logo.svg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
