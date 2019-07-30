@@ -3,6 +3,10 @@ import {Button, Layout, Text} from "react-native-ui-kitten";
 import {StyleSheet} from "react-native";
 import {withRouter} from "./helpers/Routing";
 
+import Test3 from "./Test3";
+import Test3b from "./Test3b";
+
+
 export const Home = withRouter(({history}) => {
   return (
     <Layout style={styles.container}>
@@ -10,6 +14,8 @@ export const Home = withRouter(({history}) => {
       <Text style={styles.text}>We also recommend React-Native-Elements, but it's a little bloated at 30% more code.</Text>
       <Text style={styles.text}>Use react native for native AND web.</Text>
       <Button onPress={() => history.push('/page')} style={styles.button}>Get Started</Button>
+      <Test3/>
+      <Test3b/>
     </Layout>
   );
 });

@@ -2,11 +2,15 @@ import React from "react";
 import {Button, Layout, Text} from "react-native-ui-kitten";
 import {StyleSheet} from "react-native";
 import {withRouter} from "./helpers/Routing";
+import Test3 from "./Test3";
+import Test3b from "./Test3b";
 
 export const Page = withRouter(({history}) => (
   <Layout style={styles.container}>
     <Text style={styles.text} category='h4'>Welcome to an inner page.</Text>
     <Button onPress={() => history.goBack()}>Go Back</Button>
+    <Test3/>
+    <Test3b/>
   </Layout>
 ));
 export default Page;
