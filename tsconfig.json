@@ -2,6 +2,8 @@
   "compilerOptions": {
     "noEmit": true,
     "lib": ["dom", "esnext"],
+    "target": "esnext",
+//    "module": "esnext",
     "jsx": "react-native",
     "allowJs": true,
     "moduleResolution": "node",

@@ -20,4 +20,4 @@ Decisions:
 
 Code Splitting - They all seem to break HMR and/or Typesafety, so we don't use them. Tried React.Lazy, @loadable/component, react-loadable 
 
-npx webpack -p --progress --colors --display=errors-only --quiet --config webpack.server.config.js 
+ 

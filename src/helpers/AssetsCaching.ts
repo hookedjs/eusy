@@ -3,7 +3,7 @@
  * Not currently implemented for web.
  * Example Arg: [require("../assets/images/bg_screen1.jpg")]
  */
-export const cacheAssets = () => Promise.resolve(null);
+export const cacheAssets = (urls: string[]) => Promise.resolve(null);
 
 
 /**
