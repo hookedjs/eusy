@@ -1,1 +1,1 @@
-export {AppLoading} from "expo";
+export { AppLoading } from 'expo';

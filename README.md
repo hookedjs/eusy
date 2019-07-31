@@ -9,11 +9,12 @@ Depends on expo-cli
 - ~~Install expo 33 with merged examples typescript and react-native-web (done)~~
 - ~~Install react-hot-loader for web so we can hot reload on web (done)~~
 - ~~Install react-native-ui-kitten ui kit for rapid dev and stress testing the bundling. (done)~~
-- ~~Universal Font file Loading (done). Based on [Rewired](https://github.com/react-native-elements/react-native-elements-app)
+- ~~Universal Font file Loading (done). Based on [Rewired](https://github.com/react-native-elements/react-native-elements-app).~~
 - ~~Universal Routing with react-router 4 (done)~~
 - ~~Implement a static server for production~~
-- SEO with Helmet (todo)
+- ~~SEO with Helmet (done)~~
 - Resolve missing favicon and manifest in index.html 
+- Apply polish: loading, footer, sidebar, header, homepage, article list, article page, sign in page, theming
 - Implement testing (todo)
 
 
@@ -21,7 +22,7 @@ Depends on expo-cli
 
 - Upgrade babel-preset-expo when it gets fixed. Might bring HMR to web without need for customization.
 - SSR: I've Tried Razzle and doing custom, but it's really hard. Also, limited gains since bundle is currently 104kb brotli zipped. 
-- Code Splitting - I've tried but they all seem to break HMR and/or Typesafety, so we don't use them. Tried React.Lazy, @loadable/component, react-loadable
+- Code Splitting - I've tried but they all seem to break HMR, Typesafety and/or SSR, so we don't use them. Tried React.Lazy, @loadable/component, react-loadable
 
 ## Decisions:
 

@@ -1,6 +1,6 @@
 // import {Asset,Font} from "expo";
-import {Asset} from 'expo-asset';
-import * as Font from 'expo-font'
+import { Asset } from 'expo-asset';
+import * as Font from 'expo-font';
 
 /**
  * Prefetch images
@@ -14,9 +14,6 @@ export const cacheAssets = Asset.loadAsync;
  */
 export const loadCsss = (urls: string[]) => Promise.resolve(null);
 export const loadJss = (urls: string[]) => Promise.resolve(null);
-
-
-
 
 /**
  * Add fonts to virtual dom

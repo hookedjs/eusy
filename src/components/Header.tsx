@@ -1,11 +1,13 @@
-import React from "react";
-import {View, Text, StyleSheet, Button} from 'react-native';
-import {withRouter} from "../helpers/Routing";
+import React from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { withRouter } from '../helpers/Routing';
 
-export const Header = withRouter(({history}) => {
+export const Header = withRouter(({ history }) => {
   return (
     <View style={styles.header}>
-      <Text style={styles.headerText} onPress={() => history.goBack()}>← &nbsp;</Text>
+      <Text style={styles.headerText} onPress={() => history.goBack()}>
+        ← &nbsp;
+      </Text>
       <Text style={styles.headerText}>HookedJS</Text>
     </View>
   );
@@ -19,9 +21,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   headerText: {
-    color: 'white',
-  },
+    color: 'white'
+  }
 });

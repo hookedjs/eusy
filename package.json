@@ -2,14 +2,16 @@
   "name": "expo-unversal-starter",
   "description": "Coming soon",
   "author": "Brian Dombrowski <bdombro@gmail.com>",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "license": "ISC",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "build": "expo build:web",
+    "t": "echo hello",
+    "env": "dotenvi -s ${APP_ENV:-development}",
+    "build": "yarn env && expo build:web",
     "start:dev": "expo start",
-    "start": "node src/WebServer.js",
+    "start": "node src/server.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -17,7 +19,7 @@
     "test": "NODE_ENV=test jest --config jest/jest.web.json",
     "test:ios": "NODE_ENV=test jest --config jest/jest.ios.json",
     "test:android": "NODE_ENV=test jest --config jest/jest.android.json",
-    "lint": "tsc && tslint --fix -p tsconfig.json -c tslint.json",
+    "lint": "tslint --fix -p tsconfig.json -c tslint.json",
     "eject": "expo eject"
   },
   "browserslist": [
@@ -26,19 +28,51 @@
     "not ie <= 11",
     "not op_mini all"
   ],
+  "engineStrict": true,
+  "engines": {
+    "node": ">=10.16.0 <12.0.0",
+    "npm": ">9999.0.0",
+    "yarn": ">=1.9.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "linters": {
+      "*.{ts,tsx}": [
+        "tslint --fix -p tsconfig.json -c tslint.json",
+        "prettier --write",
+        "git add"
+      ],
+      "*.{js,jsx,json}": [
+        "prettier --write",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "**/generated/*"
+    ]
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true
+  },
   "dependencies": {
     "@eva-design/eva": "^1.0.1",
-    "@loadable/component": "^5.10.2",
+    "@expo/webpack-config": "^0.7.0",
+    "dotenv": "^8.0.0",
+    "dotenvi": "^0.6.0",
     "expo": "^34.0.2",
     "expo-asset": "^6.0.0",
     "expo-font": "^6.0.0",
-    "express": "^4.17.1",
-    "morgan": "^1.9.1",
+    "express": "^4.0.0",
+    "morgan": "^1.9.0",
     "react": "^16.8.6",
     "react-dom": "npm:@hot-loader/react-dom",
     "react-helmet": "^5.2.1",
     "react-hot-loader": "^4.12.10",
-    "react-loadable": "^5.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-34.0.0.tar.gz",
     "react-native-ui-kitten": "^4.1.0",
     "react-native-web": "^0.11.4",
@@ -56,7 +90,9 @@
     "@types/react-router-native": "^4.2.4",
     "babel-jest": "24.7.1",
     "babel-preset-expo": "^5.2.0",
+    "husky": "^3.0.2",
     "jest": "^24.8.0",
+    "lint-staged": "^8.2.1",
     "prettier": "^1.18.2",
     "react-test-renderer": "^16.8.6",
     "ts-jest": "^24.0.2",

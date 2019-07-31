@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 
 const styles = StyleSheet.create({
@@ -6,28 +6,26 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 10,
-  },
+    padding: 10
+  }
 });
 
-
-export const AppLoading = (
-  {
-    startAsync,
-    onError = () => null,
-    onFinish = () => null,
-    ActivityIndicatorProps = {},
-  }
-    : {
-    startAsync: () => any,
-    onError?: () => any,
-    onFinish?: () => any,
-    ActivityIndicatorProps?: any,
-  },
-) => {
-
+export const AppLoading = ({
+  startAsync,
+  onError = () => null,
+  onFinish = () => null,
+  ActivityIndicatorProps = {}
+}: {
+  startAsync: () => any;
+  onError?: () => any;
+  onFinish?: () => any;
+  ActivityIndicatorProps?: any;
+}) => {
   useEffect(() => {
-    if(startAsync) Promise.resolve(startAsync()).then(onFinish).catch(onError);
+    if (startAsync)
+      Promise.resolve(startAsync())
+        .then(onFinish)
+        .catch(onError);
     else onFinish();
   }, [false]);
 

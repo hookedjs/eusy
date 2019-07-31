@@ -3,19 +3,19 @@
  * - You should use non-functional components for higher level stuff, b/c fc's tend to break hot reload
  * - Use the assets features on this page to load fonts and stuff
  */
-import { hot } from "react-hot-loader";
-import React from "react";
-import { Platform } from "react-native";
-import { Router } from "./src/helpers/Routing";
-import { cacheAssets, cacheFonts } from "./src/helpers/AssetsCaching";
-import { AppLoading } from "./src/components/AppLoading";
-import { Routes } from "./src/Routes";
-import { light as lightTheme, mapping } from "@eva-design/eva";
-import { ApplicationProvider } from "react-native-ui-kitten";
-import { Helmet } from "./src/components/Helmet";
+import { hot } from 'react-hot-loader';
+import React from 'react';
+import { Platform } from 'react-native';
+import { Router } from './src/helpers/Routing';
+import { cacheAssets, cacheFonts } from './src/helpers/AssetsCaching';
+import { AppLoading } from './src/components/AppLoading';
+import { Routes } from './src/Routes';
+import { light as lightTheme, mapping } from '@eva-design/eva';
+import { ApplicationProvider } from 'react-native-ui-kitten';
+import { Helmet } from './src/components/Helmet';
 
 interface state {
-  isReady: boolean
+  isReady: boolean;
 }
 
 class App extends React.PureComponent<any, state> {
@@ -34,34 +34,29 @@ class App extends React.PureComponent<any, state> {
     });
 
     await Promise.all([imageAssets, fontAssets]);
-  };
-
+  }
 
   render() {
-    return <>
-      <Helmet/>
-      <ApplicationProvider
-        mapping={mapping}
-        theme={lightTheme}
-      >
-        {this.state.isReady
-          ?
+    return (
+      <>
+        <Helmet />
+        <ApplicationProvider mapping={mapping} theme={lightTheme}>
+          {this.state.isReady ? (
             <Router>
-              <Routes/>
+              <Routes />
             </Router>
-          :
+          ) : (
             <AppLoading
               startAsync={this._loadAssetsAsync}
               onFinish={() => this.setState({ isReady: true })}
             />
-        }
-
-      </ApplicationProvider>
-    </>;
+          )}
+        </ApplicationProvider>
+      </>
+    );
   }
 }
 
 let HotApp = App;
-if (Platform.OS === "web") HotApp = hot(module)(App);
+if (Platform.OS === 'web') HotApp = hot(module)(App);
 export default HotApp;
-
