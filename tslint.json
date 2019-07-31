@@ -1,5 +1,5 @@
 {
-  "extends": ["tslint-plugin-prettier", "tslint-config-prettier", "tslint-eslint-rules"],
+  "extends": ["tslint-eslint-rules", "tslint-plugin-prettier", "tslint-config-prettier"],
   "rules": {
     "prettier": true
   }

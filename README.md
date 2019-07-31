@@ -13,6 +13,7 @@ Depends on expo-cli
 - ~~Universal Routing with react-router 4 (done)~~
 - ~~Implement a static server for production~~
 - ~~SEO with Helmet (done)~~
+- ~~Environment file mgmt and support with dotenv~~
 - Resolve missing favicon and manifest in index.html 
 - Apply polish: loading, footer, sidebar, header, homepage, article list, article page, sign in page, theming
 - Implement testing (todo)

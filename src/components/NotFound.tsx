@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export class Error extends React.Component {
+export class NotFound extends React.Component {
   render() {
     return (
       <Layout style={styles.container}>
@@ -29,4 +29,4 @@ export class Error extends React.Component {
   }
 }
 
-export default Error;
+export default NotFound;

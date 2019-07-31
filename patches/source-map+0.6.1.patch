@@ -1,0 +1,14 @@
+diff --git a/node_modules/source-map/lib/source-map-consumer.js b/node_modules/source-map/lib/source-map-consumer.js
+index 7b99d1d..870e81d 100644
+--- a/node_modules/source-map/lib/source-map-consumer.js
++++ b/node_modules/source-map/lib/source-map-consumer.js
+@@ -746,7 +746,8 @@ BasicSourceMapConsumer.prototype.sourceContentFor =
+     // IndexedSourceMapConsumer.prototype.sourceContentFor. In that case, we
+     // don't want to throw if we can't find the source - we just want to
+     // return null, so we provide a flag to exit gracefully.
+-    if (nullOnMissing) {
++    // patch-package to fix build error. Ref: https://github.com/mozilla/source-map/issues/403
++    if (nullOnMissing || relativeSource == ".") {
+       return null;
+     }
+     else {

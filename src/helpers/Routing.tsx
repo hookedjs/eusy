@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {
   BrowserRouter as Router,
   Link,
@@ -9,11 +9,12 @@ import {
   withRouter,
   RouteComponentProps
 } from 'react-router-dom';
+import { AnimatedRoute } from 'react-router-transition';
 
 const Route = ({
   component,
-  headerComponent = () => <Fragment />,
-  footerComponent = () => <Fragment />,
+  headerComponent = () => <></>,
+  footerComponent = () => <></>,
   ...props
 }: RouteProps & {
   headerComponent: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
@@ -25,11 +26,11 @@ const Route = ({
   return (
     <RouteOrig
       render={routeProps => (
-        <Fragment>
+        <>
           <HeaderComponent {...routeProps} />
           <RouteComponent {...routeProps} />
           <FooterComponent {...routeProps} />
-        </Fragment>
+        </>
       )}
       {...props}
     />

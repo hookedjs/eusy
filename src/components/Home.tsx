@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Layout, Text } from 'react-native-ui-kitten';
 import { StyleSheet } from 'react-native';
-import { withRouter } from './helpers/Routing';
+import { withRouter } from '../helpers/Routing';
 
-import { Helmet } from './components/Helmet';
+import { Helmet } from './Helmet';
 
 export const Home = withRouter(({ history }) => {
   return (
