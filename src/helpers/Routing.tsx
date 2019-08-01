@@ -1,42 +1,32 @@
 import React from 'react';
 import {
-  BrowserRouter as Router,
+  NativeRouter as Router,
   Link,
   Route as RouteOrig,
-  RouteProps,
   Redirect,
   Switch,
   withRouter,
-  RouteComponentProps
-} from 'react-router-dom';
-import { AnimatedRoute } from 'react-router-transition';
+  RouteComponentProps,
+  RouteProps
+} from 'react-router-native';
+import Stack from 'react-router-native-stack';
 
-const Route = ({
-  component,
-  headerComponent = () => <></>,
-  footerComponent = () => <></>,
-  ...props
-}: RouteProps & {
-  headerComponent: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
-  footerComponent: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
-}) => {
-  const RouteComponent = component;
-  const HeaderComponent = headerComponent;
-  const FooterComponent = footerComponent;
-  return (
-    <RouteOrig
-      render={routeProps => (
-        <>
-          <HeaderComponent {...routeProps} />
-          <RouteComponent {...routeProps} />
-          <FooterComponent {...routeProps} />
-        </>
-      )}
-      {...props}
-    />
-  );
-};
-
-const Stack = ({ children }: { children: React.ReactNode }) => <Switch>{children}</Switch>;
+class Route extends React.PureComponent<
+  RouteProps & {
+    headerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+    footerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+  }
+> {
+  render() {
+    let routeProps = { ...this.props };
+    delete routeProps.component;
+    return (
+      <RouteOrig
+        render={routerProps => <this.props.component {...routerProps} />}
+        {...routeProps}
+      />
+    );
+  }
+}
 
 export { Link, Route, Redirect, Router, Switch, Stack, withRouter };

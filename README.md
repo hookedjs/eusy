@@ -14,8 +14,10 @@ Depends on expo-cli
 - ~~Implement a static server for production~~
 - ~~SEO with Helmet (done)~~
 - ~~Environment file mgmt and support with dotenv~~
-- Resolve missing favicon and manifest in index.html 
-- Apply polish: loading, footer, sidebar, header, homepage, article list, article page, sign in page, theming
+- ~~Resolve missing favicon and manifest in index.html~~
+- ~~Get images and svgs working nicely (done)~~
+- ~~Get styled-jsx working for web for css-in-js~~
+- Apply polish: footer, sidebar, header, homepage, article list, article page, sign in page, theming
 - Implement testing (todo)
 
 

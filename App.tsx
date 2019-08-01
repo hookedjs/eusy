@@ -13,6 +13,8 @@ import { Routes } from './src/Routes';
 import { light as lightTheme, mapping } from '@eva-design/eva';
 import { ApplicationProvider } from 'react-native-ui-kitten';
 import { Helmet } from './src/components/Helmet';
+import { Sidebar } from './src/components/Sidebar';
+import { SidebarSection } from './src/components/SidebarSection';
 
 interface state {
   isReady: boolean;
@@ -42,9 +44,11 @@ class App extends React.PureComponent<any, state> {
         <Helmet />
         <ApplicationProvider mapping={mapping} theme={lightTheme}>
           {this.state.isReady ? (
-            <Router>
-              <Routes />
-            </Router>
+            <SidebarSection>
+              <Router>
+                <Routes />
+              </Router>
+            </SidebarSection>
           ) : (
             <AppLoading
               startAsync={this._loadAssetsAsync}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Button, Image } from 'react-native';
-import { withRouter } from '../helpers/Routing';
+import { withRouter } from '../helpers/Routing.web';
 import { LogoWhite } from '../Config';
 
 export const Header = withRouter(({ history }) => {

@@ -3,4 +3,11 @@
  */
 import React from 'react';
 
-export const Helmet = ({ title, description }: { title?: string; description?: string }) => <></>;
+export class Helmet extends React.PureComponent<{
+  title?: string;
+  description?: string;
+}> {
+  render() {
+    return <></>;
+  }
+}
