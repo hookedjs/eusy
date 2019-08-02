@@ -6,14 +6,16 @@
 import { hot } from 'react-hot-loader';
 import React from 'react';
 import { Platform } from 'react-native';
-import { Router } from './src/components/lib/Routing';
-import { cacheAssets, cacheFonts } from './src/lib/AssetsCaching';
-import { AppLoading } from './src/routes/AppLoading';
-import { Routes } from './src/Routes';
 import { light as lightTheme, mapping } from '@eva-design/eva';
 import { ApplicationProvider } from 'react-native-ui-kitten';
+import { AppRoutes } from './src/Config';
+import { AppLoadingRoute } from './src/components/routes/AppLoading.route';
+import { loadFonts } from './src/lib/AssetLoading';
+import { SidebarSection } from './src/components/sections/Sidebar.section';
+import { Router } from './src/components/lib/Routing';
 import { Helmet } from './src/components/lib/Helmet';
-import { SidebarSection } from './src/components/sections/SidebarSection';
+// import Feather from './src/assets/Feather.ttf';
+// import Ionicons from '@expo/vector-icons/src/vendor/react-native-vector-icons/Fonts/Ionicons.ttf';
 
 interface state {
   isReady: boolean;
@@ -25,16 +27,11 @@ class App extends React.PureComponent<any, state> {
     this.state = { isReady: false };
   }
 
-  async _loadAssetsAsync() {
-    const imageAssets = cacheAssets([
-      // require("../assets/images/bg_screen1.jpg"),
-    ]);
-
-    const fontAssets = cacheFonts({
-      // "FontAwesome": require("@expo/vector-icons/fonts/FontAwesome.ttf"),
+  static async _loadAssetsAsync() {
+    const fontAssets = loadFonts({
+      // "Feather": require('./font/somefont.ttf')
     });
-
-    await Promise.all([imageAssets, fontAssets]);
+    await Promise.all([fontAssets]);
   }
 
   render() {
@@ -42,15 +39,15 @@ class App extends React.PureComponent<any, state> {
       <>
         <Helmet />
         <ApplicationProvider mapping={mapping} theme={lightTheme}>
-          {this.state.isReady ? (
-            <SidebarSection>
-              <Router>
-                <Routes />
-              </Router>
-            </SidebarSection>
+          {this.state.isReady || true ? (
+            <Router>
+              <SidebarSection>
+                <AppRoutes />
+              </SidebarSection>
+            </Router>
           ) : (
-            <AppLoading
-              startAsync={this._loadAssetsAsync}
+            <AppLoadingRoute
+              startAsync={App._loadAssetsAsync}
               onFinish={() => this.setState({ isReady: true })}
             />
           )}

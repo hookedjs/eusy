@@ -1,58 +1,51 @@
 import React from 'react';
-import { List, ListItem } from 'react-native-ui-kitten';
-import { Image, Platform, View } from 'react-native';
-import { ListRenderItemInfo } from 'react-native';
+import { Text } from 'react-native-ui-kitten';
+import { Platform, View } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { HoverObserver } from '../lib/HoverObserver';
+import { withRouter } from '../lib/Routing';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export class SidebarDefault extends React.PureComponent {
-  private data: string[] = ['Home Page', 'Inner Page'];
-
-  private onItemPress = (index: number) => {
-    // Handle item press
-    console.dir('Pressed');
-  };
-
-  private renderItem = (info: ListRenderItemInfo<any>): React.ReactElement<any> => {
-    return (
-      <ListItem
-        // icon={style => IconFill(require('../assets/img/icon.png'), {tintColor: "white"})}
-        icon={style => (
-          <Image
-            style={{
-              ...style,
-              tintColor: 'white'
-            }}
-            source={require('../../assets/img/logo-icon.png')}
-          />
-        )}
-        title={info.item}
-        // description='Description'
-        onPress={this.onItemPress}
-        style={{
-          backgroundColor: 'none'
-        }}
-        titleStyle={{
-          color: 'white'
-        }}
-      />
-    );
-  };
-
-  render() {
-    return (
-      <View
-        style={{
-          paddingTop: Platform.OS === 'web' ? 40 : 60
-          // paddingHorizontal: 30
-        }}
-      >
-        <List
-          data={this.data}
-          renderItem={this.renderItem}
+export const SidebarDefault = withRouter(({ history }) => (
+  <View style={{ paddingTop: Platform.OS === 'web' ? 40 : 60 }}>
+    <HoverObserver
+      children={({ isHovering }) => (
+        <View
           style={{
-            backgroundColor: 'none'
+            flexDirection: 'row',
+            paddingLeft: 18,
+            paddingVertical: 20,
+            backgroundColor: isHovering ? '#5D6C86' : 'inherit'
           }}
-        />
-      </View>
-    );
-  }
-}
+        >
+          <Feather name="activity" size={32} color="white" />
+          <TouchableOpacity onPress={() => history.push('/')}>
+            <View style={{ alignContent: 'center', justifyContent: 'center' }}>
+              <Text style={{ fontSize: 20, color: 'white', paddingLeft: 20 }}>Home</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      )}
+    />
+
+    <HoverObserver
+      children={({ isHovering }) => (
+        <View
+          style={{
+            flexDirection: 'row',
+            paddingLeft: 18,
+            paddingVertical: 20,
+            backgroundColor: isHovering ? '#5D6C86' : 'inherit'
+          }}
+        >
+          <Feather name="activity" size={32} color="white" />
+          <TouchableOpacity onPress={() => history.push('/page')}>
+            <View style={{ alignContent: 'center', justifyContent: 'center' }}>
+              <Text style={{ fontSize: 20, color: 'white', paddingLeft: 20 }}>Inner Page</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      )}
+    />
+  </View>
+));

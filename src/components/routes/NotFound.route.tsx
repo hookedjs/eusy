@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export class NotFound extends React.Component {
+export class NotFoundRoute extends React.Component {
   render() {
     return (
       <Layout style={styles.container}>
@@ -29,4 +29,4 @@ export class NotFound extends React.Component {
   }
 }
 
-export default NotFound;
+export default NotFoundRoute;

@@ -1,14 +1,16 @@
 import React from 'react';
 import { Button, Layout, Text } from 'react-native-ui-kitten';
 import { StyleSheet } from 'react-native';
-import { Helmet, LogoIcon, withRouter } from '../components';
+import { LogoIcon } from '../icons';
+import { Helmet } from '../lib/Helmet';
+import { withRouter } from '../lib/Routing';
 
-export const Home = withRouter(({ history }) => {
+export const HomeRoute = withRouter(({ history }) => {
   return (
     <>
       <Helmet title="Home" />
       <Layout style={styles.container}>
-        <LogoIcon width={200} height={200} fill="blue" />
+        <LogoIcon width={200} height={200} fill="#2D3C56" />
         <Text style={styles.text} category="h4">
           Welcome to UI Kitten
         </Text>
@@ -24,7 +26,7 @@ export const Home = withRouter(({ history }) => {
   );
 });
 
-export default Home;
+export default HomeRoute;
 
 const styles = StyleSheet.create({
   container: {

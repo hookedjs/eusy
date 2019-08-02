@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { withRouter } from '../lib';
+import { View, Text, StyleSheet, Platform } from 'react-native';
+import { withRouter } from '../lib/Routing';
 
-export const Footer = withRouter(({ history }) => {
+export const FooterSection = withRouter(({ history }) => {
   return (
     <View style={styles.header}>
       <Text style={styles.headerText} onPress={() => history.goBack()}>
@@ -16,9 +16,9 @@ export const Footer = withRouter(({ history }) => {
 const styles = StyleSheet.create({
   header: {
     flex: -1,
-    height: 80,
-    paddingTop: 40,
-    backgroundColor: 'blue',
+    height: Platform.OS === 'web' ? 70 : 80,
+    paddingBottom: Platform.OS === 'web' ? 0 : 20,
+    backgroundColor: '#555',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center'

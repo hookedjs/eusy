@@ -37,9 +37,9 @@ FNCNAME=`echo "$FILENAME_NO_EXTENSION" | $SED -r 's/(^|-|_)([a-z])/\U\2/g'`
 DESTPATH="$DESTDIR/$FNCNAME.tsx"
 
 # Bail if dest exists
-#if [ -f "$DESTPATH" ]; then
-#    exit
-#fi
+if [ -f "$DESTPATH" ]; then
+    exit
+fi
 
 
 echo "import React from \"react\";

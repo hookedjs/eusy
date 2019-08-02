@@ -3,7 +3,7 @@
  * Not currently implemented for web.
  * Example Arg: [require("../assets/images/bg_screen1.jpg")]
  */
-export const cacheAssets = (urls: string[]) => Promise.resolve(null);
+export const loadImages = (urls: string[]) => Promise.resolve(null);
 
 /**
  * Add CDN CSS Files
@@ -47,12 +47,9 @@ export const loadJss = (urls: string[]) => {
  * Add fonts to virtual dom
  * Example Arg: {"FontAwesome": require("@expo/vector-icons/fonts/FontAwesome.ttf")}
  */
-interface FontDict {
-  [name: string]: string;
-}
 
-let cachedFonts: FontDict = {};
-const cacheFont = (name: string, url: string) => {
+let loadedFonts: { [name: string]: string } = {};
+const loadFont = (name: string, url: string) => {
   const styleBody = `@font-face { src: url(${url}); font-family: ${name}; }`;
   const style = document.createElement('style');
   style.type = 'text/css';
@@ -61,12 +58,13 @@ const cacheFont = (name: string, url: string) => {
   else style.appendChild(document.createTextNode(styleBody));
 
   document.head.appendChild(style);
-  cachedFonts[name] = url;
+  loadedFonts[name] = url;
 };
-export const cacheFonts = (fonts: FontDict) => {
+export const loadFonts = (fonts: string | { [name: string]: string }) => {
   let jobs = [];
+  if (typeof fonts === 'string') fonts = { default: fonts };
   for (let fontName in fonts) {
-    if (!cachedFonts[fontName]) jobs.push(cacheFont(fontName, fonts[fontName]));
+    if (!loadedFonts[fontName]) jobs.push(loadFont(fontName, fonts[fontName]));
   }
   return Promise.all(jobs);
 };

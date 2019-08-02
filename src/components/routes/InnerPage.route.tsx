@@ -1,9 +1,10 @@
 import React from 'react';
 import { Button, Layout, Text } from 'react-native-ui-kitten';
 import { StyleSheet } from 'react-native';
-import { Helmet, withRouter } from '../components';
+import { withRouter } from '../lib/Routing';
+import { Helmet } from '../lib/Helmet';
 
-export const Page = withRouter(({ history }) => (
+export const InnerPageRoute = withRouter(({ history }) => (
   <>
     <Helmet title="Inner Page" description="This is an inner page." />
     <Layout style={styles.container}>
@@ -14,7 +15,7 @@ export const Page = withRouter(({ history }) => (
     </Layout>
   </>
 ));
-export default Page;
+export default InnerPageRoute;
 
 const styles = StyleSheet.create({
   container: {

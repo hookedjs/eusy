@@ -17,7 +17,7 @@ Depends on expo-cli
 - ~~Resolve missing favicon and manifest in index.html~~
 - ~~Get images and svgs working nicely (done)~~
 - ~~Get styled-jsx working for web for css-in-js~~
-- Apply polish: footer, sidebar, header, homepage, article list, article page, sign in page, theming
+- Apply polish: footer, sidebar, header, homepage, chat list, chat page, sign in page, theming
 - Implement testing (todo)
 
 

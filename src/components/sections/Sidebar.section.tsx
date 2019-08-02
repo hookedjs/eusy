@@ -4,8 +4,9 @@ import { Layout } from 'react-native-ui-kitten';
 import { View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { ArrowLeft, ArrowRight, Lock } from '../icons';
-import { SidebarDefault } from '../modules';
-import { HoverObserver, TouchableOpacity } from '../lib';
+import { SidebarDefault } from '../modules/SidebarDefault';
+import { HoverObserver } from '../lib/HoverObserver';
+import { TouchableOpacity } from '../lib/Touchables';
 
 export const SidebarSection = ({ children }: { children: React.ReactElement }) => {
   let [windowWidth, setWindowWidth] = useState(Dimensions.get('window').width);
@@ -38,7 +39,7 @@ export const SidebarSection = ({ children }: { children: React.ReactElement }) =
               easing="ease-in-out-quad"
               style={{
                 width: sidebarToggled || isHovering ? sidebarWidthFull : sidebarWidthClosed,
-                backgroundColor: '#333',
+                backgroundColor: '#2D3C56',
                 zIndex: 2,
                 position: 'absolute',
                 height: Dimensions.get('window').height
@@ -61,7 +62,7 @@ export const SidebarSection = ({ children }: { children: React.ReactElement }) =
                   <TouchableOpacity
                     onPress={() => setSidebarToggled(!sidebarToggled)}
                     style={{
-                      backgroundColor: '#333',
+                      backgroundColor: '#2D3C56',
                       borderTopRightRadius: 99,
                       borderBottomRightRadius: 99,
                       paddingLeft: 4,

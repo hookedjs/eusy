@@ -1,1 +1,0 @@
-export { AppLoading } from 'expo';

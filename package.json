@@ -7,6 +7,7 @@
   "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
+    "postinstall": "patch-package",
     "clean": "rimraf **/index.ts .env .env.json web-build",
     "gen:env": "dotenvi -f .env.yml -s ${APP_ENV:-development} && cat .env | npx envfile2json > .env.json",
     "gen:index": "node utils/create-indexes.js",
