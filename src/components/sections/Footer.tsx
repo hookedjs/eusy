@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { withRouter } from './lib/Routing';
+import { withRouter } from '../lib';
 
 export const Footer = withRouter(({ history }) => {
   return (

@@ -1,11 +1,11 @@
 import { Route, Stack } from './components/lib/Routing';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import NotFound from './components/NotFound';
+import { Header } from './components/sections/Header';
+import { Footer } from './components/sections/Footer';
+import NotFound from './routes/NotFound';
 import React from 'react';
 
-import Home from './components/Home';
-import InnerPage from './components/InnerPage';
+import Home from './routes/Home';
+import InnerPage from './routes/InnerPage';
 
 export const Routes = () => (
   <Stack>

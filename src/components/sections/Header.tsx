@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { withRouter } from './lib/Routing';
-import { LogoIcon } from './icons/LogoIcon';
+import { LogoIcon } from '../icons';
+import { withRouter } from '../lib';
 
 export const Header = withRouter(({ history }) => {
   return (

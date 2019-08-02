@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { Dimensions, ScrollView } from 'react-native';
 import { Layout } from 'react-native-ui-kitten';
 import { View } from 'react-native';
-import { Sidebar } from './Sidebar';
 import * as Animatable from 'react-native-animatable';
-import { HoverObserver, TouchableOpacity } from './lib';
-import { ArrowLeft, ArrowRight, Lock } from './icons';
+import { ArrowLeft, ArrowRight, Lock } from '../icons';
+import { SidebarDefault } from '../modules';
+import { HoverObserver, TouchableOpacity } from '../lib';
 
 export const SidebarSection = ({ children }: { children: React.ReactElement }) => {
   let [windowWidth, setWindowWidth] = useState(Dimensions.get('window').width);
@@ -47,7 +47,7 @@ export const SidebarSection = ({ children }: { children: React.ReactElement }) =
               <View style={{ position: 'relative', zIndex: 3 }}>
                 <ScrollView scrollsToTop={false}>
                   <View style={{ width: sidebarWidthFull }}>
-                    <Sidebar />
+                    <SidebarDefault />
                   </View>
                 </ScrollView>
 

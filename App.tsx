@@ -8,12 +8,12 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { Router } from './src/components/lib/Routing';
 import { cacheAssets, cacheFonts } from './src/lib/AssetsCaching';
-import { AppLoading } from './src/components/AppLoading';
+import { AppLoading } from './src/routes/AppLoading';
 import { Routes } from './src/Routes';
 import { light as lightTheme, mapping } from '@eva-design/eva';
 import { ApplicationProvider } from 'react-native-ui-kitten';
-import { Helmet } from './src/components/Helmet';
-import { SidebarSection } from './src/components/SidebarSection';
+import { Helmet } from './src/components/lib/Helmet';
+import { SidebarSection } from './src/components/sections/SidebarSection';
 
 interface state {
   isReady: boolean;

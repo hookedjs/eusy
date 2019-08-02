@@ -1,8 +1,7 @@
 import React from 'react';
 import { Button, Layout, Text } from 'react-native-ui-kitten';
 import { StyleSheet } from 'react-native';
-import { withRouter } from './lib/Routing';
-import { Helmet } from './Helmet';
+import { Helmet, withRouter } from '../components';
 
 export const Page = withRouter(({ history }) => (
   <>

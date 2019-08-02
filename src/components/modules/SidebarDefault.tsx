@@ -3,7 +3,7 @@ import { List, ListItem } from 'react-native-ui-kitten';
 import { Image, Platform, View } from 'react-native';
 import { ListRenderItemInfo } from 'react-native';
 
-export class Sidebar extends React.PureComponent {
+export class SidebarDefault extends React.PureComponent {
   private data: string[] = ['Home Page', 'Inner Page'];
 
   private onItemPress = (index: number) => {
@@ -21,7 +21,7 @@ export class Sidebar extends React.PureComponent {
               ...style,
               tintColor: 'white'
             }}
-            source={require('../assets/img/logo-icon.png')}
+            source={require('../../assets/img/logo-icon.png')}
           />
         )}
         title={info.item}
