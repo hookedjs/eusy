@@ -1,17 +1,16 @@
 import React from 'react';
 import { Button, Layout, Text } from 'react-native-ui-kitten';
 import { StyleSheet } from 'react-native';
-import { withRouter } from '../helpers/Routing.web';
-
+import { withRouter } from './lib';
 import { Helmet } from './Helmet';
-import { SvgImage } from './lib/SvgImage';
+import { LogoIcon } from './icons';
 
 export const Home = withRouter(({ history }) => {
   return (
     <>
       <Helmet title="Home" />
       <Layout style={styles.container}>
-        <SvgImage width={200} height={200} fill="blue" source={require('../assets/img/icon.svg')} />
+        <LogoIcon width={200} height={200} fill="blue" />
         <Text style={styles.text} category="h4">
           Welcome to UI Kitten
         </Text>

@@ -34,3 +34,7 @@ Depends on expo-cli
  
 
  
+## Tips
+
+CMD+D for menu in ios Sim
+CMD+M for menu in android sim

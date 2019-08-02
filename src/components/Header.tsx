@@ -1,7 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Button, Image } from 'react-native';
-import { withRouter } from '../helpers/Routing.web';
-import { LogoWhite } from '../Config';
+import { View, Text, StyleSheet } from 'react-native';
+import { withRouter } from './lib/Routing';
+import { LogoIcon } from './icons/LogoIcon';
 
 export const Header = withRouter(({ history }) => {
   return (
@@ -9,7 +9,7 @@ export const Header = withRouter(({ history }) => {
       <Text style={styles.headerText} onPress={() => history.goBack()}>
         ← &nbsp;
       </Text>
-      <Image source={LogoWhite} style={{ width: 20, height: 20 }} />
+      <LogoIcon width={20} height={20} fill="white" />
       <Text style={styles.headerText}>HookedJS</Text>
     </View>
   );

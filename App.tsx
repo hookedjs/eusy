@@ -6,14 +6,13 @@
 import { hot } from 'react-hot-loader';
 import React from 'react';
 import { Platform } from 'react-native';
-import { Router } from './src/helpers/Routing';
-import { cacheAssets, cacheFonts } from './src/helpers/AssetsCaching';
+import { Router } from './src/components/lib/Routing';
+import { cacheAssets, cacheFonts } from './src/lib/AssetsCaching';
 import { AppLoading } from './src/components/AppLoading';
 import { Routes } from './src/Routes';
 import { light as lightTheme, mapping } from '@eva-design/eva';
 import { ApplicationProvider } from 'react-native-ui-kitten';
 import { Helmet } from './src/components/Helmet';
-import { Sidebar } from './src/components/Sidebar';
 import { SidebarSection } from './src/components/SidebarSection';
 
 interface state {

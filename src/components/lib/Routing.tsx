@@ -1,4 +1,5 @@
 import React from 'react';
+import { ScrollView } from 'react-native';
 import {
   NativeRouter as Router,
   Link,
@@ -22,7 +23,11 @@ class Route extends React.PureComponent<
     delete routeProps.component;
     return (
       <RouteOrig
-        render={routerProps => <this.props.component {...routerProps} />}
+        render={routerProps => (
+          <ScrollView>
+            <this.props.component {...routerProps} />
+          </ScrollView>
+        )}
         {...routeProps}
       />
     );

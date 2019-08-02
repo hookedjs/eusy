@@ -1,4 +1,4 @@
-import { Route, Stack } from './helpers/Routing';
+import { Route, Stack } from './components/lib/Routing';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import NotFound from './components/NotFound';

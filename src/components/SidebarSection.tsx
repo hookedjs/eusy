@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import { Dimensions, ScrollView } from 'react-native';
 import { Layout } from 'react-native-ui-kitten';
 import { View } from 'react-native';
 import { Sidebar } from './Sidebar';
 import * as Animatable from 'react-native-animatable';
-import { HoverObserver } from '../helpers/HoverObserver';
-import { SvgImage } from './lib/SvgImage';
+import { HoverObserver, TouchableOpacity } from './lib';
+import { ArrowLeft, ArrowRight, Lock } from './icons';
 
 export const SidebarSection = ({ children }: { children: React.ReactElement }) => {
   let [windowWidth, setWindowWidth] = useState(Dimensions.get('window').width);
@@ -44,44 +44,43 @@ export const SidebarSection = ({ children }: { children: React.ReactElement }) =
                 height: Dimensions.get('window').height
               }}
             >
-              <View style={{ position: 'relative' }}>
+              <View style={{ position: 'relative', zIndex: 3 }}>
                 <ScrollView scrollsToTop={false}>
                   <View style={{ width: sidebarWidthFull }}>
                     <Sidebar />
                   </View>
                 </ScrollView>
 
-                <TouchableOpacity
-                  onPress={() => setSidebarToggled(!sidebarToggled)}
+                <View
                   style={{
                     position: 'absolute',
                     top: 100,
-                    right: -28,
-                    backgroundColor: '#333',
-                    borderTopRightRadius: 99,
-                    borderBottomRightRadius: 99,
-                    paddingLeft: 4,
-                    paddingRight: 6,
-                    paddingVertical: 6,
-                    zIndex: 1
+                    right: -28
                   }}
                 >
-                  <View>
-                    <SvgImage
-                      width={20}
-                      height={20}
-                      fill="#999"
-                      fillAll={true}
-                      source={
-                        sidebarToggled
-                          ? require('../assets/icons/arrow-left.svg')
-                          : isHovering
-                          ? require('../assets/icons/lock.svg')
-                          : require('../assets/icons/arrow-right.svg')
-                      }
-                    />
-                  </View>
-                </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => setSidebarToggled(!sidebarToggled)}
+                    style={{
+                      backgroundColor: '#333',
+                      borderTopRightRadius: 99,
+                      borderBottomRightRadius: 99,
+                      paddingLeft: 4,
+                      paddingRight: 6,
+                      paddingVertical: 6,
+                      zIndex: 4
+                    }}
+                  >
+                    <View style={{ zIndex: 5 }}>
+                      {sidebarToggled ? (
+                        <ArrowLeft width={20} height={20} fill="#999" />
+                      ) : isHovering ? (
+                        <Lock width={20} height={20} fill="#999" />
+                      ) : (
+                        <ArrowRight width={20} height={20} fill="#999" />
+                      )}
+                    </View>
+                  </TouchableOpacity>
+                </View>
               </View>
             </Animatable.View>
           )}

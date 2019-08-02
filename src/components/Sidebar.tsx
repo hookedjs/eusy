@@ -1,9 +1,7 @@
 import React from 'react';
-import { Text, Button, List, ListItem } from 'react-native-ui-kitten';
+import { List, ListItem } from 'react-native-ui-kitten';
 import { Image, Platform, View } from 'react-native';
 import { ListRenderItemInfo } from 'react-native';
-import { SvgImage } from './lib/SvgImage';
-import { IconFill } from './lib/Icons';
 
 export class Sidebar extends React.PureComponent {
   private data: string[] = ['Home Page', 'Inner Page'];
@@ -23,7 +21,7 @@ export class Sidebar extends React.PureComponent {
               ...style,
               tintColor: 'white'
             }}
-            source={require('../assets/img/icon.png')}
+            source={require('../assets/img/logo-icon.png')}
           />
         )}
         title={info.item}

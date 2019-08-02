@@ -11,9 +11,6 @@ export const AppEnv = DotEnv.APP_ENV;
 export const PublicUrl = DotEnv.PUBLIC_URL;
 export const Version = PackageJson.version;
 
-import Logo from './assets/img/icon.png';
-export { Logo, Logo as LogoWhite };
-
 // export const MixpanelId = AppEnv === 'production'
 //   ? ''
 //   : '';

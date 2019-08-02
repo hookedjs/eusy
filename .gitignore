@@ -10,3 +10,4 @@ web-build/
 web-report/
 .idea
 .env*
+index.ts
