@@ -1,51 +1,74 @@
 import React from 'react';
 import { Text } from 'react-native-ui-kitten';
-import { Platform, View } from 'react-native';
+import { Image, Platform, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { HoverObserver } from '../lib/HoverObserver';
-import { withRouter } from '../lib/Routing';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Link } from '../lib/Routing';
+import LogoIconCircle from '../../assets/img/logo-icon-circle.png';
 
-export const SidebarDefault = withRouter(({ history }) => (
-  <View style={{ paddingTop: Platform.OS === 'web' ? 40 : 60 }}>
-    <HoverObserver
-      children={({ isHovering }) => (
+const SidebarHeader = () => (
+  <HoverObserver
+    children={({ isHovering }) => (
+      <Link to="/">
         <View
           style={{
             flexDirection: 'row',
-            paddingLeft: 18,
+            paddingLeft: 15,
             paddingVertical: 20,
             backgroundColor: isHovering ? '#5D6C86' : 'inherit'
           }}
         >
-          <Feather name="activity" size={32} color="white" />
-          <TouchableOpacity onPress={() => history.push('/')}>
-            <View style={{ alignContent: 'center', justifyContent: 'center' }}>
-              <Text style={{ fontSize: 20, color: 'white', paddingLeft: 20 }}>Home</Text>
-            </View>
-          </TouchableOpacity>
+          <Image source={LogoIconCircle} style={{ width: 40, height: 40 }} />
+          <View style={{ alignContent: 'center', justifyContent: 'center' }}>
+            <Text style={{ fontSize: 20, color: 'white', paddingLeft: 15 }}>EUS INDUSTRIES</Text>
+          </View>
         </View>
-      )}
-    />
+      </Link>
+    )}
+  />
+);
 
-    <HoverObserver
-      children={({ isHovering }) => (
+const SidebarMenuItem = ({ to, text, featherIconName }) => (
+  <HoverObserver
+    children={({ isHovering }) => (
+      <Link to={to}>
         <View
           style={{
             flexDirection: 'row',
-            paddingLeft: 18,
+            paddingLeft: 20,
             paddingVertical: 20,
             backgroundColor: isHovering ? '#5D6C86' : 'inherit'
           }}
         >
-          <Feather name="activity" size={32} color="white" />
-          <TouchableOpacity onPress={() => history.push('/page')}>
-            <View style={{ alignContent: 'center', justifyContent: 'center' }}>
-              <Text style={{ fontSize: 20, color: 'white', paddingLeft: 20 }}>Inner Page</Text>
-            </View>
-          </TouchableOpacity>
+          <Feather name={featherIconName} size={28} color="white" />
+          <View style={{ alignContent: 'center', justifyContent: 'center' }}>
+            <Text style={{ fontSize: 16, color: 'white', paddingLeft: 22 }}>{text}</Text>
+          </View>
         </View>
-      )}
-    />
-  </View>
-));
+      </Link>
+    )}
+  />
+);
+
+export const SidebarDefault = () => {
+  // const windowDims = useWindowDimensions();
+
+  return (
+    <View
+      style={{
+        flex: 1,
+        justifyContent: 'space-between',
+        paddingTop: Platform.OS === 'web' ? 0 : 50
+      }}
+    >
+      <View>
+        <SidebarHeader />
+        <SidebarMenuItem to="/" text="Home" featherIconName="home" />
+        <SidebarMenuItem to="/page" text="Inner Page" featherIconName="activity" />
+      </View>
+      <View>
+        <SidebarMenuItem to="/" text="Settings" featherIconName="settings" />
+      </View>
+    </View>
+  );
+};

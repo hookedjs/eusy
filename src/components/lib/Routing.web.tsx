@@ -1,13 +1,14 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Link,
+  Link as LinkOrig,
   Route as RouteOrig,
   RouteProps,
   Redirect,
   Switch,
   withRouter,
-  RouteComponentProps
+  RouteComponentProps,
+  LinkProps
 } from 'react-router-dom';
 import { Layout } from 'react-native-ui-kitten';
 
@@ -40,6 +41,12 @@ class Route extends React.PureComponent<
   }
 }
 
+const Link = ({ style, ...props }: LinkProps) => (
+  <LinkOrig style={{ textDecorationLine: 'none', ...style }} {...props} />
+);
+
+const TextLink = LinkOrig;
+
 const Stack = ({ children }: { children: React.ReactNode }) => <Switch>{children}</Switch>;
 
-export { Link, Route, Redirect, Router, Switch, Stack, withRouter };
+export { Link, Route, Redirect, Router, Switch, Stack, TextLink, withRouter };

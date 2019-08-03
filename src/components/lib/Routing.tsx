@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, TextProps } from 'react-native';
 import {
   NativeRouter as Router,
   Link,
@@ -11,6 +11,8 @@ import {
   RouteProps
 } from 'react-router-native';
 import Stack from 'react-router-native-stack';
+// import {Text} from 'react-native-ui-kitten';
+import { Text } from 'react-native';
 
 class Route extends React.PureComponent<
   RouteProps & {
@@ -34,4 +36,30 @@ class Route extends React.PureComponent<
   }
 }
 
-export { Link, Route, Redirect, Router, Switch, Stack, withRouter };
+const TextLink = withRouter(
+  ({
+    history,
+    to,
+    onPress = () => null,
+    style,
+    ...props
+  }: RouteComponentProps &
+    TextProps & {
+      to: string;
+    }) => (
+    <Text
+      onPress={e => {
+        onPress(e);
+        history.push(to);
+      }}
+      style={{
+        textDecorationLine: 'underline',
+        // @ts-ignore: style spread works but typescript gets cranky
+        ...style
+      }}
+      {...props}
+    />
+  )
+);
+
+export { Link, Route, Redirect, Router, Switch, Stack, TextLink, withRouter };

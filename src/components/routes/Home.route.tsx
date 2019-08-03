@@ -3,7 +3,7 @@ import { Button, Layout, Text } from 'react-native-ui-kitten';
 import { StyleSheet } from 'react-native';
 import { LogoIcon } from '../icons';
 import { Helmet } from '../lib/Helmet';
-import { withRouter } from '../lib/Routing';
+import { TextLink, withRouter } from '../lib/Routing';
 
 export const HomeRoute = withRouter(({ history }) => {
   return (
@@ -21,6 +21,9 @@ export const HomeRoute = withRouter(({ history }) => {
         <Button onPress={() => history.push('/page')} style={styles.button}>
           Get Started
         </Button>
+        <Text>
+          <TextLink to="/page">This</TextLink> is a text link.
+        </Text>
       </Layout>
     </>
   );
