@@ -1,10 +1,10 @@
 import React from 'react';
 import { Text } from 'react-native-ui-kitten';
-import { Image, Platform, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { HoverObserver } from '../lib/HoverObserver';
 import { Link } from '../lib/Routing';
-import LogoIconCircle from '../../assets/img/logo-icon-circle.png';
+import { LogoCircleIcon } from '../svgs';
 
 const SidebarHeader = () => (
   <HoverObserver
@@ -18,9 +18,9 @@ const SidebarHeader = () => (
             backgroundColor: isHovering ? '#5D6C86' : 'inherit'
           }}
         >
-          <Image source={LogoIconCircle} style={{ width: 40, height: 40 }} />
+          <LogoCircleIcon width={40} height={40} />
           <View style={{ alignContent: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontSize: 20, color: 'white', paddingLeft: 15 }}>EUS INDUSTRIES</Text>
+            <Text style={{ fontSize: 20, color: 'white', paddingLeft: 15 }}>ACME CORP</Text>
           </View>
         </View>
       </Link>
@@ -50,9 +50,7 @@ const SidebarMenuItem = ({ to, text, featherIconName }) => (
   />
 );
 
-export const SidebarDefault = () => {
-  // const windowDims = useWindowDimensions();
-
+export const SidebarModule = () => {
   return (
     <View
       style={{

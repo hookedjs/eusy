@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Layout } from 'react-native-ui-kitten';
 import { View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { ArrowLeft, ArrowRight, Lock } from '../icons';
-import { SidebarDefault } from '../modules/SidebarDefault';
+import { ArrowLeftIcon, ArrowRightIcon, LockIcon } from '../svgs';
+import { SidebarModule } from '../modules/Sidebar.module';
 import { HoverObserver } from '../lib/HoverObserver';
 import { TouchableOpacity } from '../lib/Touchables';
 import { useWindowDimensions } from '../../hooks/useWindowDimensions';
@@ -36,7 +36,8 @@ export const SidebarSection = ({ children }: { children: React.ReactElement }) =
               style={{
                 backgroundColor: '#2D3C56',
                 zIndex: 2,
-                position: 'absolute',
+                // View types don't allow 'fixed', but it's actually allowed and needed for web. Need to enhance typings
+                position: 'fixed',
                 height: windowDims.height
               }}
             >
@@ -52,7 +53,7 @@ export const SidebarSection = ({ children }: { children: React.ReactElement }) =
                 }}
               >
                 <View style={{ flex: 1, width: sidebarWidthFull, overflow: 'hidden' }}>
-                  <SidebarDefault />
+                  <SidebarModule />
                 </View>
               </Animatable.View>
 
@@ -77,11 +78,11 @@ export const SidebarSection = ({ children }: { children: React.ReactElement }) =
                 >
                   <View style={{ zIndex: 5 }}>
                     {sidebarToggled ? (
-                      <ArrowLeft width={20} height={20} fill="#999" />
+                      <ArrowLeftIcon width={20} height={20} fill="#999" />
                     ) : isHovering ? (
-                      <Lock width={20} height={20} fill="#999" />
+                      <LockIcon width={20} height={20} fill="#999" />
                     ) : (
-                      <ArrowRight width={20} height={20} fill="#999" />
+                      <ArrowRightIcon width={20} height={20} fill="#999" />
                     )}
                   </View>
                 </TouchableOpacity>

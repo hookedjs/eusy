@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
-import { LogoIcon } from '../icons';
+import { LogoIcon } from '../svgs';
 import { withRouter } from '../lib/Routing';
 
 export const HeaderSection = withRouter(({ history }) => {

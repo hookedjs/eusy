@@ -43,10 +43,7 @@ const TextLink = withRouter(
     onPress = () => null,
     style,
     ...props
-  }: RouteComponentProps &
-    TextProps & {
-      to: string;
-    }) => (
+  }: RouteComponentProps & TextProps & { to: string }) => (
     <Text
       onPress={e => {
         onPress(e);

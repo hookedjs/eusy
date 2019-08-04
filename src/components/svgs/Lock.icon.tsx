@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg, { SvgProps, Circle, Path } from 'react-native-svg';
 
-export const Lock = (svgProps: SvgProps) => (
+export const LockIcon = (svgProps: SvgProps) => (
   <Svg viewBox="0 0 24 24" {...svgProps}>
     <Path d="m0 0h24v24h-24z" opacity="0" />
     <Circle cx="12" cy="15" r="1" />

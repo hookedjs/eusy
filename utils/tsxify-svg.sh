@@ -33,8 +33,9 @@ fi
 
 # FNCNAME = basename in PascalCase
 # ref: https://unix.stackexchange.com/questions/196239/convert-underscore-to-pascalcase-ie-uppercamelcase
-FNCNAME=`echo "$FILENAME_NO_EXTENSION" | $SED -r 's/(^|-|_)([a-z])/\U\2/g'`
-DESTPATH="$DESTDIR/$FNCNAME.tsx"
+FILENAME_PASCALCASE=`echo "$FILENAME_NO_EXTENSION" | $SED -r 's/(^|-|_)([a-z])/\U\2/g'`
+FNCNAME=`echo $FILENAME_PASCALCASE`Icon
+DESTPATH="$DESTDIR/$FILENAME_PASCALCASE.icon.tsx"
 
 # Bail if dest exists
 if [ -f "$DESTPATH" ]; then
@@ -107,7 +108,9 @@ $SED -i 's/xmlns="http:\/\/www.w3.org\/2000\/svg"//g' $DESTPATH
 $SED -i "s/ >/ {...svgProps} >/" $DESTPATH
 
 # Fix fills to variable
-$SED -i "s/fill=\".*\"/fill={svgProps.fill || 'gray'}/g" $DESTPATH
+# Turns out this is a bad idea. It's better to do it manually. Plus the regex is erroneous'
+
+#$SED -i "s/fill=\".*\"/fill={svgProps.fill || 'gray'}/g" $DESTPATH
 
 # Now remove unused imports and prettier
 # Use a custom tslint.json to ensure that prettier isn't ran before remove unused imports.

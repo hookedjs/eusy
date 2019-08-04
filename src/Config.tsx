@@ -29,7 +29,7 @@ import InnerPageRoute from './components/routes/InnerPage.route';
 import NotFoundRoute from './components/routes/NotFound.route';
 
 export const AppRoutes = () => (
-  <Stack>
+  <Stack animationType="slide-horizontal">
     <Route
       path="/"
       exact

@@ -11,7 +11,7 @@
     "clean": "rimraf **/index.ts .env .env.json web-build",
     "gen:env": "dotenvi -f .env.yml -s ${APP_ENV:-development} && cat .env | npx envfile2json > .env.json",
     "gen:index": "node utils/create-indexes.js",
-    "gen:svgTsx": "find src -name \"*.svg\" -exec ./utils/tsxify-svg.sh {} src/components/icons \\;",
+    "gen:svgTsx": "find src -name \"*.svg\" -exec ./utils/tsxify-svg.sh {} src/components/svgs \\;",
     "build": "yarn clean && run-p gen:* && expo build:web",
     "dev": "run-p gen:* && expo start",
     "start": "node src/server.js",
