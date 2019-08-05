@@ -7,7 +7,7 @@ import { SidebarState } from './Sidebar.section';
 import { useWindowDimensions } from '../../hooks/useWindowDimensions';
 
 export const FooterFixedSection = observer(() => {
-  const { history } = useRouter();
+  const { history, location } = useRouter();
   const windowDims = useWindowDimensions();
 
   const FooterMenuItem = ({
