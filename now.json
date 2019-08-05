@@ -2,10 +2,6 @@
   "name": "EUS",
   "public": true,
   "builds": [
-    { "src": "*.html", "use": "@now/static" }
-  ],
-  "scripts": {
-    "build": "yarn build",
-    "start": "yarn start"
-  }
+    { "src": "web-build/*.html", "use": "@now/static" }
+  ]
 }
