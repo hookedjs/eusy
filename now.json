@@ -2,6 +2,11 @@
   "name": "EUS",
   "public": true,
   "builds": [
-    { "src": "web-build/*.html", "use": "@now/static" }
-  ]
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "web-build" }
+    }
+  ],
+  "version": 2
 }
