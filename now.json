@@ -1,7 +1,6 @@
 {
   "name": "EUS",
   "public": true,
-  "alias": ["hookedjs.org"],
   "builds": [
     { "src": "*.html", "use": "@now/static" }
   ],
