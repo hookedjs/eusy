@@ -1,0 +1,12 @@
+{
+  "name": "EUS",
+  "public": true,
+  "alias": ["hookedjs.org"],
+  "builds": [
+    { "src": "*.html", "use": "@now/static" }
+  ],
+  "scripts": {
+    "build": "yarn build",
+    "start": "yarn start"
+  }
+}
