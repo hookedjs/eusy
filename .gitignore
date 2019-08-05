@@ -10,4 +10,5 @@ web-build/
 web-report/
 .idea
 .env*
+!.env.yml
 index.ts
