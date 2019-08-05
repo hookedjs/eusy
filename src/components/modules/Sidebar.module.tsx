@@ -1,9 +1,8 @@
 import React from 'react';
-import { Text } from 'react-native-ui-kitten';
-import { Platform, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { HoverObserver } from '../lib/HoverObserver';
-import { Link } from '../lib/Routing';
+import { Link, useRouter } from '../lib/Routing';
 import { LogoCircleIcon } from '../svgs';
 
 const SidebarHeader = () => (
@@ -28,27 +27,30 @@ const SidebarHeader = () => (
   />
 );
 
-const SidebarMenuItem = ({ to, text, featherIconName }) => (
-  <HoverObserver
-    children={({ isHovering }) => (
-      <Link to={to}>
-        <View
-          style={{
-            flexDirection: 'row',
-            paddingLeft: 20,
-            paddingVertical: 20,
-            backgroundColor: isHovering ? '#5D6C86' : 'inherit'
-          }}
-        >
-          <Feather name={featherIconName} size={28} color="white" />
-          <View style={{ alignContent: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontSize: 16, color: 'white', paddingLeft: 22 }}>{text}</Text>
+const SidebarMenuItem = ({ to, text, featherIconName }) => {
+  const { location } = useRouter();
+  return (
+    <HoverObserver
+      children={({ isHovering }) => (
+        <Link to={to}>
+          <View
+            style={{
+              flexDirection: 'row',
+              paddingLeft: 20,
+              paddingVertical: 20,
+              backgroundColor: isHovering || location.pathname === to ? '#5D6C86' : 'inherit'
+            }}
+          >
+            <Feather name={featherIconName} size={28} color="white" />
+            <View style={{ alignContent: 'center', justifyContent: 'center' }}>
+              <Text style={{ fontSize: 16, color: 'white', paddingLeft: 22 }}>{text}</Text>
+            </View>
           </View>
-        </View>
-      </Link>
-    )}
-  />
-);
+        </Link>
+      )}
+    />
+  );
+};
 
 export const SidebarModule = () => {
   return (
@@ -56,7 +58,7 @@ export const SidebarModule = () => {
       style={{
         flex: 1,
         justifyContent: 'space-between',
-        paddingTop: Platform.OS === 'web' ? 0 : 50
+        backgroundColor: '#2D3C56'
       }}
     >
       <View>
@@ -65,7 +67,7 @@ export const SidebarModule = () => {
         <SidebarMenuItem to="/page" text="Inner Page" featherIconName="activity" />
       </View>
       <View>
-        <SidebarMenuItem to="/" text="Settings" featherIconName="settings" />
+        <SidebarMenuItem to="/settings" text="Settings" featherIconName="settings" />
       </View>
     </View>
   );

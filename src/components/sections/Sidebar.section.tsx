@@ -1,44 +1,57 @@
-import React, { useState } from 'react';
-import { Layout } from 'react-native-ui-kitten';
-import { View } from 'react-native';
+import React, { useEffect } from 'react';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react-lite';
+import { Platform, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { ArrowLeftIcon, ArrowRightIcon, LockIcon } from '../svgs';
+import { isIphoneX } from 'react-native-iphone-x-helper';
+import { Feather } from '@expo/vector-icons';
 import { SidebarModule } from '../modules/Sidebar.module';
 import { HoverObserver } from '../lib/HoverObserver';
 import { TouchableOpacity } from '../lib/Touchables';
 import { useWindowDimensions } from '../../hooks/useWindowDimensions';
+import { useRouter } from '../lib/Routing';
 
-export const SidebarSection = ({ children }: { children: React.ReactElement }) => {
+export const SidebarState = observable({
+  toggled: true
+});
+
+export const SidebarSection = observer(({ children }: { children: React.ReactElement }) => {
+  const { history } = useRouter();
   const windowDims = useWindowDimensions();
-  const tabletBreakpoint = 720;
-  const sidebarWidthFull = 250;
-  const sidebarWidthClosed = windowDims.width > tabletBreakpoint ? 70 : 0;
-  let [sidebarToggled, setSidebarToggled] = useState(windowDims.width > tabletBreakpoint);
+  const sidebarWidthFull = 210;
+  const sidebarWidthClosed = windowDims.isLarge ? 70 : 0;
+
+  useEffect(() => {
+    SidebarState.toggled = windowDims.isLarge;
+    return history.listen(() => windowDims.isSmall && (SidebarState.toggled = false));
+  }, []);
 
   return (
-    <Layout style={{ flex: 1, flexDirection: 'row' }}>
+    <View style={{ flex: 1, flexDirection: 'row' }}>
       <Animatable.View
         transition="width"
         duration={400}
         easing="ease-in-out-quad"
         style={{
-          width:
-            sidebarToggled && windowDims.width > tabletBreakpoint
-              ? sidebarWidthFull
-              : sidebarWidthClosed,
-          backgroundColor: '#333',
+          width: SidebarState.toggled && windowDims.isLarge ? sidebarWidthFull : sidebarWidthClosed,
+          backgroundColor: '#C5CCD7',
           zIndex: 1
         }}
       >
         <HoverObserver
           children={({ isHovering }) => (
             <View
+              // @ts-ignore: position fixed
               style={{
-                backgroundColor: '#2D3C56',
+                // backgroundColor: '#2D3C56',
                 zIndex: 2,
                 // View types don't allow 'fixed', but it's actually allowed and needed for web. Need to enhance typings
-                position: 'fixed',
-                height: windowDims.height
+                position: Platform.OS === 'web' ? 'fixed' : 'relative',
+                height: windowDims.isLarge
+                  ? windowDims.height
+                  : isIphoneX()
+                  ? windowDims.height - 63
+                  : windowDims.height - 50
               }}
             >
               <Animatable.View
@@ -46,9 +59,8 @@ export const SidebarSection = ({ children }: { children: React.ReactElement }) =
                 duration={400}
                 easing="ease-in-out-quad"
                 style={{
-                  width: sidebarToggled || isHovering ? sidebarWidthFull : sidebarWidthClosed,
-                  backgroundColor: '#2D3C56',
-                  height: windowDims.height,
+                  width: SidebarState.toggled || isHovering ? sidebarWidthFull : sidebarWidthClosed,
+                  height: '100%',
                   overflow: 'hidden'
                 }}
               >
@@ -57,42 +69,48 @@ export const SidebarSection = ({ children }: { children: React.ReactElement }) =
                 </View>
               </Animatable.View>
 
-              <View
-                style={{
-                  position: 'absolute',
-                  top: 70,
-                  right: -28
-                }}
-              >
-                <TouchableOpacity
-                  onPress={() => setSidebarToggled(!sidebarToggled)}
+              {windowDims.isLarge && (
+                <View
                   style={{
-                    backgroundColor: '#2D3C56',
-                    borderTopRightRadius: 99,
-                    borderBottomRightRadius: 99,
-                    paddingLeft: 4,
-                    paddingRight: 6,
-                    paddingVertical: 6,
-                    zIndex: 4
+                    position: 'absolute',
+                    top: Platform.OS === 'web' ? 70 : 86,
+                    right: -30
                   }}
                 >
-                  <View style={{ zIndex: 5 }}>
-                    {sidebarToggled ? (
-                      <ArrowLeftIcon width={20} height={20} fill="#999" />
-                    ) : isHovering ? (
-                      <LockIcon width={20} height={20} fill="#999" />
-                    ) : (
-                      <ArrowRightIcon width={20} height={20} fill="#999" />
+                  <HoverObserver
+                    children={touchableHoverResults => (
+                      <TouchableOpacity
+                        onPress={() => (SidebarState.toggled = !SidebarState.toggled)}
+                        style={{
+                          backgroundColor: touchableHoverResults.isHovering ? '#171E2C' : '#2D3C56',
+                          borderTopRightRadius: 99,
+                          borderBottomRightRadius: 99,
+                          paddingLeft: 4,
+                          paddingRight: 6,
+                          paddingVertical: 6,
+                          zIndex: 4
+                        }}
+                      >
+                        <View style={{ zIndex: 5 }}>
+                          {SidebarState.toggled ? (
+                            <Feather name="arrow-left" size={20} color="#999" />
+                          ) : isHovering ? (
+                            <Feather name="lock" size={20} color="#999" />
+                          ) : (
+                            <Feather name="arrow-right" size={20} color="#999" />
+                          )}
+                        </View>
+                      </TouchableOpacity>
                     )}
-                  </View>
-                </TouchableOpacity>
-              </View>
+                  />
+                </View>
+              )}
             </View>
           )}
         />
       </Animatable.View>
 
-      <Layout style={{ flex: 5 }}>{children}</Layout>
-    </Layout>
+      <View style={{ flex: 5 }}>{children}</View>
+    </View>
   );
-};
+});

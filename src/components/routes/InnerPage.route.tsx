@@ -1,33 +1,36 @@
 import React from 'react';
-import { Button, Layout, Text } from 'react-native-ui-kitten';
+import { View } from 'react-native';
+import { Button, Text } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
-import { withRouter } from '../lib/Routing';
+import { LogoIcon } from '../svgs';
 import { Helmet } from '../lib/Helmet';
+import { useRouter } from '../lib/Routing';
 
-export const InnerPageRoute = withRouter(({ history }) => (
-  <>
-    <Helmet title="Inner Page" description="This is an inner page." />
-    <Layout style={styles.container}>
-      <Text style={styles.text} category="h4">
-        Welcome to an inner page.
-      </Text>
-      <Button onPress={() => history.goBack()}>Go Back</Button>
-    </Layout>
-  </>
-));
-export default InnerPageRoute;
+export const InnerPageRoute = () => {
+  const { history } = useRouter();
+  return (
+    <>
+      <Helmet title="Inner Page" />
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          paddingVertical: 60,
+          paddingHorizontal: 30
+        }}
+      >
+        <LogoIcon width={200} height={200} fill="#2D3C56" />
+        <Text h4 style={styles.text}>
+          This is an inner page, to demonstrate routing and SEO.
+        </Text>
+        <Button onPress={() => history.goBack()} title="Go Back" />
+      </View>
+    </>
+  );
+};
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    paddingVertical: 60,
-    paddingHorizontal: 30
-  },
   text: {
-    marginVertical: 16
-  },
-  button: {
-    marginVertical: 16
+    marginBottom: 24
   }
 });

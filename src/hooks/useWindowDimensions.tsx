@@ -7,12 +7,16 @@
 import * as React from 'react';
 import { Dimensions } from 'react-native';
 import { useEffect } from 'react';
+import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
 
 export function useWindowDimensions() {
   const getCurrentDims = () => {
     return {
       width: Dimensions.get('window').width,
-      height: Dimensions.get('window').height
+      unsafeHeight: Dimensions.get('window').height,
+      height: Dimensions.get('window').height - getStatusBarHeight() - getBottomSpace(),
+      isSmall: Dimensions.get('window').width < 720,
+      isLarge: Dimensions.get('window').width >= 720
     };
   };
 

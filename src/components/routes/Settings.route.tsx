@@ -6,11 +6,11 @@ import { LogoIcon } from '../svgs';
 import { Helmet } from '../lib/Helmet';
 import { useRouter } from '../lib/Routing';
 
-export const HomeRoute = () => {
+export const SettingsRoute = () => {
   const { history } = useRouter();
   return (
-    <View>
-      <Helmet title="Home" />
+    <>
+      <Helmet title="Settings" />
       <View
         style={{
           flex: 1,
@@ -21,12 +21,11 @@ export const HomeRoute = () => {
       >
         <LogoIcon width={200} height={200} fill="#2D3C56" />
         <Text h4 style={styles.text}>
-          Welcome to EUS
+          This is the settings page, coming soon.
         </Text>
-        <Text style={styles.text}>This is a Expo + react-native universal app starter.</Text>
-        <Button onPress={() => history.push('/page')} title="Goto Inner Page" />
+        <Button onPress={() => history.goBack()} title="Go Back" />
       </View>
-    </View>
+    </>
   );
 };
 

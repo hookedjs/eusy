@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, TextProps } from 'react-native';
+import { ScrollView, TextProps, View } from 'react-native';
 import {
   NativeRouter as Router,
   Link,
@@ -11,23 +11,28 @@ import {
   RouteProps
 } from 'react-router-native';
 import Stack from 'react-router-native-stack';
-// import {Text} from 'react-native-ui-kitten';
 import { Text } from 'react-native';
 
 class Route extends React.PureComponent<
   RouteProps & {
     headerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
     footerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+    footerEndComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   }
 > {
   render() {
     let routeProps = { ...this.props };
     delete routeProps.component;
+    delete routeProps.footerEndComponent;
+
     return (
       <RouteOrig
         render={routerProps => (
           <ScrollView>
-            <this.props.component {...routerProps} />
+            <View style={{ flex: 1, minHeight: '100%' }}>
+              <this.props.component {...routerProps} />
+              {this.props.footerEndComponent && <this.props.footerEndComponent {...routerProps} />}
+            </View>
           </ScrollView>
         )}
         {...routeProps}
@@ -59,4 +64,17 @@ const TextLink = withRouter(
   )
 );
 
-export { Link, Route, Redirect, Router, Switch, Stack, TextLink, withRouter };
+import useRouter from 'use-react-router';
+
+export {
+  Link,
+  Route,
+  Redirect,
+  Router,
+  RouteComponentProps,
+  Switch,
+  Stack,
+  TextLink,
+  withRouter,
+  useRouter
+};

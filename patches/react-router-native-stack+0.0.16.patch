@@ -1,0 +1,19 @@
+diff --git a/node_modules/react-router-native-stack/lib/styles.js b/node_modules/react-router-native-stack/lib/styles.js
+index 361da8f..9276105 100644
+--- a/node_modules/react-router-native-stack/lib/styles.js
++++ b/node_modules/react-router-native-stack/lib/styles.js
+@@ -20,10 +20,10 @@ export default StyleSheet.create({
+     bottom: 0,
+     top: 0,
+     backgroundColor: 'white',
+-    shadowColor: 'black',
+-    shadowOpacity: 0.2,
+-    shadowOffset: { width: 0, height: 0 },
+-    shadowRadius: 5,
++    // shadowColor: 'black',
++    // shadowOpacity: 0.2,
++    // shadowOffset: { width: 0, height: 0 },
++    // shadowRadius: 5,
+   },
+   transitionContainer: {
+     flex: 1,

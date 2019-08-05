@@ -5,17 +5,16 @@
  */
 import { hot } from 'react-hot-loader';
 import React from 'react';
-import { Platform } from 'react-native';
-import { light as lightTheme, mapping } from '@eva-design/eva';
-import { ApplicationProvider } from 'react-native-ui-kitten';
+import { Platform, SafeAreaView, View } from 'react-native';
+import { ThemeProvider } from 'react-native-elements';
 import { AppRoutes } from './src/Config';
 import { AppLoadingRoute } from './src/components/routes/AppLoading.route';
 import { loadFonts } from './src/lib/AssetLoading';
 import { SidebarSection } from './src/components/sections/Sidebar.section';
 import { Router } from './src/components/lib/Routing';
 import { Helmet } from './src/components/lib/Helmet';
-// import Feather from './src/assets/Feather.ttf';
-// import Ionicons from '@expo/vector-icons/src/vendor/react-native-vector-icons/Fonts/Ionicons.ttf';
+
+import './src/lib/CssReset';
 
 interface state {
   isReady: boolean;
@@ -29,30 +28,36 @@ class App extends React.PureComponent<any, state> {
 
   static async _loadAssetsAsync() {
     const fontAssets = loadFonts({
-      // "Feather": require('./font/somefont.ttf')
+      // "Somefont": require('./font/somefont.ttf')
     });
     await Promise.all([fontAssets]);
   }
 
   render() {
     return (
-      <>
-        <Helmet />
-        <ApplicationProvider mapping={mapping} theme={lightTheme}>
-          {this.state.isReady || true ? (
-            <Router>
-              <SidebarSection>
-                <AppRoutes />
-              </SidebarSection>
-            </Router>
-          ) : (
-            <AppLoadingRoute
-              startAsync={App._loadAssetsAsync}
-              onFinish={() => this.setState({ isReady: true })}
-            />
-          )}
-        </ApplicationProvider>
-      </>
+      <ThemeProvider>
+        {/*
+          This is how you can have a different color on the top vs. the bottom
+          <SafeAreaView style={{ flex: 0, backgroundColor: "#C5CCD7", }} />
+        */}
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#C5CCD7' }}>
+          <View style={{ flex: 1, backgroundColor: 'white' }}>
+            <Helmet />
+            {this.state.isReady || true ? (
+              <Router>
+                <SidebarSection>
+                  <AppRoutes />
+                </SidebarSection>
+              </Router>
+            ) : (
+              <AppLoadingRoute
+                startAsync={App._loadAssetsAsync}
+                onFinish={() => this.setState({ isReady: true })}
+              />
+            )}
+          </View>
+        </SafeAreaView>
+      </ThemeProvider>
     );
   }
 }
