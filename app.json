@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "EUS",
-    "slug": "expo-unversal-starter",
-    "description": "Coming soon",
+    "name": "EUSY",
+    "slug": "eusy",
+    "description": "Expo Universal Starter: A low-config, low-bloat starter/boilerplate for a universal expo-cli. It comes with and demonstrates many commonly used UX patterns. All that with exceptional hot-reload support and < 150kb bundle.",
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": ["ios", "android", "web"],

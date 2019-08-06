@@ -3,11 +3,12 @@
     "noEmit": true,
     "lib": ["dom", "esnext"],
     "target": "esnext",
-//    "module": "esnext",
+    //    "module": "esnext",
     "jsx": "react-native",
     "allowJs": true,
     "moduleResolution": "node",
     "skipLibCheck": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "strict": false
   }
 }

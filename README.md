@@ -1,41 +1,53 @@
-Customizations vs. Standard Expo App
+# EUSY: Expo Universal Starter
+
+A low-config, low-bloat starter/boilerplate for a universal expo-cli. It comes with and demonstrates many commonly used UX patterns. All that with exceptional hot-reload support and < 150kb bundle.  
+
+For this app, universal means the app works on every device that Expo supports: Web, IOS, and Android.
+
+## Demos
+- [Web](https://expo-universal-starter.briandombrowski.now.sh/)
+
+## What's included
+
+- An optimized [Expo-CLI](https://docs.expo.io/versions/v34.0.0/workflow/expo-cli/) managed workflow easy developing and testing web and native
+ - Highly functional, easy to extend development and production environments, including hot-moodule reloading for native AND web. Hot re-loading is delicate with react-native, and expo doesn't support hot reloading on web out of the box.
+ - Easy and fully-automated development, sharing, publishing and notification features
+ - Web Bundle analytics with [webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer), to hunt down bloated dependencies
+ - Support .web.tsx and .native.tsx files, for easy platform specific overrides
+ - Support for [styled-jsx](https://www.npmjs.com/package/styled-jsx) in .web.tsx files, for exceptional CSS-in-JSS
+- Unified routing api thanks to [react-router](https://www.npmjs.com/package/react-router), and additional helpers for easy, declarative, animated routing.
+- Universal UI Kit: [react-native-elements](https://www.npmjs.com/package/react-router). UI-Kitten works too, if you prefer.
+- SEO thanks to [React Helmet](https://www.npmjs.com/package/react-helmet)
+- Package Patches that fix some critical show-stopping bugs and enable better universal support, managed with [patch-package](https://www.npmjs.com/package/patch-package)
+- Advanced Dot Environmental (.env) File Management and Support
+- Typescript + TSLint + Prettier + Special TSLint sauce, using mostly default settings. Strict mode coming soon.
+- [Hooks](https://reactjs.org/docs/hooks-intro.html) - Fully supported and preferred
+- [MOBX](https://www.npmjs.com/package/mobx) - Popular, easy, distributed sharable app and component state
+- Automated SVG to TSX file Conversion
+- Automated index.tsx generation, thanks to [create-ts-index](https://www.npmjs.com/package/create-ts-index)
+- Git hooks clean code, run tests and block broken commits, thanks to [Husky](https://www.npmjs.com/package/husky) and [Lint-staged](https://www.npmjs.com/package/lint-staged)
+- Includes a production-grade web server, built on [Express](https://www.npmjs.com/package/express) 
+- [Jest](https://www.npmjs.com/package/jest) The most popular JS testing framework - coming soon
+- Continuous Integration and Deployment thanks to [Zeit's Now Service](https://zeit.co/now)
 
 
-Depends on expo-cli
+## What's with the name?
+
+EUSY = An acronym of "Expo Universal Starter" with a 'Y' on the end. It's intentionally misspelled 'easy', so it's a play on words.
+
 
 ## TODO:
-
-- ~~Research universal frameworks and decide if building a custom boilerplate is worthwhite (done). I tried [re-start](https://github.com/react-everywhere/re-start), [Razzle](https://github.com/jaredpalmer/razzle/tree/master/examples/with-react-native-web), [Rewired](https://github.com/react-native-elements/react-native-elements-app), and many more github projects. Conclusion: none of them fully solved the need for ease of use and completeness. The closest was expo 33 examples, which this boilerplate is built on.~~  
-- ~~Install expo 33 with merged examples typescript and react-native-web (done)~~
-- ~~Install react-hot-loader for web so we can hot reload on web (done)~~
-- ~~Install react-native-ui-kitten ui kit for rapid dev and stress testing the bundling. (done)~~
-- ~~Universal Font file Loading (done). Based on [Rewired](https://github.com/react-native-elements/react-native-elements-app).~~
-- ~~Universal Routing with react-router 4 (done)~~
-- ~~Implement a static server for production~~
-- ~~SEO with Helmet (done)~~
-- ~~Environment file mgmt and support with dotenv~~
-- ~~Resolve missing favicon and manifest in index.html~~
-- ~~Get images and svgs working nicely (done)~~
-- ~~Get styled-jsx working for web for css-in-js~~
-- ~~Handle Iphone X and android status bars~~
-- ~~Apply polish~~
 - Register Screen
 - Implement testing (todo)
 
 
 ## Long-Term Goals
 
+- Resolve bug that explodes bundle size: https://github.com/expo/expo-cli/issues/919
 - SSR: I've Tried Razzle and doing custom, but it's really hard. Also, limited gains since bundle is currently 104kb brotli zipped. 
 - Code Splitting - I've tried but they all seem to break HMR, Typesafety and/or SSR, so we don't use them. Tried React.Lazy, @loadable/component, react-loadable
-
-## Decisions:
-
-- Routing: react-router seems to be the only router library that works well with both native and web. Considered react-navigation
-
  
-
  
 ## Tips
 
-CMD+D for menu in ios Sim
-CMD+M for menu in android sim
+- How to open dev tools on simulator: CMD+D for menu in ios Sim, CMD+M for menu in android sim, shake on real devices.
