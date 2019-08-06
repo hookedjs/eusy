@@ -12,6 +12,7 @@
     "gen:env": "dotenvi -f .env.yml -s ${APP_ENV:-development} && cat .env | npx envfile2json > .env.json",
     "gen:index": "node utils/create-indexes.js",
     "gen:svgTsx": "find src -name \"*.svg\" -exec ./utils/tsxify-svg.sh {} src/components/svgs \\;",
+    "analyze": "ANALYZE=true yarn build",
     "build": "yarn clean && run-p gen:* && expo build:web",
     "dev": "run-p gen:* && expo start",
     "start": "node src/server.js",
@@ -65,7 +66,7 @@
     "singleQuote": true
   },
   "dependencies": {
-    "@expo/webpack-config": "^0.7.0",
+    "@expo/webpack-config": "^0.7.2",
     "@types/react-svg": "^5.0.0",
     "@types/styled-jsx": "^2.2.8",
     "create-ts-index": "^1.10.2",
@@ -125,6 +126,7 @@
     "tslint-eslint-rules": "^5.4.0",
     "tslint-etc": "^1.6.0",
     "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.4.5"
+    "typescript": "^3.4.5",
+    "webpack-bundle-analyzer": "^3.4.1"
   }
 }

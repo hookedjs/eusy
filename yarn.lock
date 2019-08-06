@@ -1056,7 +1056,7 @@
   dependencies:
     lodash "^4.17.4"
 
-"@expo/webpack-config@^0.7.0", "@expo/webpack-config@^0.7.2":
+"@expo/webpack-config@^0.7.2":
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/@expo/webpack-config/-/webpack-config-0.7.2.tgz#060828d3a732af53b70e29160e897d5fab1bdbb8"
   integrity sha512-NVvvygmiCBs6JRNkwTTTNgQ2c4pgxaR7ON5b1VE8VV4eUfhhLNtYdhueND2g9CoiG9Ko719XQ10Q/4l9CrNkYA==
@@ -13757,7 +13757,7 @@ webidl-conversions@^4.0.2:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-4.0.2.tgz#a855980b1f0b6b359ba1d5d9fb39ae941faa63ad"
   integrity sha512-YQ+BmxuTgd6UXZW3+ICGfyqRyHXVlD5GtQr5+qjiNW7bF0cqrzX500HVXPBOvgXb5YnzDd+h0zqyv61KUD7+Sg==
 
-webpack-bundle-analyzer@^3.0.4:
+webpack-bundle-analyzer@^3.0.4, webpack-bundle-analyzer@^3.4.1:
   version "3.4.1"
   resolved "https://registry.yarnpkg.com/webpack-bundle-analyzer/-/webpack-bundle-analyzer-3.4.1.tgz#430544c7ba1631baccf673475ca8300cb74a3c47"
   integrity sha512-Bs8D/1zF+17lhqj2OYmzi7HEVYqEVxu7lCO9Ff8BwajenOU0vAwEoV8e4ICCPNZAcqR1PCR/7o2SkW+cnCmF0A==
