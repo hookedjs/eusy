@@ -6,6 +6,7 @@ For this app, universal means the app works on every device that Expo supports: 
 
 ## Demos
 - [Web](https://expo-universal-starter.briandombrowski.now.sh/)
+- [Native](https://expo.io/@bdombro/eusy)
 
 ## What's included
 
