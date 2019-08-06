@@ -1,17 +1,21 @@
+/**
+ *
+ */
 import React from 'react';
-import { ScrollView, TextProps, View } from 'react-native';
+import { ScrollView, Text, TextProps, View } from 'react-native';
+import { Linking } from 'expo';
 import {
   NativeRouter as Router,
-  Link,
+  Link as LinkOrig,
   Route as RouteOrig,
   Redirect,
   Switch,
   withRouter,
   RouteComponentProps,
-  RouteProps
+  RouteProps,
+  LinkProps
 } from 'react-router-native';
 import Stack from 'react-router-native-stack';
-import { Text } from 'react-native';
 
 class Route extends React.PureComponent<
   RouteProps & {
@@ -41,18 +45,36 @@ class Route extends React.PureComponent<
   }
 }
 
-const TextLink = withRouter(
-  ({
-    history,
-    to,
-    onPress = () => null,
-    style,
-    ...props
-  }: RouteComponentProps & TextProps & { to: string }) => (
+const Link = ({ to, onPress, ...props }: LinkProps) => {
+  return typeof to === 'string' && to.includes('.') ? (
+    <TouchableOpacity
+      onPress={() => {
+        if (onPress) onPress();
+        Linking.openURL(to);
+      }}
+    >
+      <LinkOrig to={''} {...props} />
+    </TouchableOpacity>
+  ) : (
+    <LinkOrig to={to} {...props} />
+  );
+};
+
+const TextLink = ({
+  to,
+  onPress = () => null,
+  style,
+  ...props
+}: TextProps & {
+  to: string;
+}) => {
+  const { history } = useRouter();
+  return (
     <Text
       onPress={e => {
         onPress(e);
-        history.push(to);
+        if (to.includes('.')) Linking.openURL(to);
+        else history.push(to);
       }}
       style={{
         textDecorationLine: 'underline',
@@ -61,10 +83,11 @@ const TextLink = withRouter(
       }}
       {...props}
     />
-  )
-);
+  );
+};
 
 import useRouter from 'use-react-router';
+import { TouchableOpacity } from './Touchables';
 
 export {
   Link,

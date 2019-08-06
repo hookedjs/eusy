@@ -7,7 +7,7 @@ import { observable } from 'mobx';
 import { SearchBar } from 'react-native-elements';
 import { useWindowDimensions } from '../../hooks/useWindowDimensions';
 import { useRouter } from '../lib/Routing';
-import { SidebarState } from './Sidebar.section';
+import { SidebarSectionState } from './Sidebar.section.state';
 import { LogoCircleIcon } from '../svgs';
 
 export const HeaderState = observable({
@@ -98,7 +98,7 @@ export const HeaderSection = observer(() => {
             name="menu"
             size={24}
             color="#2D3C56"
-            onPress={() => (SidebarState.toggled = !SidebarState.toggled)}
+            onPress={() => (SidebarSectionState.toggled = !SidebarSectionState.toggled)}
             style={{ paddingLeft: 10 }}
           />
         )}

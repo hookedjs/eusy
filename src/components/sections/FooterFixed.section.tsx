@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 import { useRouter } from '../lib/Routing';
-import { SidebarState } from './Sidebar.section';
+import { SidebarSectionState } from './Sidebar.section.state';
 import { useWindowDimensions } from '../../hooks/useWindowDimensions';
 
 export const FooterFixedSection = observer(() => {
@@ -44,9 +44,9 @@ export const FooterFixedSection = observer(() => {
       }}
     >
       <FooterMenuItem
-        toggled={SidebarState.toggled}
+        toggled={SidebarSectionState.toggled}
         icon="menu"
-        onPress={() => (SidebarState.toggled = !SidebarState.toggled)}
+        onPress={() => (SidebarSectionState.toggled = !SidebarSectionState.toggled)}
         toggledIcon="x"
       />
       <FooterMenuItem

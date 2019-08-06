@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { observable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import { Platform, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
@@ -10,10 +9,7 @@ import { HoverObserver } from '../lib/HoverObserver';
 import { TouchableOpacity } from '../lib/Touchables';
 import { useWindowDimensions } from '../../hooks/useWindowDimensions';
 import { useRouter } from '../lib/Routing';
-
-export const SidebarState = observable({
-  toggled: true
-});
+import { SidebarSectionState } from './Sidebar.section.state';
 
 export const SidebarSection = observer(({ children }: { children: React.ReactElement }) => {
   const { history } = useRouter();
@@ -22,8 +18,8 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
   const sidebarWidthClosed = windowDims.isLarge ? 70 : 0;
 
   useEffect(() => {
-    SidebarState.toggled = windowDims.isLarge;
-    return history.listen(() => windowDims.isSmall && (SidebarState.toggled = false));
+    SidebarSectionState.toggled = windowDims.isLarge;
+    return history.listen(() => windowDims.isSmall && (SidebarSectionState.toggled = false));
   }, []);
 
   return (
@@ -33,7 +29,10 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
         duration={400}
         easing="ease-in-out-quad"
         style={{
-          width: SidebarState.toggled && windowDims.isLarge ? sidebarWidthFull : sidebarWidthClosed,
+          width:
+            SidebarSectionState.toggled && windowDims.isLarge
+              ? sidebarWidthFull
+              : sidebarWidthClosed,
           backgroundColor: '#C5CCD7',
           zIndex: 1
         }}
@@ -59,7 +58,10 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                 duration={400}
                 easing="ease-in-out-quad"
                 style={{
-                  width: SidebarState.toggled || isHovering ? sidebarWidthFull : sidebarWidthClosed,
+                  width:
+                    SidebarSectionState.toggled || isHovering
+                      ? sidebarWidthFull
+                      : sidebarWidthClosed,
                   height: '100%',
                   overflow: 'hidden'
                 }}
@@ -80,7 +82,7 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                   <HoverObserver
                     children={touchableHoverResults => (
                       <TouchableOpacity
-                        onPress={() => (SidebarState.toggled = !SidebarState.toggled)}
+                        onPress={() => (SidebarSectionState.toggled = !SidebarSectionState.toggled)}
                         style={{
                           backgroundColor: touchableHoverResults.isHovering ? '#171E2C' : '#2D3C56',
                           borderTopRightRadius: 99,
@@ -92,7 +94,7 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                         }}
                       >
                         <View style={{ zIndex: 5 }}>
-                          {SidebarState.toggled ? (
+                          {SidebarSectionState.toggled ? (
                             <Feather name="arrow-left" size={20} color="#999" />
                           ) : isHovering ? (
                             <Feather name="lock" size={20} color="#999" />

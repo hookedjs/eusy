@@ -49,11 +49,24 @@ class Route extends React.PureComponent<
   }
 }
 
-const Link = ({ style, ...props }: LinkProps) => (
-  <LinkOrig style={{ textDecorationLine: 'none', ...style }} {...props} />
-);
+const Link = ({ style, ...props }: LinkProps) =>
+  typeof props.to === 'string' && props.to.includes('.') ? (
+    <a
+      href={props.to}
+      target="_blank"
+      style={{ textDecorationLine: 'none', ...style }}
+      {...props}
+    />
+  ) : (
+    <LinkOrig style={{ textDecorationLine: 'none', ...style }} {...props} />
+  );
 
-const TextLink = LinkOrig;
+const TextLink = (props: LinkProps) =>
+  typeof props.to === 'string' && props.to.includes('.') ? (
+    <a href={props.to} target="_blank" {...props} />
+  ) : (
+    <LinkOrig {...props} />
+  );
 
 const Stack = ({ children }: { children: React.ReactNode }) => <Switch>{children}</Switch>;
 
