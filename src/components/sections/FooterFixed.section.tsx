@@ -35,9 +35,8 @@ export const FooterFixedSection = observer(() => {
     </TouchableOpacity>
   );
 
-  return windowDims.isLarge ? (
-    <></>
-  ) : (
+  if (windowDims.isLarge || windowDims.isMobileWeb) return <></>;
+  return (
     <View
       style={{
         flexDirection: 'row',

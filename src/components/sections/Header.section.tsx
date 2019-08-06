@@ -7,6 +7,8 @@ import { observable } from 'mobx';
 import { SearchBar } from 'react-native-elements';
 import { useWindowDimensions } from '../../hooks/useWindowDimensions';
 import { useRouter } from '../lib/Routing';
+import { SidebarState } from './Sidebar.section';
+import { LogoCircleIcon } from '../svgs';
 
 export const HeaderState = observable({
   numberOfBackSteps: 0,
@@ -40,14 +42,18 @@ export const HeaderSection = observer(() => {
           minWidth: windowDims.isLarge ? 48 : 0
         }}
       >
-        {!!HeaderState.numberOfBackSteps && (
-          <Feather
-            name="chevron-left"
-            size={24}
-            color="#2D3C56"
-            onPress={() => history.goBack()}
-            style={{ paddingLeft: 10, paddingRight: 14 }}
-          />
+        {windowDims.isMobileWeb ? (
+          <LogoCircleIcon width={24} height={24} style={{ paddingRight: 10 }} />
+        ) : (
+          !!HeaderState.numberOfBackSteps && (
+            <Feather
+              name="chevron-left"
+              size={24}
+              color="#2D3C56"
+              onPress={() => history.goBack()}
+              style={{ paddingLeft: 10, paddingRight: 14 }}
+            />
+          )
         )}
       </View>
       <View style={{ flex: 1, maxWidth: 500 }}>
@@ -72,19 +78,31 @@ export const HeaderSection = observer(() => {
             borderRadius: 20,
             paddingHorizontal: 6
           }}
+          inputStyle={{ minHeight: 35 }}
+          leftIconContainerStyle={{ height: 35 }}
+          rightIconContainerStyle={{ height: 35 }}
         />
       </View>
-      {windowDims.isLarge && (
-        <View style={{ flexDirection: 'row', alignItems: 'center', paddingLeft: 14 }}>
+      <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+        {windowDims.isLarge && (
           <Avatar
             rounded
             showEditButton
             source={require('../../assets/img/brian-eus-author.jpg')}
             onPress={() => history.push('/')}
-            // style={{ width: 36, height: 36, borderRadius: 36 / 2 }}
+            containerStyle={{ marginLeft: 10 }}
           />
-        </View>
-      )}
+        )}
+        {windowDims.isMobileWeb && (
+          <Feather
+            name="menu"
+            size={24}
+            color="#2D3C56"
+            onPress={() => (SidebarState.toggled = !SidebarState.toggled)}
+            style={{ paddingLeft: 10 }}
+          />
+        )}
+      </View>
     </View>
   );
 });
