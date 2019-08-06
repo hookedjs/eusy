@@ -2,7 +2,7 @@
   "expo": {
     "name": "EUSY",
     "slug": "eusy",
-    "description": "Expo Universal Starter: A low-config, low-bloat starter/boilerplate for a universal expo-cli. It comes with and demonstrates many commonly used UX patterns. All that with exceptional hot-reload support and < 150kb bundle. More info at https://github.com/bdombro/expo-universal-starter.",
+    "description": "Expo Universal Starter: A low-config, low-bloat starter/boilerplate for a universal expo-cli. It comes with and demonstrates many commonly used UX patterns. All that with exceptional hot-reload support and < 150kb bundle. More info at https://github.com/hookedjs/eusy.",
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": ["ios", "android", "web"],
