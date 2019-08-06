@@ -129,5 +129,19 @@
     "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.4.5",
     "webpack-bundle-analyzer": "^3.4.1"
-  }
+  },
+  "keywords": [
+    "react-native",
+    "react-native-web",
+    "react",
+    "expo",
+    "ios",
+    "android",
+    "universal",
+    "expo-cli",
+    "starter",
+    "boilerplate",
+    "react-router",
+    "mobx"
+  ]
 }
