@@ -17,13 +17,14 @@ Depends on expo-cli
 - ~~Resolve missing favicon and manifest in index.html~~
 - ~~Get images and svgs working nicely (done)~~
 - ~~Get styled-jsx working for web for css-in-js~~
-- Apply polish: footer, sidebar, header, homepage, chat list, chat page, sign in page, theming
+- ~~Handle Iphone X and android status bars~~
+- ~~Apply polish~~
+- Register Screen
 - Implement testing (todo)
 
 
 ## Long-Term Goals
 
-- Upgrade babel-preset-expo when it gets fixed. Might bring HMR to web without need for customization.
 - SSR: I've Tried Razzle and doing custom, but it's really hard. Also, limited gains since bundle is currently 104kb brotli zipped. 
 - Code Splitting - I've tried but they all seem to break HMR, Typesafety and/or SSR, so we don't use them. Tried React.Lazy, @loadable/component, react-loadable
 
