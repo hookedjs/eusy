@@ -40,7 +40,13 @@ class App extends React.PureComponent<any, state> {
           This is how you can have a different color on the top vs. the bottom
           <SafeAreaView style={{ flex: 0, backgroundColor: "#C5CCD7", }} />
         */}
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#C5CCD7' }}>
+        <SafeAreaView
+          style={{
+            flex: 1,
+            backgroundColor: '#C5CCD7',
+            paddingTop: Platform.OS === 'android' ? 24 : 0
+          }}
+        >
           <View style={{ flex: 1, backgroundColor: 'white' }}>
             <Helmet />
             {this.state.isReady || true ? (
