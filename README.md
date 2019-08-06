@@ -11,12 +11,12 @@ For this app, universal means the app works on every device that Expo supports: 
 ## What's included
 
 - An optimized [Expo-CLI](https://docs.expo.io/versions/v34.0.0/workflow/expo-cli/) managed workflow easy developing and testing web and native
- - Highly functional, easy to extend development and production environments, including hot-moodule reloading for native AND web. Hot re-loading is delicate with react-native, and expo doesn't support hot reloading on web out of the box.
- - Easy and fully-automated development, sharing, publishing and notification features
- - Web Bundle analytics with [webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer), to hunt down bloated dependencies
- - Support .web.tsx and .native.tsx files, for easy platform specific overrides
- - Support for [styled-jsx](https://www.npmjs.com/package/styled-jsx) in .web.tsx files, for exceptional CSS-in-JSS
-- Unified routing api thanks to [react-router](https://www.npmjs.com/package/react-router), and additional helpers for easy, declarative, animated routing.
+  - Highly functional, easy to extend development and production environments, including hot-moodule reloading for native AND web. Hot re-loading is delicate with react-native, and expo doesn't support hot reloading on web out of the box.
+  - Easy and fully-automated development, sharing, publishing and notification features
+  - Web Bundle analytics with [webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer), to hunt down bloated dependencies
+  - Support .web.tsx and .native.tsx files, for easy platform specific overrides
+  - Support for [styled-jsx](https://www.npmjs.com/package/styled-jsx) in .web.tsx files, for exceptional CSS-in-JSS
+- Unified routing api extending [react-router](https://www.npmjs.com/package/react-router), and additional helpers for easy, declarative, animated routing.
 - Universal UI Kit: [react-native-elements](https://www.npmjs.com/package/react-router). UI-Kitten works too, if you prefer.
 - SEO thanks to [React Helmet](https://www.npmjs.com/package/react-helmet)
 - Package Patches that fix some critical show-stopping bugs and enable better universal support, managed with [patch-package](https://www.npmjs.com/package/patch-package)

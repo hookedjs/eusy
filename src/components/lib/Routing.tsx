@@ -1,8 +1,6 @@
-/**
- *
- */
 import React from 'react';
 import { ScrollView, Text, TextProps, View } from 'react-native';
+// Could use Linking from react-native too, unsure of the pros and cons.
 import { Linking } from 'expo';
 import {
   NativeRouter as Router,
