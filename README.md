@@ -5,7 +5,7 @@ A low-config, low-bloat starter/boilerplate for a universal expo-cli. It comes w
 For this app, universal means the app works on every device that Expo supports: Web, IOS, and Android.
 
 ## Demos
-- [Web](https://eusy.hookedjs.now.sh/)
+- [Web](https://eusy.briandombrowski.now.sh/)
 - [Native](https://expo.io/@bdombro/eusy)
 
 ## What's included
