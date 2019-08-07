@@ -1,5 +1,6 @@
 import React from 'react';
 import { ScrollView, Text, TextProps, View } from 'react-native';
+import useRouter from 'use-react-router';
 // Could use Linking from react-native too, unsure of the pros and cons.
 import { Linking } from 'expo';
 import {
@@ -14,24 +15,39 @@ import {
   LinkProps
 } from 'react-router-native';
 import Stack from 'react-router-native-stack';
+import { TouchableOpacity } from './Touchables';
+import { getCurrentDims } from '../../hooks/useWindowDimensions';
+import { SidebarSectionState } from '../sections/Sidebar.section.state';
 
 class Route extends React.PureComponent<
   RouteProps & {
     headerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
     footerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
     footerEndComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+    sidebarComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   }
 > {
   render() {
+    const windowDims = getCurrentDims();
     let routeProps = { ...this.props };
     delete routeProps.component;
     delete routeProps.footerEndComponent;
+    delete routeProps.sidebarComponent;
+
+    SidebarSectionState.sidebarComponent = this.props.sidebarComponent;
 
     return (
       <RouteOrig
         render={routerProps => (
           <ScrollView>
-            <View style={{ flex: 1, minHeight: '100%' }}>
+            <View
+              style={{
+                flex: 1,
+                minHeight: '100%',
+                paddingTop: this.props.headerComponent ? 0 : windowDims.statusBarHeight,
+                paddingBottom: this.props.footerComponent ? 0 : windowDims.bottomUnsafeHeight
+              }}
+            >
               <this.props.component {...routerProps} />
               {this.props.footerEndComponent && <this.props.footerEndComponent {...routerProps} />}
             </View>
@@ -84,9 +100,6 @@ const TextLink = ({
     />
   );
 };
-
-import useRouter from 'use-react-router';
-import { TouchableOpacity } from './Touchables';
 
 export {
   Link,

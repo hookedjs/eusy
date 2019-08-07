@@ -1,5 +1,6 @@
 import { observable } from 'mobx';
 
 export const SidebarSectionState = observable({
-  toggled: true
+  toggled: true,
+  sidebarComponent: null
 });

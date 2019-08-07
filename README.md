@@ -38,8 +38,12 @@ EUSY = An acronym of "Expo Universal Starter" with a 'Y' on the end. It's intent
 
 
 ## TODO:
-- Register Screen
+- Implement react-native-elements theming features
+- Implement form validation
+- Extend react-router-native-stack to work on react-native-web
+- Extend react-router-native-stack to treat sidebar like header and footer wrt animations
 - Implement testing (todo)
+- Research and compare react-native-dom to react-native-web
 
 
 ## Long-Term Goals

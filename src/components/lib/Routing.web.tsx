@@ -18,6 +18,7 @@ class Route extends React.PureComponent<
     headerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
     footerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
     footerEndComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+    sidebarComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
   }
 > {
   render() {
@@ -26,6 +27,9 @@ class Route extends React.PureComponent<
     if (routeProps.headerComponent) delete routeProps.headerComponent;
     if (routeProps.footerComponent) delete routeProps.footerComponent;
     if (routeProps.footerEndComponent) delete routeProps.footerEndComponent;
+    delete routeProps.sidebarComponent;
+
+    SidebarSectionState.sidebarComponent = this.props.sidebarComponent;
 
     return (
       <RouteOrig
@@ -71,5 +75,6 @@ const TextLink = (props: LinkProps) =>
 const Stack = ({ children }: { children: React.ReactNode }) => <Switch>{children}</Switch>;
 
 import useRouter from 'use-react-router';
+import { SidebarSectionState } from '../sections/Sidebar.section.state';
 
 export { Link, Route, Redirect, Router, Switch, Stack, TextLink, withRouter, useRouter };

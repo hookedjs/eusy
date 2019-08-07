@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { AppName } from '../../Config';
 import { HoverObserver } from '../lib/HoverObserver';
 import { Link, useRouter } from '../lib/Routing';
 import { LogoCircleIcon } from '../svgs';
@@ -20,7 +19,7 @@ const SidebarHeader = () => (
         >
           <LogoCircleIcon width={40} height={40} />
           <View style={{ alignContent: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontSize: 20, color: 'white', paddingLeft: 15 }}>{AppName}</Text>
+            <Text style={{ fontSize: 20, color: 'white', paddingLeft: 15 }}>EUSY</Text>
           </View>
         </View>
       </Link>

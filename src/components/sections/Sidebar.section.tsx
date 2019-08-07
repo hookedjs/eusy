@@ -11,7 +11,10 @@ import { useRouter } from '../lib/Routing';
 import { SidebarSectionState } from './Sidebar.section.state';
 
 export const SidebarSection = observer(({ children }: { children: React.ReactElement }) => {
-  const { history } = useRouter();
+  const { history, location } = useRouter();
+
+  console.dir(location);
+
   const windowDims = useWindowDimensions();
   const sidebarWidthFull = 210;
   const sidebarWidthClosed = windowDims.isLarge ? 70 : 0;
@@ -21,6 +24,7 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
     return history.listen(() => windowDims.isSmall && (SidebarSectionState.toggled = false));
   }, []);
 
+  if (!SidebarSectionState.sidebarComponent) return <>{children}</>;
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
       <Animatable.View
@@ -46,7 +50,7 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                 // View types don't allow 'fixed', but it's actually allowed and needed for web. Need to enhance typings
                 position: Platform.OS === 'web' ? 'fixed' : 'relative',
                 top: windowDims.isLarge ? 0 : windowDims.statusBarHeight + 47,
-                height: windowDims.isLarge ? windowDims.height : windowDims.height - 47 - 47
+                height: windowDims.isLarge ? windowDims.height : windowDims.height - 94
               }}
             >
               <Animatable.View

@@ -45,7 +45,7 @@ export const HeaderSection = observer(() => {
           minWidth: windowDims.isLarge ? 48 : 0
         }}
       >
-        {windowDims.isMobileWeb ? (
+        {windowDims.isSmallWeb ? (
           <LogoCircleIcon width={24} height={24} style={{ paddingRight: 10 }} />
         ) : (
           !!HeaderState.numberOfBackSteps && (
@@ -96,7 +96,7 @@ export const HeaderSection = observer(() => {
             containerStyle={{ marginLeft: 10 }}
           />
         )}
-        {windowDims.isMobileWeb && (
+        {windowDims.isSmallWeb && (
           <Feather
             name="menu"
             size={24}

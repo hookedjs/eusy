@@ -9,32 +9,38 @@ import { Dimensions, Platform } from 'react-native';
 import { useEffect } from 'react';
 import Constants from 'expo-constants';
 
-export function useWindowDimensions() {
-  const getCurrentDims = () => {
-    const statusBarHeight = Platform.select({
-      ios: Constants.deviceName.includes('iPhone X')
-        ? Constants.statusBarHeight - 10
-        : Constants.statusBarHeight,
-      default: Constants.statusBarHeight
-    });
+export function getCurrentDims() {
+  const width = Dimensions.get('window').width;
+  const height = Dimensions.get('window').height;
 
-    const bottomUnsafeHeight = Platform.select({
-      ios: Constants.deviceName.includes('iPhone X') ? 16 : 0,
-      default: 0
-    });
+  const statusBarHeight = Platform.select({
+    ios: Constants.deviceName.includes('iPhone X')
+      ? Constants.statusBarHeight - 10
+      : Constants.statusBarHeight,
+    default: Constants.statusBarHeight
+  });
 
-    return {
-      width: Dimensions.get('window').width,
-      unsafeHeight: Dimensions.get('window').height,
-      height: Dimensions.get('window').height - statusBarHeight - bottomUnsafeHeight,
-      isSmall: Dimensions.get('window').width < 720,
-      isLarge: Dimensions.get('window').width >= 720,
-      isMobileWeb: Dimensions.get('window').width < 720 && Platform.OS === 'web',
-      statusBarHeight,
-      bottomUnsafeHeight
-    };
+  const bottomUnsafeHeight = Platform.select({
+    ios: Constants.deviceName.includes('iPhone X') ? 16 : 0,
+    default: 0
+  });
+
+  return {
+    width: width,
+    unsafeHeight: height,
+    height: height - statusBarHeight - bottomUnsafeHeight,
+    isSmall: width < 720,
+    isSmallWeb: width < 720 && Platform.OS === 'web',
+    isSmallNative: width < 720 && Platform.OS !== 'web',
+    isLarge: width >= 720,
+    isLargeWeb: width >= 720 && Platform.OS === 'web',
+    isLargeNative: width >= 720 && Platform.OS !== 'web',
+    statusBarHeight,
+    bottomUnsafeHeight
   };
+}
 
+export function useWindowDimensions() {
   const [windowDims, setWindowDims] = React.useState(getCurrentDims());
 
   useEffect(() => {
