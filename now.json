@@ -9,15 +9,8 @@
     }
   ],
   "routes": [
-    {
-      "src": "/static/media/(.*)",
-      "headers": { "cache-control": "s-maxage=604800" },
-      "dest": "/static/media/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/"
-    }
+    { "handle": "filesystem" },
+    {"src": "/(.*)", "dest": "/"}
   ],
   "version": 2
 }
