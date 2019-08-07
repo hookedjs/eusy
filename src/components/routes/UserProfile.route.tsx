@@ -6,7 +6,7 @@ import { LogoIcon } from '../svgs';
 import { Helmet } from '../lib/Helmet';
 import { useRouter } from '../lib/Routing';
 
-export const SettingsRoute = () => {
+export const UserProfileRoute = () => {
   const { history } = useRouter();
   return (
     <>
@@ -21,9 +21,9 @@ export const SettingsRoute = () => {
       >
         <LogoIcon width={200} height={200} fill="#2D3C56" />
         <Text h4 style={styles.text}>
-          This is the settings page, coming soon.
+          User Profile
         </Text>
-        <Button onPress={() => history.push('page')} title="Goto Inner Page" />
+        <Button onPress={() => history.goBack()} title="Go Back" />
       </View>
     </>
   );

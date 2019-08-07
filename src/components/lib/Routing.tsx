@@ -65,6 +65,7 @@ const TextLink = ({
   ...props
 }: TextProps & {
   to: string;
+  children: string;
 }) => {
   const { history } = useRouter();
   return (

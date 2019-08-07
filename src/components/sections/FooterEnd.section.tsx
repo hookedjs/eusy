@@ -108,7 +108,7 @@ export const FooterEndSection = () => {
         </View>
 
         <View style={{ paddingVertical: 10, alignItems: 'center' }}>
-          <Text style={styles.text}>© 2019 Acme Corp</Text>
+          <Text style={styles.text}>© 2019 Eusy Org</Text>
         </View>
       </View>
     </View>

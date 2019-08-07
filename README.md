@@ -1,6 +1,6 @@
 # EUSY: Expo Universal Starter
 
-A low-config, low-bloat starter/boilerplate for a universal expo-cli. It comes with and demonstrates many commonly used UX patterns. All that with exceptional hot-reload support and < 150kb bundle.  
+A low-config, low-bloat, moderately opinionated starter/boilerplate for a universal web+mobile app built upon the managed Expo-CLI workflow. It comes with and demonstrates many commonly used UX patterns. All that with exceptional hot-reload support and < 150kb bundle.  
 
 For this app, universal means the app works on every device that Expo supports: Web, IOS, and Android.
 

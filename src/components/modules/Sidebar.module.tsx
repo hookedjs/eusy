@@ -65,7 +65,9 @@ export const SidebarModule = () => {
       <View>
         <SidebarHeader />
         <SidebarMenuItem to="/" text="Home" featherIconName="home" />
-        <SidebarMenuItem to="/page" text="Inner Page" featherIconName="activity" />
+        <SidebarMenuItem to="/login" text="Login" featherIconName="power" />
+        <SidebarMenuItem to="/user/edit" text="Edit Profile" featherIconName="user" />
+        <SidebarMenuItem to="/user/profile" text="View Profile" featherIconName="user" />
       </View>
       <View>
         <SidebarMenuItem to="/settings" text="Settings" featherIconName="settings" />

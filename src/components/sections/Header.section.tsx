@@ -21,7 +21,9 @@ export const HeaderSection = observer(() => {
 
   useEffect(() => {
     return history.listen((location, action) => {
-      if (action === 'PUSH') HeaderState.numberOfBackSteps = HeaderState.numberOfBackSteps + 1;
+      if (['/', '/settings', '/login', '/user/profile'].includes(location.pathname))
+        HeaderState.numberOfBackSteps = 0;
+      else if (action === 'PUSH') HeaderState.numberOfBackSteps = HeaderState.numberOfBackSteps + 1;
       else if (action === 'POP') HeaderState.numberOfBackSteps = HeaderState.numberOfBackSteps - 1;
     });
   }, []);
