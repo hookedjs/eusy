@@ -4,11 +4,10 @@ import { Feather } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 import { useRouter } from '../lib/Routing';
 import { SidebarSectionState } from './Sidebar.section.state';
-import { useWindowDimensions } from '../../hooks/useWindowDimensions';
+import { WindowState } from '../../state/Window.state';
 
 export const FooterFixedSection = observer(() => {
   const { history, location } = useRouter();
-  const windowDims = useWindowDimensions();
 
   const FooterMenuItem = ({
     toggled,
@@ -35,13 +34,13 @@ export const FooterFixedSection = observer(() => {
     </TouchableOpacity>
   );
 
-  if (!windowDims.isSmallNative) return <></>;
+  if (!WindowState.isSmallNative) return <></>;
   return (
     <View
       style={{
         flexDirection: 'row',
         backgroundColor: '#C5CCD7',
-        paddingBottom: windowDims.bottomUnsafeHeight
+        paddingBottom: WindowState.bottomUnsafeHeight
       }}
     >
       <FooterMenuItem

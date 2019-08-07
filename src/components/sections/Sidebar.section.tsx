@@ -6,22 +6,18 @@ import { Feather } from '@expo/vector-icons';
 import { SidebarModule } from '../modules/Sidebar.module';
 import { HoverObserver } from '../lib/HoverObserver';
 import { TouchableOpacity } from '../lib/Touchables';
-import { useWindowDimensions } from '../../hooks/useWindowDimensions';
+import { WindowState } from '../../state/Window.state';
 import { useRouter } from '../lib/Routing';
 import { SidebarSectionState } from './Sidebar.section.state';
 
 export const SidebarSection = observer(({ children }: { children: React.ReactElement }) => {
-  const { history, location } = useRouter();
-
-  console.dir(location);
-
-  const windowDims = useWindowDimensions();
+  const { history } = useRouter();
   const sidebarWidthFull = 210;
-  const sidebarWidthClosed = windowDims.isLarge ? 70 : 0;
+  const sidebarWidthClosed = WindowState.isLarge ? 70 : 0;
 
   useEffect(() => {
-    SidebarSectionState.toggled = windowDims.isLarge;
-    return history.listen(() => windowDims.isSmall && (SidebarSectionState.toggled = false));
+    SidebarSectionState.toggled = WindowState.isLarge;
+    return history.listen(() => WindowState.isSmall && (SidebarSectionState.toggled = false));
   }, []);
 
   if (!SidebarSectionState.sidebarComponent) return <>{children}</>;
@@ -33,7 +29,7 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
         easing="ease-in-out-quad"
         style={{
           width:
-            SidebarSectionState.toggled && windowDims.isLarge
+            SidebarSectionState.toggled && WindowState.isLarge
               ? sidebarWidthFull
               : sidebarWidthClosed,
           backgroundColor: '#C5CCD7',
@@ -49,8 +45,8 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                 zIndex: 2,
                 // View types don't allow 'fixed', but it's actually allowed and needed for web. Need to enhance typings
                 position: Platform.OS === 'web' ? 'fixed' : 'relative',
-                top: windowDims.isLarge ? 0 : windowDims.statusBarHeight + 47,
-                height: windowDims.isLarge ? windowDims.height : windowDims.height - 94
+                top: WindowState.isLarge ? 0 : WindowState.statusBarHeight + 47,
+                height: WindowState.isLarge ? WindowState.height : WindowState.height - 94
               }}
             >
               <Animatable.View
@@ -71,7 +67,7 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                 </View>
               </Animatable.View>
 
-              {windowDims.isLarge && (
+              {WindowState.isLarge && (
                 <View
                   style={{
                     position: 'absolute',

@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { Feather } from '@expo/vector-icons';
 import { observable } from 'mobx';
 import { SearchBar } from 'react-native-elements';
-import { useWindowDimensions } from '../../hooks/useWindowDimensions';
+import { WindowState } from '../../state/Window.state';
 import { useRouter } from '../lib/Routing';
 import { SidebarSectionState } from './Sidebar.section.state';
 import { LogoCircleIcon } from '../svgs';
@@ -17,7 +17,6 @@ export const HeaderState = observable({
 
 export const HeaderSection = observer(() => {
   const { history } = useRouter();
-  const windowDims = useWindowDimensions();
 
   useEffect(() => {
     return history.listen((location, action) => {
@@ -37,15 +36,15 @@ export const HeaderSection = observer(() => {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: windowDims.statusBarHeight + 6
+        paddingTop: WindowState.statusBarHeight + 6
       }}
     >
       <View
         style={{
-          minWidth: windowDims.isLarge ? 48 : 0
+          minWidth: WindowState.isLarge ? 48 : 0
         }}
       >
-        {windowDims.isSmallWeb ? (
+        {WindowState.isSmallWeb ? (
           <LogoCircleIcon width={24} height={24} style={{ paddingRight: 10 }} />
         ) : (
           !!HeaderState.numberOfBackSteps && (
@@ -87,7 +86,7 @@ export const HeaderSection = observer(() => {
         />
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-        {windowDims.isLarge && (
+        {WindowState.isLarge && (
           <Avatar
             rounded
             showEditButton
@@ -96,7 +95,7 @@ export const HeaderSection = observer(() => {
             containerStyle={{ marginLeft: 10 }}
           />
         )}
-        {windowDims.isSmallWeb && (
+        {WindowState.isSmallWeb && (
           <Feather
             name="menu"
             size={24}

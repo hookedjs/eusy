@@ -1,12 +1,5 @@
-/**
- * Will allow for watching window size.
- * Caution: Using this will force a re-render of a component every second, so will make window resizing choppy for
- * with high level components I recommend you favor useCssBreakPoint most of the time
- */
-
-import * as React from 'react';
+import { observable, set } from 'mobx';
 import { Dimensions, Platform } from 'react-native';
-import { useEffect } from 'react';
 import Constants from 'expo-constants';
 
 export function getCurrentDims() {
@@ -40,17 +33,10 @@ export function getCurrentDims() {
   };
 }
 
-export function useWindowDimensions() {
-  const [windowDims, setWindowDims] = React.useState(getCurrentDims());
+export const WindowState = observable(getCurrentDims());
 
-  useEffect(() => {
-    const i = setInterval(() => {
-      const windowDimsNext = getCurrentDims();
-      if (windowDimsNext.width != windowDims.width || windowDims.height != windowDimsNext.height)
-        setWindowDims(windowDimsNext);
-    }, 400);
-    return () => i;
-  }, []);
-
-  return windowDims;
-}
+setInterval(() => {
+  const WindowStateNext = getCurrentDims();
+  if (WindowStateNext.width != WindowState.width || WindowStateNext.height != WindowState.height)
+    set(WindowState, WindowStateNext);
+}, 400);

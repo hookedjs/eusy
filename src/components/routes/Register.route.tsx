@@ -2,14 +2,14 @@ import React from 'react';
 import { View } from 'react-native';
 import { Button, Image, Input, Text } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
+import { observer } from 'mobx-react-lite';
 import { LogoIcon } from '../svgs';
 import { Helmet } from '../lib/Helmet';
 import { TextLink, useRouter } from '../lib/Routing';
-import { useWindowDimensions } from '../../hooks/useWindowDimensions';
+import { WindowState } from '../../state/Window.state';
 
-export const RegisterRoute = () => {
+export const RegisterRoute = observer(() => {
   const { history } = useRouter();
-  const windowDims = useWindowDimensions();
 
   return (
     <>
@@ -20,8 +20,8 @@ export const RegisterRoute = () => {
             flex: 1,
             maxWidth: 540,
             alignItems: 'center',
-            paddingTop: windowDims.isLarge ? 20 : 100,
-            paddingBottom: windowDims.isLarge ? 0 : 60,
+            paddingTop: WindowState.isLarge ? 20 : 40,
+            paddingBottom: WindowState.isLarge ? 0 : 60,
             paddingHorizontal: 30
           }}
         >
@@ -98,7 +98,7 @@ export const RegisterRoute = () => {
             <TextLink to="/register">Forgot password?</TextLink>
           </Text>
 
-          {windowDims.isLarge && (
+          {WindowState.isLarge && (
             <Text style={{ ...styles.text, marginTop: 30 }}>
               ©2001–2019 All Rights Reserved. EUSY® is a registered trademark of HookedJS.org.{' '}
               <TextLink to="/register">Cookie Preferences</TextLink>, Privacy, and Terms.
@@ -111,11 +111,11 @@ export const RegisterRoute = () => {
           )}
         </View>
 
-        {windowDims.isLarge && (
+        {WindowState.isLarge && (
           <View
             style={{
               flex: 2,
-              height: windowDims.unsafeHeight
+              height: WindowState.unsafeHeight
             }}
           >
             <Image
@@ -123,7 +123,7 @@ export const RegisterRoute = () => {
               style={{
                 flex: 1,
                 resizeMode: 'cover',
-                height: windowDims.unsafeHeight
+                height: WindowState.unsafeHeight
               }}
             />
           </View>
@@ -131,7 +131,7 @@ export const RegisterRoute = () => {
       </View>
     </>
   );
-};
+});
 
 const styles = StyleSheet.create({
   text: {

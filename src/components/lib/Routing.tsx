@@ -16,8 +16,8 @@ import {
 } from 'react-router-native';
 import Stack from 'react-router-native-stack';
 import { TouchableOpacity } from './Touchables';
-import { getCurrentDims } from '../../hooks/useWindowDimensions';
 import { SidebarSectionState } from '../sections/Sidebar.section.state';
+import { WindowState } from '../../state/Window.state';
 
 class Route extends React.PureComponent<
   RouteProps & {
@@ -28,7 +28,6 @@ class Route extends React.PureComponent<
   }
 > {
   render() {
-    const windowDims = getCurrentDims();
     let routeProps = { ...this.props };
     delete routeProps.component;
     delete routeProps.footerEndComponent;
@@ -44,8 +43,8 @@ class Route extends React.PureComponent<
               style={{
                 flex: 1,
                 minHeight: '100%',
-                paddingTop: this.props.headerComponent ? 0 : windowDims.statusBarHeight,
-                paddingBottom: this.props.footerComponent ? 0 : windowDims.bottomUnsafeHeight
+                paddingTop: this.props.headerComponent ? 0 : WindowState.statusBarHeight,
+                paddingBottom: this.props.footerComponent ? 0 : WindowState.bottomUnsafeHeight
               }}
             >
               <this.props.component {...routerProps} />

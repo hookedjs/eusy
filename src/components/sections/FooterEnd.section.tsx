@@ -1,16 +1,15 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Text } from 'react-native-elements';
+import { observer } from 'mobx-react-lite';
 import { TextLink } from '../lib/Routing';
-import { useWindowDimensions } from '../../hooks/useWindowDimensions';
+import { WindowState } from '../../state/Window.state';
 
-export const FooterEndSection = () => {
-  const windowDims = useWindowDimensions();
-
+export const FooterEndSection = observer(() => {
   return (
-    !windowDims.isSmallNative && (
+    !WindowState.isSmallNative && (
       <View style={{ flex: 1, backgroundColor: '#171E2C' }}>
-        {windowDims.isSmallWeb && (
+        {WindowState.isSmallWeb && (
           <View style={{ paddingVertical: 30, alignItems: 'center' }}>
             <Text style={styles.titleText}>Quick Links</Text>
             <Text style={styles.text}>
@@ -36,7 +35,7 @@ export const FooterEndSection = () => {
           </View>
         )}
 
-        {windowDims.isLarge && (
+        {WindowState.isLarge && (
           <View>
             <View
               style={{ paddingVertical: 30, flexDirection: 'row', justifyContent: 'space-evenly' }}
@@ -143,7 +142,7 @@ export const FooterEndSection = () => {
       </View>
     )
   );
-};
+});
 
 const styles = StyleSheet.create({
   text: {

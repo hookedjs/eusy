@@ -1,23 +1,23 @@
+import React from 'react';
 import { Route, Stack } from './components/lib/Routing';
 import { HeaderSection } from './components/sections/Header.section';
 import { FooterFixedSection } from './components/sections/FooterFixed.section';
 import { FooterEndSection } from './components/sections/FooterEnd.section';
-import React from 'react';
+import { WindowState } from './state/Window.state';
 
 const PackageJson = require('../package.json');
 const AppJson = require('../app.json').expo;
-export const DotEnv = require('../.env.json');
-import { useWindowDimensions } from './hooks/useWindowDimensions';
 
+export const DotEnv = require('../.env.json');
 // Const variables
 export const AppName = AppJson.name;
 export const AppDescription = AppJson.description;
 export const NodeEnv = process.env.NODE_ENV;
 export const AppEnv = DotEnv.APP_ENV;
+
 export const PublicUrl = DotEnv.PUBLIC_URL;
 
 export const Version = PackageJson.version;
-
 // export const MixpanelId = AppEnv === 'production'
 //   ? ''
 //   : '';
@@ -36,7 +36,6 @@ import { UserProfileRoute } from './components/routes/UserProfile.route';
 import { SidebarModule } from './components/modules/Sidebar.module';
 
 export const AppRoutes = () => {
-  const windowDims = useWindowDimensions();
   return (
     <Stack animationType="slide-horizontal">
       <Route
@@ -47,7 +46,7 @@ export const AppRoutes = () => {
         headerComponent={HeaderSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
-        animationType={windowDims.isLarge ? 'slide-horizontal' : 'slide-vertical'}
+        animationType={WindowState.isLarge ? 'slide-horizontal' : 'slide-vertical'}
       />
 
       <Route
@@ -57,13 +56,13 @@ export const AppRoutes = () => {
         headerComponent={HeaderSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
-        animationType={windowDims.isLarge ? 'slide-horizontal' : 'slide-vertical'}
+        animationType={WindowState.isLarge ? 'slide-horizontal' : 'slide-vertical'}
       />
 
       <Route
         path="/login"
         component={LoginRoute}
-        animationType={windowDims.isLarge ? 'slide-horizontal' : 'slide-vertical'}
+        animationType={WindowState.isLarge ? 'slide-horizontal' : 'slide-vertical'}
       />
       <Route path="/register" component={RegisterRoute} />
 
@@ -74,7 +73,7 @@ export const AppRoutes = () => {
         headerComponent={HeaderSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
-        animationType={windowDims.isLarge ? 'slide-horizontal' : 'slide-vertical'}
+        animationType={WindowState.isLarge ? 'slide-horizontal' : 'slide-vertical'}
       />
       <Route
         path="/user/edit"
