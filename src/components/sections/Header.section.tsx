@@ -36,7 +36,8 @@ export const HeaderSection = observer(() => {
         padding: 6,
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingTop: windowDims.statusBarHeight + 6
       }}
     >
       <View

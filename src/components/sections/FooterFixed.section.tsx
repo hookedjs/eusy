@@ -40,7 +40,8 @@ export const FooterFixedSection = observer(() => {
     <View
       style={{
         flexDirection: 'row',
-        backgroundColor: '#C5CCD7'
+        backgroundColor: '#C5CCD7',
+        paddingBottom: windowDims.bottomUnsafeHeight
       }}
     >
       <FooterMenuItem

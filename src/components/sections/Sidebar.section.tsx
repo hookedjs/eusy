@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Platform, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { isIphoneX } from 'react-native-iphone-x-helper';
 import { Feather } from '@expo/vector-icons';
 import { SidebarModule } from '../modules/Sidebar.module';
 import { HoverObserver } from '../lib/HoverObserver';
@@ -46,11 +45,8 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                 zIndex: 2,
                 // View types don't allow 'fixed', but it's actually allowed and needed for web. Need to enhance typings
                 position: Platform.OS === 'web' ? 'fixed' : 'relative',
-                height: windowDims.isLarge
-                  ? windowDims.height
-                  : isIphoneX()
-                  ? windowDims.height - 63
-                  : windowDims.height - 50
+                top: windowDims.isLarge ? 0 : windowDims.statusBarHeight + 47,
+                height: windowDims.isLarge ? windowDims.height : windowDims.height - 47 - 47
               }}
             >
               <Animatable.View

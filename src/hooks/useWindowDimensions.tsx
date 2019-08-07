@@ -7,17 +7,31 @@
 import * as React from 'react';
 import { Dimensions, Platform } from 'react-native';
 import { useEffect } from 'react';
-import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
+import Constants from 'expo-constants';
 
 export function useWindowDimensions() {
   const getCurrentDims = () => {
+    const statusBarHeight = Platform.select({
+      ios: Constants.deviceName.includes('iPhone X')
+        ? Constants.statusBarHeight - 10
+        : Constants.statusBarHeight,
+      default: Constants.statusBarHeight
+    });
+
+    const bottomUnsafeHeight = Platform.select({
+      ios: Constants.deviceName.includes('iPhone X') ? 16 : 0,
+      default: 0
+    });
+
     return {
       width: Dimensions.get('window').width,
       unsafeHeight: Dimensions.get('window').height,
-      height: Dimensions.get('window').height - getStatusBarHeight() - getBottomSpace(),
+      height: Dimensions.get('window').height - statusBarHeight - bottomUnsafeHeight,
       isSmall: Dimensions.get('window').width < 720,
       isLarge: Dimensions.get('window').width >= 720,
       isMobileWeb: Dimensions.get('window').width < 720 && Platform.OS === 'web',
+      statusBarHeight,
+      bottomUnsafeHeight
     };
   };
 

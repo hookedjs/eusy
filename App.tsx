@@ -5,7 +5,7 @@
  */
 import { hot } from 'react-hot-loader';
 import React from 'react';
-import { Platform, SafeAreaView, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { ThemeProvider } from 'react-native-elements';
 import { AppRoutes } from './src/Config';
 import { AppLoadingRoute } from './src/components/routes/AppLoading.route';
@@ -36,33 +36,21 @@ class App extends React.PureComponent<any, state> {
   render() {
     return (
       <ThemeProvider>
-        {/*
-          This is how you can have a different color on the top vs. the bottom
-          <SafeAreaView style={{ flex: 0, backgroundColor: "#C5CCD7", }} />
-        */}
-        <SafeAreaView
-          style={{
-            flex: 1,
-            backgroundColor: '#C5CCD7',
-            paddingTop: Platform.OS === 'android' ? 24 : 0
-          }}
-        >
-          <View style={{ flex: 1, backgroundColor: 'white' }}>
-            <Helmet />
-            {this.state.isReady || true ? (
-              <Router>
-                <SidebarSection>
-                  <AppRoutes />
-                </SidebarSection>
-              </Router>
-            ) : (
-              <AppLoadingRoute
-                startAsync={App._loadAssetsAsync}
-                onFinish={() => this.setState({ isReady: true })}
-              />
-            )}
-          </View>
-        </SafeAreaView>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
+          <Helmet />
+          {this.state.isReady || true ? (
+            <Router>
+              <SidebarSection>
+                <AppRoutes />
+              </SidebarSection>
+            </Router>
+          ) : (
+            <AppLoadingRoute
+              startAsync={App._loadAssetsAsync}
+              onFinish={() => this.setState({ isReady: true })}
+            />
+          )}
+        </View>
       </ThemeProvider>
     );
   }
