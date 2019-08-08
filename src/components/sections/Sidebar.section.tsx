@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
 import { Platform, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Feather } from '@expo/vector-icons';
+import { ThemeContext } from 'react-native-elements';
 import { SidebarModule } from '../modules/Sidebar.module';
 import { HoverObserver } from '../lib/HoverObserver';
 import { TouchableOpacity } from '../lib/Touchables';
@@ -12,6 +13,8 @@ import { SidebarSectionState } from './Sidebar.section.state';
 
 export const SidebarSection = observer(({ children }: { children: React.ReactElement }) => {
   const { history } = useRouter();
+  const theme = useContext(ThemeContext).theme;
+
   const sidebarWidthFull = 210;
   const sidebarWidthClosed = WindowState.isLarge ? 70 : 0;
 
@@ -80,7 +83,9 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                       <TouchableOpacity
                         onPress={() => (SidebarSectionState.toggled = !SidebarSectionState.toggled)}
                         style={{
-                          backgroundColor: touchableHoverResults.isHovering ? '#171E2C' : '#2D3C56',
+                          backgroundColor: touchableHoverResults.isHovering
+                            ? theme.colors.primaryDarker
+                            : theme.colors.primaryDark,
                           borderTopRightRadius: 99,
                           borderBottomRightRadius: 99,
                           paddingLeft: 4,
@@ -91,11 +96,11 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                       >
                         <View style={{ zIndex: 5 }}>
                           {SidebarSectionState.toggled ? (
-                            <Feather name="arrow-left" size={20} color="#999" />
+                            <Feather name="arrow-left" size={20} color="white" />
                           ) : isHovering ? (
-                            <Feather name="lock" size={20} color="#999" />
+                            <Feather name="lock" size={20} color="white" />
                           ) : (
-                            <Feather name="arrow-right" size={20} color="#999" />
+                            <Feather name="arrow-right" size={20} color="white" />
                           )}
                         </View>
                       </TouchableOpacity>

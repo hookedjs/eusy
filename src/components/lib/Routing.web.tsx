@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   BrowserRouter as Router,
   Link as LinkOrig,
@@ -11,6 +11,7 @@ import {
   LinkProps
 } from 'react-router-dom';
 import { View } from 'react-native';
+import { ThemeContext } from 'react-native-elements';
 
 class Route extends React.PureComponent<
   RouteProps & {
@@ -65,12 +66,31 @@ const Link = ({ style, ...props }: LinkProps) =>
     <LinkOrig style={{ textDecorationLine: 'none', ...style }} {...props} />
   );
 
-const TextLink = (props: LinkProps) =>
-  typeof props.to === 'string' && props.to.includes('.') ? (
-    <a href={props.to} target="_blank" {...props} />
-  ) : (
-    <LinkOrig {...props} />
+const TextLink = (props: LinkProps) => {
+  const theme = useContext(ThemeContext).theme;
+
+  const color = (props.style && props.style.color) || theme.colors.primary;
+  const colorVisited = (props.style && props.style.color) || theme.colors.primaryDark;
+
+  return (
+    <div style={{ display: 'inline-block' }}>
+      {typeof props.to === 'string' && props.to.includes('.') ? (
+        <a href={props.to} target="_blank" {...props} />
+      ) : (
+        <LinkOrig {...props} />
+      )}
+
+      <style jsx>{`
+        div :global(a) {
+          color: ${color};
+        }
+        div :global(a:visited) {
+          color: ${colorVisited};
+        }
+      `}</style>
+    </div>
   );
+};
 
 const Stack = ({ children }: { children: React.ReactNode }) => <Switch>{children}</Switch>;
 

@@ -15,6 +15,7 @@ import { Router } from './src/components/lib/Routing';
 import { Helmet } from './src/components/lib/Helmet';
 
 import './src/lib/CssReset';
+import { Theme } from './src/Theme';
 
 interface state {
   isReady: boolean;
@@ -35,10 +36,10 @@ class App extends React.PureComponent<any, state> {
 
   render() {
     return (
-      <ThemeProvider>
+      <ThemeProvider theme={Theme}>
         <View style={{ flex: 1, backgroundColor: 'white' }}>
           <Helmet />
-          {this.state.isReady || true ? (
+          {this.state.isReady ? (
             <Router>
               <SidebarSection>
                 <AppRoutes />

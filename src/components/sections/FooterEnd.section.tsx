@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text } from 'react-native-elements';
+import { Text, ThemeContext } from 'react-native-elements';
 import { observer } from 'mobx-react-lite';
 import { TextLink } from '../lib/Routing';
 import { WindowState } from '../../state/Window.state';
 
 export const FooterEndSection = observer(() => {
+  const theme = useContext(ThemeContext).theme;
+
   return (
     !WindowState.isSmallNative && (
-      <View style={{ flex: 1, backgroundColor: '#171E2C' }}>
+      <View style={{ flex: 1, backgroundColor: theme.colors.primaryDarker }}>
         {WindowState.isSmallWeb && (
           <View style={{ paddingVertical: 30, alignItems: 'center' }}>
             <Text style={styles.titleText}>Quick Links</Text>

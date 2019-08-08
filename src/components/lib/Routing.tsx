@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ScrollView, Text, TextProps, View } from 'react-native';
 import useRouter from 'use-react-router';
 // Could use Linking from react-native too, unsure of the pros and cons.
@@ -18,6 +18,7 @@ import Stack from 'react-router-native-stack';
 import { TouchableOpacity } from './Touchables';
 import { SidebarSectionState } from '../sections/Sidebar.section.state';
 import { WindowState } from '../../state/Window.state';
+import { ThemeContext } from 'react-native-elements';
 
 class Route extends React.PureComponent<
   RouteProps & {
@@ -58,7 +59,7 @@ class Route extends React.PureComponent<
   }
 }
 
-const Link = ({ to, onPress, ...props }: LinkProps) => {
+const Link = ({ to, onPress, style, ...props }: LinkProps) => {
   return typeof to === 'string' && to.includes('.') ? (
     <TouchableOpacity
       onPress={() => {
@@ -66,10 +67,10 @@ const Link = ({ to, onPress, ...props }: LinkProps) => {
         Linking.openURL(to);
       }}
     >
-      <LinkOrig to={''} {...props} />
+      <LinkOrig to={''} style={{ ...style }} {...props} />
     </TouchableOpacity>
   ) : (
-    <LinkOrig to={to} {...props} />
+    <LinkOrig to={to} style={{ ...style }} {...props} />
   );
 };
 
@@ -83,6 +84,8 @@ const TextLink = ({
   children: string;
 }) => {
   const { history } = useRouter();
+  const theme = useContext(ThemeContext).theme;
+
   return (
     <Text
       onPress={e => {
@@ -92,6 +95,7 @@ const TextLink = ({
       }}
       style={{
         textDecorationLine: 'underline',
+        color: theme.colors.primary,
         // @ts-ignore: style spread works but typescript gets cranky
         ...style
       }}

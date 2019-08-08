@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { View } from 'react-native';
-import { Avatar } from 'react-native-elements';
+import { Avatar, ThemeContext } from 'react-native-elements';
 import { observer } from 'mobx-react-lite';
 import { Feather } from '@expo/vector-icons';
 import { observable } from 'mobx';
@@ -17,6 +17,7 @@ export const HeaderState = observable({
 
 export const HeaderSection = observer(() => {
   const { history } = useRouter();
+  const theme = useContext(ThemeContext).theme;
 
   useEffect(() => {
     return history.listen((location, action) => {
@@ -31,7 +32,7 @@ export const HeaderSection = observer(() => {
     <View
       style={{
         zIndex: 2,
-        backgroundColor: '#C5CCD7',
+        backgroundColor: theme.colors.primaryLighter,
         padding: 6,
         flexDirection: 'row',
         alignItems: 'center',
@@ -60,7 +61,6 @@ export const HeaderSection = observer(() => {
       </View>
       <View style={{ flex: 1, maxWidth: 500 }}>
         <SearchBar
-          placeholder="Search..."
           showLoading={false}
           onFocus={() => console.log('focus')}
           onBlur={() => console.log('blur')}
@@ -68,21 +68,6 @@ export const HeaderSection = observer(() => {
           onClear={() => console.log('cleared')}
           value={HeaderState.search}
           onChangeText={s => (HeaderState.search = s)}
-          lightTheme={true}
-          containerStyle={{
-            backgroundColor: 'transparent',
-            borderTopWidth: 0,
-            borderBottomWidth: 0,
-            padding: 0
-          }}
-          inputContainerStyle={{
-            backgroundColor: '#e4e7e8',
-            borderRadius: 20,
-            paddingHorizontal: 6
-          }}
-          inputStyle={{ minHeight: 35 }}
-          leftIconContainerStyle={{ height: 35 }}
-          rightIconContainerStyle={{ height: 35 }}
         />
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>

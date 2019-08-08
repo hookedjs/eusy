@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View } from 'react-native';
-import { Button, Text } from 'react-native-elements';
+import { Button, Text, ThemeContext } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { LogoIcon } from '../svgs';
 import { Helmet } from '../lib/Helmet';
@@ -8,18 +8,21 @@ import { Link, TextLink, useRouter } from '../lib/Routing';
 
 export const HomeRoute = () => {
   const { history } = useRouter();
+  const theme = useContext(ThemeContext).theme;
+
   return (
-    <View>
+    <View style={{ alignItems: 'center' }}>
       <Helmet title="Home" />
       <View
         style={{
           flex: 1,
           alignItems: 'center',
           paddingVertical: 60,
-          paddingHorizontal: 30
+          paddingHorizontal: 30,
+          maxWidth: 400
         }}
       >
-        <LogoIcon width={200} height={200} fill="#2D3C56" />
+        <LogoIcon width={200} height={200} fill={theme.colors.primaryDark} />
         <Text h4 style={styles.text}>
           Welcome to EUSA
         </Text>
@@ -46,7 +49,6 @@ export const HomeRoute = () => {
 const styles = StyleSheet.create({
   text: {
     marginBottom: 24,
-    textAlign: 'center',
-    maxWidth: 400
+    textAlign: 'center'
   }
 });

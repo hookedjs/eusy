@@ -18,6 +18,7 @@ For this app, universal means the app works on every device that Expo supports: 
   - Support for [styled-jsx](https://www.npmjs.com/package/styled-jsx) in .web.tsx files, for exceptional CSS-in-JSS
 - Unified routing api extending [react-router](https://www.npmjs.com/package/react-router), and additional helpers for easy, declarative, animated routing.
 - Universal UI Kit: [react-native-elements](https://www.npmjs.com/package/react-router). UI-Kitten works too, if you prefer.
+  - Enhanced for even easier theming 
 - SEO thanks to [React Helmet](https://www.npmjs.com/package/react-helmet)
 - Package Patches that fix some critical show-stopping bugs and enable better universal support, managed with [patch-package](https://www.npmjs.com/package/patch-package)
 - Advanced Dot Environmental (.env) File Management and Support
@@ -39,7 +40,6 @@ EUSY = An acronym of "Expo Universal Starter" with a 'Y' on the end. It's intent
 
 ## TODO:
 
-- Implement react-native-elements theming features
 - Implement form validation
 - Fix typescript violations
 - Extend react-router-native-stack to allow for horizontal animation-direction control.
@@ -51,6 +51,7 @@ EUSY = An acronym of "Expo Universal Starter" with a 'Y' on the end. It's intent
 
 ## Long-Term Goals
 
+- Generate a sitemap.xml file
 - Resolve bug that explodes bundle size: https://github.com/expo/expo-cli/issues/919
 - SSR: I've Tried Razzle and doing custom, but it's really hard. Also, limited gains since bundle is currently 104kb brotli zipped. 
 - Code Splitting - I've tried but they all seem to break HMR, Typesafety and/or SSR, so we don't use them. Tried React.Lazy, @loadable/component, react-loadable

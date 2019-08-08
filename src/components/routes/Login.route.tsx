@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View } from 'react-native';
-import { Button, Image, Input, Text } from 'react-native-elements';
+import { Button, Image, Input, Text, ThemeContext } from 'react-native-elements';
 import { observer } from 'mobx-react-lite';
 import { StyleSheet } from 'react-native';
 import { LogoIcon } from '../svgs';
@@ -10,6 +10,7 @@ import { WindowState } from '../../state/Window.state';
 
 export const LoginRoute = observer(() => {
   const { history } = useRouter();
+  const theme = useContext(ThemeContext).theme;
 
   return (
     <>
@@ -25,7 +26,12 @@ export const LoginRoute = observer(() => {
             paddingHorizontal: 30
           }}
         >
-          <LogoIcon width={200} height={200} fill="#2D3C56" style={{ marginBottom: 20 }} />
+          <LogoIcon
+            width={200}
+            height={200}
+            fill={theme.colors.primaryDark}
+            style={{ marginBottom: 20 }}
+          />
           <Text h4 style={styles.text}>
             Log In
           </Text>
@@ -39,18 +45,6 @@ export const LoginRoute = observer(() => {
             autoCorrect={false}
             keyboardType="default"
             returnKeyType="next"
-            containerStyle={{
-              marginBottom: 18
-            }}
-            inputContainerStyle={{
-              borderWidth: 2,
-              borderBottomWidth: 2,
-              borderRadius: 44 / 2,
-              borderColor: '#2D3C56'
-            }}
-            leftIconContainerStyle={{
-              marginRight: 10
-            }}
             // ref={input => (this.password2Input = input)}
             // onSubmitEditing={() => {
             //   this.confirmPassword2Input.focus();
@@ -67,30 +61,13 @@ export const LoginRoute = observer(() => {
             containerStyle={{
               marginBottom: 30
             }}
-            inputContainerStyle={{
-              borderWidth: 2,
-              borderBottomWidth: 2,
-              borderRadius: 44 / 2,
-              borderColor: '#2D3C56'
-            }}
-            leftIconContainerStyle={{
-              marginRight: 10
-            }}
           />
           <Button
             title="Log In"
             // icon={{ type: 'feather', name: 'arrow-right', color: 'white' }}
             // iconRight
             onPress={() => history.push('/register')}
-            containerStyle={{
-              marginBottom: 30,
-              paddingHorizontal: 12,
-              width: '100%'
-            }}
-            buttonStyle={{
-              paddingVertical: 10,
-              borderRadius: 44 / 2
-            }}
+            containerStyle={{ width: '100%' }}
           />
           <Text style={styles.text}>
             <TextLink to="/register">Forgot username?</TextLink>

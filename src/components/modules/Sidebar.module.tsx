@@ -1,34 +1,41 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Text, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { ThemeContext } from 'react-native-elements';
 import { HoverObserver } from '../lib/HoverObserver';
 import { Link, useRouter } from '../lib/Routing';
 import { LogoCircleIcon } from '../svgs';
 
-const SidebarHeader = () => (
-  <HoverObserver
-    children={({ isHovering }) => (
-      <Link to="/">
-        <View
-          style={{
-            flexDirection: 'row',
-            paddingLeft: 15,
-            paddingVertical: 20,
-            backgroundColor: isHovering ? '#5D6C86' : 'inherit'
-          }}
-        >
-          <LogoCircleIcon width={40} height={40} />
-          <View style={{ alignContent: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontSize: 20, color: 'white', paddingLeft: 15 }}>EUSY</Text>
+const SidebarHeader = () => {
+  const theme = useContext(ThemeContext).theme;
+
+  return (
+    <HoverObserver
+      children={({ isHovering }) => (
+        <Link to="/">
+          <View
+            style={{
+              flexDirection: 'row',
+              paddingLeft: 15,
+              paddingVertical: 20,
+              backgroundColor: isHovering ? theme.colors.primaryLight : 'transparent'
+            }}
+          >
+            <LogoCircleIcon width={40} height={40} />
+            <View style={{ alignContent: 'center', justifyContent: 'center' }}>
+              <Text style={{ fontSize: 20, color: 'white', paddingLeft: 15 }}>EUSY</Text>
+            </View>
           </View>
-        </View>
-      </Link>
-    )}
-  />
-);
+        </Link>
+      )}
+    />
+  );
+};
 
 const SidebarMenuItem = ({ to, text, featherIconName }) => {
   const { location } = useRouter();
+  const theme = useContext(ThemeContext).theme;
+
   return (
     <HoverObserver
       children={({ isHovering }) => (
@@ -38,7 +45,8 @@ const SidebarMenuItem = ({ to, text, featherIconName }) => {
               flexDirection: 'row',
               paddingLeft: 20,
               paddingVertical: 20,
-              backgroundColor: isHovering || location.pathname === to ? '#5D6C86' : 'inherit'
+              backgroundColor:
+                isHovering || location.pathname === to ? theme.colors.primaryLight : 'inherit'
             }}
           >
             <Feather name={featherIconName} size={28} color="white" />
@@ -53,12 +61,13 @@ const SidebarMenuItem = ({ to, text, featherIconName }) => {
 };
 
 export const SidebarModule = () => {
+  const theme = useContext(ThemeContext).theme;
   return (
     <View
       style={{
         flex: 1,
         justifyContent: 'space-between',
-        backgroundColor: '#2D3C56'
+        backgroundColor: theme.colors.primaryDark
       }}
     >
       <View>
