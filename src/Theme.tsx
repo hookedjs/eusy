@@ -10,14 +10,6 @@ type ThemeType = ThemeOrig & {
   colors: ColorsType;
 };
 
-// export const ThemeState = observable({
-//   primaryHue: 219
-// });
-// reaction(
-//   () => primaryHue,
-//   primaryHue => window.location.reload()
-// );
-
 export const getColors = (primaryHue): ColorsType => ({
   primary: `hsl(${primaryHue},93%,40%)`,
   primaryLight: `hsl(${primaryHue},23%,60%)`,

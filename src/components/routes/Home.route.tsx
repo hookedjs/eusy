@@ -2,13 +2,12 @@ import React, { useContext } from 'react';
 import { View } from 'react-native';
 import { Button, Text, ThemeContext } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
-import { observer } from 'mobx-react-lite';
 import { LogoIcon } from '../svgs';
 import { Helmet } from '../lib/Helmet';
 import { Link, TextLink, useRouter } from '../lib/Routing';
 import { getColors } from '../../Theme';
 
-export const HomeRoute = observer(() => {
+export const HomeRoute = () => {
   const { history } = useRouter();
   const theme = useContext(ThemeContext);
 
@@ -55,7 +54,7 @@ export const HomeRoute = observer(() => {
       </View>
     </View>
   );
-});
+};
 
 const styles = StyleSheet.create({
   text: {
