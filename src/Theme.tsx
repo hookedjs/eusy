@@ -10,9 +10,15 @@ type ThemeType = ThemeOrig & {
   colors: ColorsType;
 };
 
-const primaryHue = 219;
+// export const ThemeState = observable({
+//   primaryHue: 219
+// });
+// reaction(
+//   () => primaryHue,
+//   primaryHue => window.location.reload()
+// );
 
-const Colors: ColorsType = {
+export const getColors = (primaryHue): ColorsType => ({
   primary: `hsl(${primaryHue},93%,40%)`,
   primaryLight: `hsl(${primaryHue},23%,60%)`,
   primaryLighter: `hsl(${primaryHue},23%,84%)`,
@@ -23,10 +29,11 @@ const Colors: ColorsType = {
   // success: 'green',
   // error: 'red',
   // warning: 'orange',
-};
+});
 
+export let primaryHue = 219;
 export const Theme: ThemeType = {
-  colors: Colors,
+  colors: getColors(primaryHue),
   Input: {
     containerStyle: {
       marginBottom: 18

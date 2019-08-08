@@ -2,13 +2,15 @@ import React, { useContext } from 'react';
 import { View } from 'react-native';
 import { Button, Text, ThemeContext } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
+import { observer } from 'mobx-react-lite';
 import { LogoIcon } from '../svgs';
 import { Helmet } from '../lib/Helmet';
 import { Link, TextLink, useRouter } from '../lib/Routing';
+import { getColors } from '../../Theme';
 
-export const HomeRoute = () => {
+export const HomeRoute = observer(() => {
   const { history } = useRouter();
-  const theme = useContext(ThemeContext).theme;
+  const theme = useContext(ThemeContext);
 
   return (
     <View style={{ alignItems: 'center' }}>
@@ -22,7 +24,7 @@ export const HomeRoute = () => {
           maxWidth: 400
         }}
       >
-        <LogoIcon width={200} height={200} fill={theme.colors.primaryDark} />
+        <LogoIcon width={200} height={200} fill={theme.theme.colors.primaryDark} />
         <Text h4 style={styles.text}>
           Welcome to EUSA
         </Text>
@@ -41,10 +43,19 @@ export const HomeRoute = () => {
         <Link to="/page">
           <Button onPress={() => history.push('/page')} title="Goto Inner Page" />
         </Link>
+
+        <Button
+          onPress={() =>
+            theme.updateTheme({
+              colors: getColors(Math.floor(Math.random() * 255) + 1)
+            })
+          }
+          title="Feeling Lucky?"
+        />
       </View>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   text: {
