@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet as HelmetCore } from 'react-helmet';
-import { AppName, AppDescription } from '../../Config';
+import { AppName, AppDescription, AppSocailImage } from '../../Config';
 
 export class Helmet extends React.Component<{
   title?: string;
@@ -28,6 +28,7 @@ export class Helmet extends React.Component<{
         </title>
         <meta name="description" content={description ? description : AppDescription} />
         <link rel="canonical" href={window.location.href} />
+        <meta property="og:image" content={window.location.href.slice(0, -1) + AppSocailImage} />
       </HelmetCore>
     );
   }

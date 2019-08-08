@@ -5,22 +5,49 @@ type ColorsType = RecursivePartial<ColorsOrig> & {
   primaryDarker: string;
   primaryLight: string;
   primaryLighter: string;
+
+  facebook: string;
+  twitter: string;
+  googleplus: string;
+  pinterest: string;
+  linkedin: string;
+  youtube: string;
+  vimeo: string;
+  tumblr: string;
+  instagram: string;
+  quora: string;
+  foursquare: string;
+  wordpress: string;
+  stumbleupon: string;
 };
 type ThemeType = ThemeOrig & {
   colors: ColorsType;
 };
 
-export const getColors = (primaryHue): ColorsType => ({
+export const getColors = (primaryHue: number): ColorsType => ({
   primary: `hsl(${primaryHue},93%,40%)`,
   primaryLight: `hsl(${primaryHue},23%,60%)`,
   primaryLighter: `hsl(${primaryHue},23%,84%)`,
   primaryDark: `hsl(${primaryHue},93%,14%)`,
-  primaryDarker: `hsl(${primaryHue},93%,8%)`
+  primaryDarker: `hsl(${primaryHue},93%,8%)`,
   // grey5: 'hsl(120, 0%, 90%)',
   // secondary: '#2D3C56',
   // success: 'green',
   // error: 'red',
   // warning: 'orange',
+  facebook: '#3b5998',
+  twitter: '#00aced',
+  googleplus: '#dd4b39',
+  pinterest: '#cb2027',
+  linkedin: '#007bb6',
+  youtube: '#bb0000',
+  vimeo: '#aad450',
+  tumblr: '#32506d',
+  instagram: '#517fa4',
+  quora: '#a82400',
+  foursquare: '#0072b1',
+  wordpress: '#21759b',
+  stumbleupon: '#EB4823'
 });
 
 export let primaryHue = 219;
