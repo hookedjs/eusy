@@ -7,7 +7,7 @@
     "sdkVersion": "34.0.0",
     "platforms": ["ios", "android", "web"],
     "version": "1.0.0",
-    "icon": "./src/assets/img/logo-icon-circle.png",
+    "icon": "./src/assets/img/logo-icon.png",
     "splash": {
       "image": "./src/assets/img/splash.png",
       "resizeMode": "contain",
@@ -18,7 +18,11 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.hookedjs.eusy"
+    },
+    "android": {
+      "package": "com.hookedjs.eusy"
     }
   }
 }

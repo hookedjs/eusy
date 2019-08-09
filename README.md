@@ -1,8 +1,12 @@
 # EUSY: Expo Universal Starter
 
+<div style="text-align:center"><img src="https://raw.githubusercontent.com/hookedjs/eusy/master/src/assets/img/logo-icon.png" alt="eusy" width="200"/></div>
+
 A low-config, low-bloat, moderately opinionated starter/boilerplate for a universal web+mobile app built upon the managed Expo-CLI workflow. It comes with and demonstrates many commonly used UX patterns. All that with exceptional hot-reload support and < 150kb bundle.  
 
 For this app, universal means the app works on every device that Expo supports: Web, IOS, and Android.
+
+This app is also the bases of the frontend of our full-stack starter, [HookedJS](https://github.com/hookedjs/hookedjs). Hence, the logo for EUSY is a simpler version of HookedJS.
 
 ## Demos
 - [Web](https://eusy.briandombrowski.now.sh/)
@@ -65,3 +69,38 @@ EUSY = An acronym of "Expo Universal Starter" with a 'Y' on the end. It's intent
 ## Tips
 
 - How to open dev tools on simulator: CMD+D for menu in ios Sim, CMD+M for menu in android sim, shake on real devices.
+
+
+## Get Started
+
+First, ensure you have the system dependencies:
+
+- Latest XCode on OSX
+- Build tools on linux
+
+
+## Publishing IOS
+
+You can easily publish to Expo using `npx expo:publish`. To publish to Apple, there are many steps. I recommend you do the following:
+
+1. First publish your app to expo
+1. Ensure you have an Apple developer subscription
+1. Update app.json with your apps metadata if you haven't
+1. Follow the [expo instructions](https://docs.expo.io/versions/v34.0.0/distribution/building-standalone-apps/) to bundle and deploy
+
+
+Tips:
+
+1. Application Loader is included with XCode. To open, simple search for it using CMD+Space
+1. To more easily manage your App Store metadata, you should consider [fastlane deliver](https://blog.expo.io/manage-app-store-metadata-in-expo-with-fastlane-deliver-1c00e06b73bf)  
+
+- 
+
+
+## Publishing Android
+
+You can easily publish to Expo using `npx expo:publish`. To publish to Google, there are many steps. I recommend you do the following:
+
+1. First publish your app to expo
+1. `npx expo build:android`
+1. More coming soon
