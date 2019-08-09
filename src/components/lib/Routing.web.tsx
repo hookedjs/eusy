@@ -30,7 +30,7 @@ class Route extends React.PureComponent<
     if (routeProps.footerEndComponent) delete routeProps.footerEndComponent;
     delete routeProps.sidebarComponent;
 
-    SidebarSectionState.sidebarComponent = this.props.sidebarComponent;
+    SidebarState.sidebarComponent = this.props.sidebarComponent;
 
     return (
       <RouteOrig
@@ -95,6 +95,6 @@ const TextLink = (props: LinkProps) => {
 const Stack = ({ children }: { children: React.ReactNode }) => <Switch>{children}</Switch>;
 
 import useRouter from 'use-react-router';
-import { SidebarSectionState } from '../sections/Sidebar.section.state';
+import { SidebarState } from '../../state/Sidebar.state';
 
 export { Link, Route, Redirect, Router, Switch, Stack, TextLink, withRouter, useRouter };

@@ -16,7 +16,7 @@ import {
 } from 'react-router-native';
 import Stack from 'react-router-native-stack';
 import { TouchableOpacity } from './Touchables';
-import { SidebarSectionState } from '../sections/Sidebar.section.state';
+import { SidebarState } from '../../state/Sidebar.state';
 import { WindowState } from '../../state/Window.state';
 import { ThemeContext } from 'react-native-elements';
 
@@ -34,7 +34,7 @@ class Route extends React.PureComponent<
     delete routeProps.footerEndComponent;
     delete routeProps.sidebarComponent;
 
-    SidebarSectionState.sidebarComponent = this.props.sidebarComponent;
+    SidebarState.sidebarComponent = this.props.sidebarComponent;
 
     return (
       <RouteOrig
@@ -45,7 +45,7 @@ class Route extends React.PureComponent<
                 flex: 1,
                 minHeight: '100%',
                 paddingTop: this.props.headerComponent ? 0 : WindowState.statusBarHeight,
-                paddingBottom: this.props.footerComponent ? 0 : WindowState.bottomUnsafeHeight
+                paddingBottom: this.props.footerComponent ? 0 : WindowState.bottomheightUnsafe
               }}
             >
               <this.props.component {...routerProps} />

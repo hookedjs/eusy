@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 import { ThemeContext } from 'react-native-elements';
 import { useRouter } from '../lib/Routing';
-import { SidebarSectionState } from './Sidebar.section.state';
+import { SidebarState } from '../../state/Sidebar.state';
 import { WindowState } from '../../state/Window.state';
 
 export const FooterFixedSection = observer(() => {
@@ -45,13 +45,13 @@ export const FooterFixedSection = observer(() => {
       style={{
         flexDirection: 'row',
         backgroundColor: theme.colors.primaryLighter,
-        paddingBottom: WindowState.bottomUnsafeHeight
+        paddingBottom: WindowState.bottomheightUnsafe
       }}
     >
       <FooterMenuItem
-        toggled={SidebarSectionState.toggled}
+        toggled={SidebarState.toggled}
         icon="menu"
-        onPress={() => (SidebarSectionState.toggled = !SidebarSectionState.toggled)}
+        onPress={() => (SidebarState.toggled = !SidebarState.toggled)}
         toggledIcon="x"
       />
       <FooterMenuItem

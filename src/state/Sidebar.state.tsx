@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 
-export const SidebarSectionState = observable({
+export const SidebarState = observable({
   toggled: true,
   sidebarComponent: null
 });

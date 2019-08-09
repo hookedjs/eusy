@@ -9,7 +9,7 @@ import { HoverObserver } from '../lib/HoverObserver';
 import { TouchableOpacity } from '../lib/Touchables';
 import { WindowState } from '../../state/Window.state';
 import { useRouter } from '../lib/Routing';
-import { SidebarSectionState } from './Sidebar.section.state';
+import { SidebarState } from '../../state/Sidebar.state';
 
 export const SidebarSection = observer(({ children }: { children: React.ReactElement }) => {
   const { history } = useRouter();
@@ -19,11 +19,11 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
   const sidebarWidthClosed = WindowState.isLarge ? 70 : 0;
 
   useEffect(() => {
-    SidebarSectionState.toggled = WindowState.isLarge;
-    return history.listen(() => WindowState.isSmall && (SidebarSectionState.toggled = false));
+    SidebarState.toggled = WindowState.isLarge;
+    return history.listen(() => WindowState.isSmall && (SidebarState.toggled = false));
   }, []);
 
-  if (!SidebarSectionState.sidebarComponent) return <>{children}</>;
+  if (!SidebarState.sidebarComponent) return <>{children}</>;
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
       <Animatable.View
@@ -32,9 +32,7 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
         easing="ease-in-out-quad"
         style={{
           width:
-            SidebarSectionState.toggled && WindowState.isLarge
-              ? sidebarWidthFull
-              : sidebarWidthClosed,
+            SidebarState.toggled && WindowState.isLarge ? sidebarWidthFull : sidebarWidthClosed,
           backgroundColor: '#C5CCD7',
           zIndex: 1
         }}
@@ -48,8 +46,8 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                 zIndex: 2,
                 // View types don't allow 'fixed', but it's actually allowed and needed for web. Need to enhance typings
                 position: Platform.OS === 'web' ? 'fixed' : 'relative',
-                top: WindowState.isLarge ? 0 : WindowState.statusBarHeight + 47,
-                height: WindowState.isLarge ? WindowState.height : WindowState.height - 94
+                top: WindowState.isLarge ? 0 : WindowState.heightHeader,
+                height: WindowState.isLarge ? WindowState.heightUnsafe : WindowState.heightBody
               }}
             >
               <Animatable.View
@@ -57,10 +55,7 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                 duration={400}
                 easing="ease-in-out-quad"
                 style={{
-                  width:
-                    SidebarSectionState.toggled || isHovering
-                      ? sidebarWidthFull
-                      : sidebarWidthClosed,
+                  width: SidebarState.toggled || isHovering ? sidebarWidthFull : sidebarWidthClosed,
                   height: '100%',
                   overflow: 'hidden'
                 }}
@@ -81,7 +76,7 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                   <HoverObserver
                     children={touchableHoverResults => (
                       <TouchableOpacity
-                        onPress={() => (SidebarSectionState.toggled = !SidebarSectionState.toggled)}
+                        onPress={() => (SidebarState.toggled = !SidebarState.toggled)}
                         style={{
                           backgroundColor: touchableHoverResults.isHovering
                             ? theme.colors.primaryDarker
@@ -95,7 +90,7 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                         }}
                       >
                         <View style={{ zIndex: 5 }}>
-                          {SidebarSectionState.toggled ? (
+                          {SidebarState.toggled ? (
                             <Feather name="arrow-left" size={20} color="white" />
                           ) : isHovering ? (
                             <Feather name="lock" size={20} color="white" />

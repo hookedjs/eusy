@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet as HelmetCore } from 'react-helmet';
-import { AppName, AppDescription, AppSocailImage } from '../../Config';
+import { AppName, AppDescription, AppSocailImage } from '../../config/App';
 
 export class Helmet extends React.Component<{
   title?: string;

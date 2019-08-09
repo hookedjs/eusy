@@ -7,15 +7,15 @@ import { hot } from 'react-hot-loader';
 import React from 'react';
 import { Platform, View } from 'react-native';
 import { ThemeProvider } from 'react-native-elements';
-import { AppRoutes } from './src/Config';
-import { AppLoadingRoute } from './src/components/routes/AppLoading.route';
+import { Routes } from './src/config/Routes';
+import { AppLoadingRoute } from './src/components/screens/AppLoading.route';
 import { loadFonts } from './src/lib/AssetLoading';
 import { SidebarSection } from './src/components/sections/Sidebar.section';
 import { Router } from './src/components/lib/Routing';
 import { Helmet } from './src/components/lib/Helmet';
 
 import './src/lib/CssReset';
-import { Theme } from './src/Theme';
+import { Theme } from './src/config/Theme';
 
 interface state {
   isReady: boolean;
@@ -42,7 +42,7 @@ class App extends React.PureComponent<any, state> {
           {this.state.isReady ? (
             <Router>
               <SidebarSection>
-                <AppRoutes />
+                <Routes />
               </SidebarSection>
             </Router>
           ) : (

@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 import { LogoIcon } from '../svgs';
 import { Helmet } from '../lib/Helmet';
 import { Link, TextLink, useRouter } from '../lib/Routing';
-import { getColors } from '../../Theme';
+import { getColors } from '../../config/Theme';
 
 export const HomeRoute = () => {
   const { history } = useRouter();
@@ -28,8 +28,9 @@ export const HomeRoute = () => {
           Welcome to EUSA
         </Text>
         <Text style={styles.text}>
-          Expo Universal Starter: A low-config, low-bloat starter/boilerplate for a universal
-          expo-cli.
+          Expo Universal Starter: A low-config, low-bloat, moderately opinionated
+          starter/boilerplate for a universal web+mobile app built upon the managed Expo-CLI
+          workflow.
         </Text>
         <Text style={styles.text}>
           It comes with and demonstrates many commonly used UX patterns. All that with exceptional

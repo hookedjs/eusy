@@ -1,3 +1,9 @@
+/**
+ * This file contains helper functions and constants for defining the theme
+ *
+ * Instead of statically defining the theme, we employ helper functions to enable
+ * better code-reuse
+ */
 import { Theme as ThemeOrig, Colors as ColorsOrig } from 'react-native-elements';
 
 type ColorsType = RecursivePartial<ColorsOrig> & {
@@ -30,11 +36,39 @@ export const getColors = (primaryHue: number): ColorsType => ({
   primaryLighter: `hsl(${primaryHue},23%,84%)`,
   primaryDark: `hsl(${primaryHue},93%,14%)`,
   primaryDarker: `hsl(${primaryHue},93%,8%)`,
-  // grey5: 'hsl(120, 0%, 90%)',
+
   // secondary: '#2D3C56',
-  // success: 'green',
-  // error: 'red',
-  // warning: 'orange',
+  // grey0: '#393e42',
+  // grey1: '#43484d',
+  // grey2: '#5e6977',
+  // grey3: '#86939e',
+  // grey4: '#bdc6cf',
+  // grey5: '#e1e8ee',
+  // greyOutline: '#bbb',
+  // searchBg: '#303337',
+  // success: '#52c41a',
+  // error: '#ff190c',
+  // warning: '#faad14',
+  // disabled: 'hsl(208, 8%, 90%)',
+  // // Darker color if hairlineWidth is not thin enough
+  // divider: StyleSheet.hairlineWidth < 1 ? '#bcbbc1' : 'rgba(0, 0, 0, 0.12)',
+  // platform: {
+  //   ios: {
+  //     primary: '#007aff',
+  //     secondary: '#5856d6',
+  //     success: '#4cd964',
+  //     error: '#ff3b30',
+  //     warning: '#ffcc00'
+  //   },
+  //   android: {
+  //     primary: '#2196f3',
+  //     secondary: '#9C27B0',
+  //     success: '#4caf50',
+  //     error: '#f44336',
+  //     warning: '#ffeb3b'
+  //   }
+  // },
+
   facebook: '#3b5998',
   twitter: '#00aced',
   googleplus: '#dd4b39',
@@ -50,9 +84,25 @@ export const getColors = (primaryHue: number): ColorsType => ({
   stumbleupon: '#EB4823'
 });
 
-export let primaryHue = 219;
-export const Theme: ThemeType = {
+export const getTheme = (primaryHue: number): ThemeType => ({
   colors: getColors(primaryHue),
+
+  // Text Theming tips:
+  // - Headings are all bold, and it's currently impossible default unbold them without
+  //   patching rne.
+  // - You may need to patch if you want to override fonts for bold, italic, etc.
+  // - when setting fontSize here, use rne's normalize feature as seen in the source
+  // - some font styles do not currently work on web. For now, you may need to also add
+  //   them to CssReset.css
+  Text: {
+    allowFontScaling: false
+    // h1Style: {},
+    // h2Style: {},
+    // h3Style: {},
+    // h4Style: {},
+    // style: {}
+  },
+
   Input: {
     containerStyle: {
       marginBottom: 18
@@ -99,4 +149,6 @@ export const Theme: ThemeType = {
       borderRadius: 44 / 2
     }
   }
-};
+});
+
+export const Theme = getTheme(219); // 219 = blue

@@ -23,7 +23,7 @@
     "analyze": "ANALYZE=true yarn build",
     "build": "yarn clean && run-p gen:env && expo build:web",
     "bootstrap": "yarn build",
-    "start": "yarn gen:env && node src/server.js",
+    "start": "yarn gen:env && node server.js",
     "expo:dev": "yarn gen:env && expo start",
     "expo:android": "yarn expo:dev --android",
     "expo:ios": "yarn expo:dev --ios",

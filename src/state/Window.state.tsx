@@ -5,6 +5,7 @@ import Constants from 'expo-constants';
 export function getCurrentDims() {
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
+  const isSmall = width < 720;
 
   const statusBarHeight = Platform.select({
     ios: Constants.deviceName.includes('iPhone X')
@@ -13,23 +14,29 @@ export function getCurrentDims() {
     default: Constants.statusBarHeight
   });
 
-  const bottomUnsafeHeight = Platform.select({
+  const bottomheightUnsafe = Platform.select({
     ios: Constants.deviceName.includes('iPhone X') ? 16 : 0,
     default: 0
   });
 
   return {
     width: width,
-    unsafeHeight: height,
-    height: height - statusBarHeight - bottomUnsafeHeight,
-    isSmall: width < 720,
-    isSmallWeb: width < 720 && Platform.OS === 'web',
-    isSmallNative: width < 720 && Platform.OS !== 'web',
-    isLarge: width >= 720,
-    isLargeWeb: width >= 720 && Platform.OS === 'web',
-    isLargeNative: width >= 720 && Platform.OS !== 'web',
+    heightUnsafe: height,
+    heightHeader: statusBarHeight + 47,
+    heightFooter: isSmall && Platform.OS !== 'web' ? bottomheightUnsafe + 47 : 0,
+    height: height - statusBarHeight - bottomheightUnsafe,
+    heightBody:
+      height -
+      (statusBarHeight + 47) -
+      (isSmall && Platform.OS !== 'web' ? bottomheightUnsafe + 47 : 0),
+    isSmall,
+    isSmallWeb: isSmall && Platform.OS === 'web',
+    isSmallNative: isSmall && Platform.OS !== 'web',
+    isLarge: !isSmall,
+    isLargeWeb: !isSmall && Platform.OS === 'web',
+    isLargeNative: !isSmall && Platform.OS !== 'web',
     statusBarHeight,
-    bottomUnsafeHeight
+    bottomheightUnsafe
   };
 }
 
