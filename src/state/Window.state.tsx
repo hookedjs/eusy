@@ -7,14 +7,14 @@ export function getCurrentDims() {
   const height = Dimensions.get('window').height;
   const isSmall = width < 720;
 
-  const statusBarHeight = Platform.select({
+  const heightStatusBar = Platform.select({
     ios: Constants.deviceName.includes('iPhone X')
-      ? Constants.statusBarHeight - 10
-      : Constants.statusBarHeight,
-    default: Constants.statusBarHeight
+      ? Constants.heightStatusBar - 10
+      : Constants.heightStatusBar,
+    default: Constants.heightStatusBar
   });
 
-  const bottomheightUnsafe = Platform.select({
+  const heightBottomSpeaker = Platform.select({
     ios: Constants.deviceName.includes('iPhone X') ? 16 : 0,
     default: 0
   });
@@ -22,21 +22,21 @@ export function getCurrentDims() {
   return {
     width: width,
     heightUnsafe: height,
-    heightHeader: statusBarHeight + 47,
-    heightFooter: isSmall && Platform.OS !== 'web' ? bottomheightUnsafe + 47 : 0,
-    height: height - statusBarHeight - bottomheightUnsafe,
+    heightStatusBar,
+    heightBottomSpeaker,
+    heightHeader: heightStatusBar + 47,
+    heightFooter: isSmall && Platform.OS !== 'web' ? heightBottomSpeaker + 47 : 0,
+    height: height - heightStatusBar - heightBottomSpeaker,
     heightBody:
       height -
-      (statusBarHeight + 47) -
-      (isSmall && Platform.OS !== 'web' ? bottomheightUnsafe + 47 : 0),
+      (heightStatusBar + 47) -
+      (isSmall && Platform.OS !== 'web' ? heightBottomSpeaker + 47 : 0),
     isSmall,
     isSmallWeb: isSmall && Platform.OS === 'web',
     isSmallNative: isSmall && Platform.OS !== 'web',
     isLarge: !isSmall,
     isLargeWeb: !isSmall && Platform.OS === 'web',
-    isLargeNative: !isSmall && Platform.OS !== 'web',
-    statusBarHeight,
-    bottomheightUnsafe
+    isLargeNative: !isSmall && Platform.OS !== 'web'
   };
 }
 

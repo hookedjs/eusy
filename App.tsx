@@ -14,7 +14,6 @@ import { SidebarSection } from './src/components/sections/Sidebar.section';
 import { Router } from './src/components/lib/Routing';
 import { Helmet } from './src/components/lib/Helmet';
 
-import './src/lib/CssReset';
 import { Theme } from './src/config/Theme';
 
 interface state {

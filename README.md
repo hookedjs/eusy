@@ -40,6 +40,7 @@ EUSY = An acronym of "Expo Universal Starter" with a 'Y' on the end. It's intent
 
 ## TODO:
 
+- Submit to Apple Store
 - Implement form validation
 - Fix typescript violations
 - Extend react-router-native-stack to allow for horizontal animation-direction control.
@@ -51,9 +52,13 @@ EUSY = An acronym of "Expo Universal Starter" with a 'Y' on the end. It's intent
 
 ## Long-Term Goals
 
-- Generate a sitemap.xml file
+- Find or Dev a tool to generate sitemap.xml files
+- Support for Internet Explorer. Consider using core-js.
 - Resolve bug that explodes bundle size: https://github.com/expo/expo-cli/issues/919
-- SSR: I've Tried Razzle and doing custom, but it's really hard. Also, limited gains since bundle is currently 104kb brotli zipped. 
+- SSR: I've Tried Razzle and doing custom, but it's really hard. Also, limited gains since bundle is currently 104kb brotli zipped.
+  - ref: https://github.com/necolas/react-native-web/blob/master/docs/guides/server-side-rendering.md
+  - feature request: https://github.com/expo/web-examples/issues/18
+  - If SSR is impossible, upgrade to use prerender.io service
 - Code Splitting - I've tried but they all seem to break HMR, Typesafety and/or SSR, so we don't use them. Tried React.Lazy, @loadable/component, react-loadable
  
  

@@ -44,8 +44,8 @@ class Route extends React.PureComponent<
               style={{
                 flex: 1,
                 minHeight: '100%',
-                paddingTop: this.props.headerComponent ? 0 : WindowState.statusBarHeight,
-                paddingBottom: this.props.footerComponent ? 0 : WindowState.bottomheightUnsafe
+                paddingTop: this.props.headerComponent ? 0 : WindowState.heightStatusBar,
+                paddingBottom: this.props.footerComponent ? 0 : WindowState.heightBottomSpeaker
               }}
             >
               <this.props.component {...routerProps} />

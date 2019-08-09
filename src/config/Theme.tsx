@@ -93,7 +93,7 @@ export const getTheme = (primaryHue: number): ThemeType => ({
   // - You may need to patch if you want to override fonts for bold, italic, etc.
   // - when setting fontSize here, use rne's normalize feature as seen in the source
   // - some font styles do not currently work on web. For now, you may need to also add
-  //   them to CssReset.css
+  //   them to index.html
   Text: {
     allowFontScaling: false
     // h1Style: {},

@@ -45,7 +45,7 @@ export const FooterFixedSection = observer(() => {
       style={{
         flexDirection: 'row',
         backgroundColor: theme.colors.primaryLighter,
-        paddingBottom: WindowState.bottomheightUnsafe
+        paddingBottom: WindowState.heightBottomSpeaker
       }}
     >
       <FooterMenuItem

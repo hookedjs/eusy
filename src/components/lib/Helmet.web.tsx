@@ -1,19 +1,15 @@
 import React from 'react';
 import { Helmet as HelmetCore } from 'react-helmet';
-import { AppName, AppDescription, AppSocailImage } from '../../config/App';
+import { AppName, AppDescription } from '../../config/App';
 
 export class Helmet extends React.Component<{
   title?: string;
   description?: string;
 }> {
   componentDidMount() {
-    let originalDescriptionElements = document.querySelectorAll('meta[name=description]');
-    originalDescriptionElements.forEach(e => {
-      // @ts-ignore: ignore html.dataset being unknown
-      if (!e.dataset) throw new Error('Helmet: html.dataset is not available in this browser.');
-      // @ts-ignore: ignore html.dataset being unknown
-      else if (!e.dataset.reactHelmet) e.parentNode.removeChild(e);
-    });
+    // Delete strange extra meta description that must be added by React or something
+    const e = document.querySelector('meta[name=description]:not([data-react-helmet=true])');
+    if (e) e.parentNode.removeChild(e);
   }
 
   render() {
@@ -28,7 +24,7 @@ export class Helmet extends React.Component<{
         </title>
         <meta name="description" content={description ? description : AppDescription} />
         <link rel="canonical" href={window.location.href} />
-        <meta property="og:image" content={window.location.href.slice(0, -1) + AppSocailImage} />
+        <meta property="og:image" content={window.location.origin + '/preview.png'} />
       </HelmetCore>
     );
   }
