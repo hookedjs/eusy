@@ -47,7 +47,6 @@ EUSY = An acronym of "Expo Universal Starter" with a 'Y' on the end. It's intent
 - Extend react-router-native-stack to treat sidebar like header and footer wrt animations
 - Implement testing (todo)
 - Extend react-router-native-stack to work on react-native-web
-- Research and compare react-native-dom to react-native-web
 
 
 ## Long-Term Goals
@@ -55,9 +54,10 @@ EUSY = An acronym of "Expo Universal Starter" with a 'Y' on the end. It's intent
 - Find or Dev a tool to generate sitemap.xml files
 - Support for Internet Explorer. Consider using core-js.
 - Resolve bug that explodes bundle size: https://github.com/expo/expo-cli/issues/919
-- SSR: I've Tried Razzle and doing custom, but it's really hard. Also, limited gains since bundle is currently 104kb brotli zipped.
+- SSR:
   - ref: https://github.com/necolas/react-native-web/blob/master/docs/guides/server-side-rendering.md
   - feature request: https://github.com/expo/web-examples/issues/18
+  - I think it may be possible, but cannot explore further until the expo production bundler is fixed
   - If SSR is impossible, upgrade to use prerender.io service
 - Code Splitting - I've tried but they all seem to break HMR, Typesafety and/or SSR, so we don't use them. Tried React.Lazy, @loadable/component, react-loadable
  

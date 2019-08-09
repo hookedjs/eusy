@@ -9,9 +9,9 @@ export function getCurrentDims() {
 
   const heightStatusBar = Platform.select({
     ios: Constants.deviceName.includes('iPhone X')
-      ? Constants.heightStatusBar - 10
-      : Constants.heightStatusBar,
-    default: Constants.heightStatusBar
+      ? Constants.statusBarHeight - 10
+      : Constants.statusBarHeight,
+    default: Constants.statusBarHeight
   });
 
   const heightBottomSpeaker = Platform.select({
@@ -43,7 +43,8 @@ export function getCurrentDims() {
 export const WindowState = observable(getCurrentDims());
 
 setInterval(() => {
-  const WindowStateNext = getCurrentDims();
-  if (WindowStateNext.width != WindowState.width || WindowStateNext.height != WindowState.height)
-    set(WindowState, WindowStateNext);
+  const width = Dimensions.get('window').width;
+  const height = Dimensions.get('window').height;
+  if (width != WindowState.width || height != WindowState.height)
+    set(WindowState, getCurrentDims());
 }, 400);
