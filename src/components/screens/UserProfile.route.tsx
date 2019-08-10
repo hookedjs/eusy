@@ -1,14 +1,12 @@
-import React, { useContext } from 'react';
-import { View } from 'react-native';
-import { Button, Text, ThemeContext } from 'react-native-elements';
+import React from 'react';
+import { Image, View } from 'react-native';
+import { Button, Text } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
-import { LogoIcon } from '../svgs';
 import { Helmet } from '../lib/Helmet';
 import { useRouter } from '../lib/Routing';
 
 export const UserProfileRoute = () => {
   const { history } = useRouter();
-  const theme = useContext(ThemeContext).theme;
 
   return (
     <>
@@ -21,7 +19,10 @@ export const UserProfileRoute = () => {
           paddingHorizontal: 30
         }}
       >
-        <LogoIcon width={200} height={200} fill={theme.colors.primaryDark} />
+        <Image
+          style={{ width: 200, height: 200 }}
+          source={require('../../assets/img/logo-icon.png')}
+        />
         <Text h4 style={styles.text}>
           User Profile
         </Text>

@@ -11108,6 +11108,11 @@ react-native-ratings@^6.3.0:
     lodash "^4.17.4"
     prop-types "^15.5.10"
 
+react-native-scalable-image@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-scalable-image/-/react-native-scalable-image-0.5.1.tgz#31876259bdd5dba10537b1a073a9783596db0d56"
+  integrity sha512-bUphGBuRdet6Tx2lkgD9goa6UDcQNV9piiUUWxN59cg5BY7B1OFfkcM+9gAELCBPWqYGEoADEk6MtY35b1Rbpg==
+
 react-native-status-bar-height@^2.2.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/react-native-status-bar-height/-/react-native-status-bar-height-2.4.0.tgz#de8cee4bb733a196167210d2d0bc1fa10acba3e3"

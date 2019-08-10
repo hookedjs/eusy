@@ -2,10 +2,10 @@ import React, { useContext } from 'react';
 import { View } from 'react-native';
 import { Button, Text, ThemeContext } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
-import { LogoIcon } from '../svgs';
 import { Helmet } from '../lib/Helmet';
 import { Link, TextLink, useRouter } from '../lib/Routing';
 import { getColors } from '../../config/Theme';
+import { LogoModule } from '../modules/Logo.module';
 
 export const HomeRoute = () => {
   const { history } = useRouter();
@@ -23,7 +23,7 @@ export const HomeRoute = () => {
           maxWidth: 400
         }}
       >
-        <LogoIcon width={200} height={200} fill={theme.theme.colors.primaryDark} />
+        <LogoModule />
         <Text h4 style={styles.text}>
           Welcome to EUSA
         </Text>

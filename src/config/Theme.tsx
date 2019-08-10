@@ -148,6 +148,11 @@ export const getTheme = (primaryHue: number): ThemeType => ({
       paddingVertical: 10,
       borderRadius: 44 / 2
     }
+  },
+  Image: {
+    placeholderStyle: {
+      backgroundColor: 'transparent'
+    }
   }
 });
 

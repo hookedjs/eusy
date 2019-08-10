@@ -1,16 +1,15 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { View } from 'react-native';
-import { Button, Image, Input, Text, ThemeContext } from 'react-native-elements';
+import { Button, Image, Input, Text } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { observer } from 'mobx-react-lite';
-import { LogoIcon } from '../svgs';
 import { Helmet } from '../lib/Helmet';
 import { TextLink, useRouter } from '../lib/Routing';
 import { WindowState } from '../../state/Window.state';
+import { LogoModule } from '../modules/Logo.module';
 
 export const RegisterRoute = observer(() => {
   const { history } = useRouter();
-  const theme = useContext(ThemeContext).theme;
 
   return (
     <>
@@ -26,12 +25,7 @@ export const RegisterRoute = observer(() => {
             paddingHorizontal: 30
           }}
         >
-          <LogoIcon
-            width={200}
-            height={200}
-            fill={theme.colors.primaryDark}
-            style={{ marginBottom: 20 }}
-          />
+          <LogoModule width={100} height={100} style={{ marginBottom: 20 }} />
           <Text h4 style={styles.text}>
             Register
           </Text>

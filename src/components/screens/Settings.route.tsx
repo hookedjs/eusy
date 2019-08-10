@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { View } from 'react-native';
 import { Button, Text, ThemeContext } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
-import { LogoIcon } from '../svgs';
 import { Helmet } from '../lib/Helmet';
 import { useRouter } from '../lib/Routing';
+import { LogoModule } from '../modules/Logo.module';
 
 export const SettingsRoute = () => {
   const { history } = useRouter();
@@ -21,7 +21,7 @@ export const SettingsRoute = () => {
           paddingHorizontal: 30
         }}
       >
-        <LogoIcon width={200} height={200} fill={theme.colors.primaryDark} />
+        <LogoModule />
         <Text h4 style={styles.text}>
           This is the settings page, coming soon.
         </Text>

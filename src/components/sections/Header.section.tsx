@@ -8,7 +8,7 @@ import { SearchBar } from 'react-native-elements';
 import { WindowState } from '../../state/Window.state';
 import { useRouter } from '../lib/Routing';
 import { SidebarState } from '../../state/Sidebar.state';
-import { LogoCircleIcon } from '../svgs';
+import { LogoModule } from '../modules/Logo.module';
 
 export const HeaderState = observable({
   numberOfBackSteps: 0,
@@ -46,7 +46,7 @@ export const HeaderSection = observer(() => {
         }}
       >
         {WindowState.isSmallWeb ? (
-          <LogoCircleIcon width={24} height={24} style={{ paddingRight: 10 }} />
+          <LogoModule width={28} height={28} style={{ marginRight: 10 }} />
         ) : (
           !!HeaderState.numberOfBackSteps && (
             <Feather

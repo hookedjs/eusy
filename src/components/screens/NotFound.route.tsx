@@ -1,14 +1,13 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { View } from 'react-native';
-import { Button, Text, ThemeContext } from 'react-native-elements';
+import { Button, Text } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
-import { LogoIcon } from '../svgs';
 import { Helmet } from '../lib/Helmet';
 import { useRouter } from '../lib/Routing';
+import { LogoModule } from '../modules/Logo.module';
 
 export const NotFoundRoute = () => {
   const { history } = useRouter();
-  const theme = useContext(ThemeContext).theme;
 
   return (
     <View>
@@ -21,7 +20,7 @@ export const NotFoundRoute = () => {
           paddingHorizontal: 30
         }}
       >
-        <LogoIcon width={200} height={200} fill={theme.colors.primaryDark} />
+        <LogoModule />
         <Text h4 style={styles.text}>
           Uh oh, the url you entered does not exist.
         </Text>

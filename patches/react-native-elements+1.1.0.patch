@@ -31,6 +31,16 @@ index 6d82a5c..c928648 100644
 +  ThemeContext,
    withTheme,
  };
+diff --git a/node_modules/react-native-elements/src/index.d.ts b/node_modules/react-native-elements/src/index.d.ts
+index ff9ff85..36d87d8 100644
+--- a/node_modules/react-native-elements/src/index.d.ts
++++ b/node_modules/react-native-elements/src/index.d.ts
+@@ -2062,3 +2062,5 @@ export class ThemeConsumer<T> extends React.Component<ThemeConsumerProps<T>> {}
+ export function withTheme<P = {}, T = {}>(
+   component: React.ComponentType<P & ThemeProps<T>>
+ ): React.ComponentClass<P>;
++
++export const ThemeContext = React.createContext<ThemeProps>({});
 diff --git a/node_modules/react-native-elements/src/index.js b/node_modules/react-native-elements/src/index.js
 index 40c6645..8097b56 100644
 --- a/node_modules/react-native-elements/src/index.js

@@ -4,7 +4,7 @@ import { Feather } from '@expo/vector-icons';
 import { ThemeContext } from 'react-native-elements';
 import { HoverObserver } from '../lib/HoverObserver';
 import { Link, useRouter } from '../lib/Routing';
-import { LogoCircleIcon } from '../svgs';
+import { LogoModule } from './Logo.module';
 
 const SidebarHeader = () => {
   const theme = useContext(ThemeContext).theme;
@@ -21,7 +21,7 @@ const SidebarHeader = () => {
               backgroundColor: isHovering ? theme.colors.primaryLight : 'transparent'
             }}
           >
-            <LogoCircleIcon width={40} height={40} />
+            <LogoModule width={40} height={40} />
             <View style={{ alignContent: 'center', justifyContent: 'center' }}>
               <Text style={{ fontSize: 20, color: 'white', paddingLeft: 15 }}>EUSY</Text>
             </View>
