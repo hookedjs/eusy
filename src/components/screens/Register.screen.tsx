@@ -1,14 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Button, Image, Input, Text } from 'react-native-elements';
-import { observer } from 'mobx-react-lite';
 import { StyleSheet } from 'react-native';
+import { observer } from 'mobx-react-lite';
 import { Helmet } from '../lib/Helmet';
 import { TextLink, useRouter } from '../lib/Routing';
 import { WindowState } from '../../state/Window.state';
 import { LogoModule } from '../modules/Logo.module';
 
-export const LoginRoute = observer(() => {
+export const RegisterScreen = observer(() => {
   const { history } = useRouter();
 
   return (
@@ -27,10 +27,10 @@ export const LoginRoute = observer(() => {
         >
           <LogoModule width={100} height={100} style={{ marginBottom: 20 }} />
           <Text h4 style={styles.text}>
-            Log In
+            Register
           </Text>
           <Text style={styles.text}>
-            Need a EUSY account? <TextLink to="/register">Create an account</TextLink>
+            Already have an EUSY account? <TextLink to="/register">Log In</TextLink>
           </Text>
           <Input
             placeholder="Email"
@@ -39,6 +39,9 @@ export const LoginRoute = observer(() => {
             autoCorrect={false}
             keyboardType="default"
             returnKeyType="next"
+            containerStyle={{
+              marginBottom: 18
+            }}
             // ref={input => (this.password2Input = input)}
             // onSubmitEditing={() => {
             //   this.confirmPassword2Input.focus();
@@ -57,10 +60,10 @@ export const LoginRoute = observer(() => {
             }}
           />
           <Button
-            title="Log In"
+            title="Register"
             // icon={{ type: 'feather', name: 'arrow-right', color: 'white' }}
             // iconRight
-            onPress={() => history.push('/register')}
+            onPress={() => history.push('/user/profile')}
             containerStyle={{ width: '100%' }}
           />
           <Text style={styles.text}>

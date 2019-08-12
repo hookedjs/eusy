@@ -11,3 +11,4 @@ web-report/
 .idea
 .env*
 !.env.yml
+graveyard

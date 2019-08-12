@@ -6,12 +6,12 @@ import { Helmet } from '../lib/Helmet';
 import { useRouter } from '../lib/Routing';
 import { LogoModule } from '../modules/Logo.module';
 
-export const InnerPageRoute = () => {
+export const NotFoundScreen = () => {
   const { history } = useRouter();
 
   return (
-    <>
-      <Helmet title="Inner Page" />
+    <View>
+      <Helmet title="404" />
       <View
         style={{
           flex: 1,
@@ -22,11 +22,11 @@ export const InnerPageRoute = () => {
       >
         <LogoModule />
         <Text h4 style={styles.text}>
-          This is an inner page, to demonstrate routing and SEO.
+          Uh oh, the url you entered does not exist.
         </Text>
-        <Button onPress={() => history.goBack()} title="Go Back" />
+        <Button onPress={() => history.push('/')} title="Go Home?" />
       </View>
-    </>
+    </View>
   );
 };
 

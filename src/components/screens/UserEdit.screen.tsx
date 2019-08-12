@@ -6,7 +6,7 @@ import { Helmet } from '../lib/Helmet';
 import { useRouter } from '../lib/Routing';
 import { LogoModule } from '../modules/Logo.module';
 
-export const UserEditRoute = () => {
+export const UserEditScreen = () => {
   const { history } = useRouter();
 
   return (

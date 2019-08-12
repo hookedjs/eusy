@@ -11227,10 +11227,9 @@ react-router-dom@^5.0.1:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-router-native-stack@^0.0.16:
+"react-router-native-stack@https://github.com/hookedjs/react-router-native-stack.git#unimoduleUpgrade":
   version "0.0.16"
-  resolved "https://registry.yarnpkg.com/react-router-native-stack/-/react-router-native-stack-0.0.16.tgz#c9b392a73f08c57772c49cac7fa08d44f3990259"
-  integrity sha512-23i/mr0UlS8Lrm+uZOYp9I7+QvF5tO2q+KV7cdtJDQkwypEiVKk4Tl/ePu9kA8tOVbpt5AxBdcBfTgKheMzdGw==
+  resolved "https://github.com/hookedjs/react-router-native-stack.git#b5e300b79c17ac93dc864e685c430b1d6c7cb9d8"
 
 react-router-native@^5.0.1:
   version "5.0.1"

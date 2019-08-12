@@ -10,12 +10,17 @@ import {
   RouteComponentProps,
   LinkProps
 } from 'react-router-dom';
-import { View } from 'react-native';
+import Stack from 'react-router-native-stack';
+import { ScrollView, View } from 'react-native';
+import useRouter from 'use-react-router';
+import { SidebarState } from '../../state/Sidebar.state';
 import { ThemeContext } from 'react-native-elements';
+import { WindowState } from '../../state/Window.state';
 
+// Extend Route to sync sidebar and wrap in scrollview
+// This is identical to Routing.tsx, but copied here to eliminate need for another file
 class Route extends React.PureComponent<
   RouteProps & {
-    // headerComponent 1 vs 2: 1 is fixed on mobile, 2 is not
     headerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
     footerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
     footerEndComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
@@ -25,9 +30,7 @@ class Route extends React.PureComponent<
   render() {
     let routeProps = { ...this.props };
     delete routeProps.component;
-    if (routeProps.headerComponent) delete routeProps.headerComponent;
-    if (routeProps.footerComponent) delete routeProps.footerComponent;
-    if (routeProps.footerEndComponent) delete routeProps.footerEndComponent;
+    delete routeProps.footerEndComponent;
     delete routeProps.sidebarComponent;
 
     SidebarState.sidebarComponent = this.props.sidebarComponent;
@@ -35,18 +38,19 @@ class Route extends React.PureComponent<
     return (
       <RouteOrig
         render={routerProps => (
-          <div style={{ display: 'flex', height: '100vh', flexDirection: 'column' }}>
-            {this.props.headerComponent && <this.props.headerComponent {...routerProps} />}
-            <div style={{ overflow: 'auto', flex: 1, fontSize: 30 }}>
-              <View style={{ flex: 1, minHeight: '100%' }}>
-                <this.props.component {...routerProps} />
-                {this.props.footerEndComponent && (
-                  <this.props.footerEndComponent {...routerProps} />
-                )}
-              </View>
-            </div>
-            {this.props.footerComponent && <this.props.footerComponent {...routerProps} />}
-          </div>
+          <ScrollView>
+            <View
+              style={{
+                flex: 1,
+                minHeight: '100%',
+                paddingTop: this.props.headerComponent ? 0 : WindowState.heightStatusBar,
+                paddingBottom: this.props.footerComponent ? 0 : WindowState.heightBottomSpeaker
+              }}
+            >
+              <this.props.component {...routerProps} />
+              {this.props.footerEndComponent && <this.props.footerEndComponent {...routerProps} />}
+            </View>
+          </ScrollView>
         )}
         {...routeProps}
       />
@@ -92,9 +96,6 @@ const TextLink = (props: LinkProps) => {
   );
 };
 
-const Stack = ({ children }: { children: React.ReactNode }) => <Switch>{children}</Switch>;
-
-import useRouter from 'use-react-router';
-import { SidebarState } from '../../state/Sidebar.state';
+// const Stack = ({ children }: { children: React.ReactNode }) => <Switch>{children}</Switch>;
 
 export { Link, Route, Redirect, Router, Switch, Stack, TextLink, withRouter, useRouter };

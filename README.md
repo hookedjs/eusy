@@ -25,7 +25,7 @@ This app is also the bases of the frontend of our full-stack starter, [HookedJS]
 - [x] SEO thanks to [React Helmet](https://www.npmjs.com/package/react-helmet)
 - [x] Package Patches that fix some critical show-stopping bugs and enable better universal support, managed with [patch-package](https://www.npmjs.com/package/patch-package)
 - [x] Advanced Dot Environmental (.env) File Management and Support
-- [x] Typescript + TSLint + Prettier + Special TSLint sauce, using mostly default settings. Strict mode coming soon.
+- [x] Typescript + TSLint + Prettier + Special TSLint sauce, using mostly default settings.
 - [x] [Hooks](https://reactjs.org/docs/hooks-intro.html) - Fully supported and preferred
 - [x] [MOBX](https://www.npmjs.com/package/mobx) - Popular, easy, distributed sharable app and component state
 - [x] Automated SVG to TSX file Conversion
@@ -33,13 +33,15 @@ This app is also the bases of the frontend of our full-stack starter, [HookedJS]
 - [x] Git hooks that clean code, run tests and block broken commits, thanks to [Husky](https://www.npmjs.com/package/husky) and [Lint-staged](https://www.npmjs.com/package/lint-staged)
 - [x] Includes a production-grade web server, built on [Express](https://www.npmjs.com/package/express) 
 - [x] Continuous Integration and Deployment thanks to [Zeit's Now Service](https://zeit.co/now)
-- [ ] [Jest](https://www.npmjs.com/package/jest) The most popular JS testing framework - coming soon
+- [ ] [Jest](https://www.npmjs.com/package/jest) The most popular JS testing framework
 - [ ] Implement form validation
-- [ ] Fix typescript violations
+- [ ] Implement profile UX
+- [ ] Implement notification UX
 - [ ] Extend react-router-native-stack to allow for horizontal animation-direction control.
 - [ ] Extend react-router-native-stack to treat sidebar like header and footer wrt animations
-- [ ] Implement testing
-- [ ] Submit to Apple Store
+- [ ] Implement Gitbook. Good example: https://github.com/router5/router5
+- [ ] Get in Apple Store
+- [ ] Make typescript strict
 
 
 ## What's with the name?

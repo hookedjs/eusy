@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export const AppLoadingRoute = ({
+export const AppLoadingScreen = ({
   startAsync,
   onError = () => null,
   onFinish = () => null,

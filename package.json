@@ -92,7 +92,7 @@
     "react-native-web": "^0.11.4",
     "react-router-dom": "^5.0.1",
     "react-router-native": "^5.0.1",
-    "react-router-native-stack": "^0.0.16",
+    "react-router-native-stack": "https://github.com/hookedjs/react-router-native-stack.git#unimoduleUpgrade",
     "react-svg": "^10.0.14",
     "shrink-ray-current": "^4.0.0",
     "styled-jsx": "^3.2.1",

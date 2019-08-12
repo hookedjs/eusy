@@ -7,14 +7,14 @@ import { hot } from 'react-hot-loader';
 import React from 'react';
 import { Platform, View } from 'react-native';
 import { ThemeProvider } from 'react-native-elements';
-import { Routes } from './src/config/Routes';
-import { AppLoadingRoute } from './src/components/screens/AppLoading.route';
+import { RoutesConfig } from './src/config/Routes.config';
+import { AppLoadingScreen } from './src/components/screens/AppLoading.screen';
 import { loadFonts } from './src/lib/AssetLoading';
 import { SidebarSection } from './src/components/sections/Sidebar.section';
 import { Router } from './src/components/lib/Routing';
 import { Helmet } from './src/components/lib/Helmet';
 
-import { Theme } from './src/config/Theme';
+import { Theme } from './src/config/Theme.config';
 
 interface state {
   isReady: boolean;
@@ -36,16 +36,16 @@ class App extends React.PureComponent<any, state> {
   render() {
     return (
       <ThemeProvider theme={Theme}>
-        <View style={{ flex: 1, backgroundColor: 'white' }}>
+        <View style={{ flex: 1, backgroundColor: 'white', width: '100%', overflow: 'hidden' }}>
           <Helmet />
           {this.state.isReady ? (
             <Router>
               <SidebarSection>
-                <Routes />
+                <RoutesConfig />
               </SidebarSection>
             </Router>
           ) : (
-            <AppLoadingRoute
+            <AppLoadingScreen
               startAsync={App._loadAssetsAsync}
               onFinish={() => this.setState({ isReady: true })}
             />

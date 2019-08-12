@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { Button, Text, ThemeContext } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { Helmet } from '../lib/Helmet';
 import { Link, TextLink, useRouter } from '../lib/Routing';
-import { getColors } from '../../config/Theme';
+import { getColors } from '../../config/Theme.config';
 import { LogoModule } from '../modules/Logo.module';
 
-export const HomeRoute = () => {
+export const HomeScreen = () => {
   const { history } = useRouter();
   const theme = useContext(ThemeContext);
 
@@ -41,7 +41,10 @@ export const HomeRoute = () => {
           .
         </Text>
         <Link to="/page">
-          <Button onPress={() => history.push('/page')} title="Goto Inner Page" />
+          <Button
+            onPress={() => Platform.OS !== 'web' && history.push('/page')}
+            title="Goto Inner Page"
+          />
         </Link>
 
         <Button

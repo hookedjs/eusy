@@ -1,17 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { View } from 'react-native';
-import { Button, Text } from 'react-native-elements';
+import { Button, Text, ThemeContext } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { Helmet } from '../lib/Helmet';
 import { useRouter } from '../lib/Routing';
 import { LogoModule } from '../modules/Logo.module';
 
-export const NotFoundRoute = () => {
+export const SettingsScreen = () => {
   const { history } = useRouter();
+  const theme = useContext(ThemeContext).theme;
 
   return (
-    <View>
-      <Helmet title="404" />
+    <>
+      <Helmet title="Settings" />
       <View
         style={{
           flex: 1,
@@ -22,11 +23,11 @@ export const NotFoundRoute = () => {
       >
         <LogoModule />
         <Text h4 style={styles.text}>
-          Uh oh, the url you entered does not exist.
+          This is the settings page, coming soon.
         </Text>
-        <Button onPress={() => history.push('/')} title="Go Home?" />
+        <Button onPress={() => history.push('page')} title="Goto Inner Page" />
       </View>
-    </View>
+    </>
   );
 };
 

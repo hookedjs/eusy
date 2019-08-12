@@ -76,7 +76,6 @@ export const HeaderSection = observer(() => {
             rounded
             showEditButton
             source={require('../../assets/img/brian-eus-author.jpg')}
-            onPress={() => history.push('/')}
             containerStyle={{ marginLeft: 10 }}
           />
         )}

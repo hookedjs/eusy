@@ -5,22 +5,22 @@ import { FooterFixedSection } from '../components/sections/FooterFixed.section';
 import { SidebarModule } from '../components/modules/Sidebar.module';
 import { FooterEndSection } from '../components/sections/FooterEnd.section';
 
-import { NotFoundRoute } from '../components/screens/NotFound.route';
-import { HomeRoute } from '../components/screens/Home.route';
-import { LoginRoute } from '../components/screens/Login.route';
-import { RegisterRoute } from '../components/screens/Register.route';
-import { InnerPageRoute } from '../components/screens/InnerPage.route';
-import { SettingsRoute } from '../components/screens/Settings.route';
-import { UserEditRoute } from '../components/screens/UserEdit.route';
-import { UserProfileRoute } from '../components/screens/UserProfile.route';
+import { NotFoundScreen } from '../components/screens/NotFound.screen';
+import { HomeScreen } from '../components/screens/Home.screen';
+import { LoginScreen } from '../components/screens/Login.screen';
+import { RegisterScreen } from '../components/screens/Register.screen';
+import { InnerPageScreen } from '../components/screens/InnerPage.screen';
+import { SettingsScreen } from '../components/screens/Settings.screen';
+import { UserEditScreen } from '../components/screens/UserEdit.screen';
+import { UserProfileScreen } from '../components/screens/UserProfile.screen';
 
-export const Routes = () => {
+export const RoutesConfig = () => {
   return (
     <Stack animationType="slide-horizontal">
       <Route
         path="/"
         exact
-        component={HomeRoute}
+        component={HomeScreen}
         sidebarComponent={SidebarModule}
         headerComponent={HeaderSection}
         footerComponent={FooterFixedSection}
@@ -29,19 +29,19 @@ export const Routes = () => {
 
       <Route
         path="/settings"
-        component={SettingsRoute}
+        component={SettingsScreen}
         sidebarComponent={SidebarModule}
         headerComponent={HeaderSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
       />
 
-      <Route path="/login" component={LoginRoute} />
-      <Route path="/register" component={RegisterRoute} />
+      <Route path="/login" component={LoginScreen} />
+      <Route path="/register" component={RegisterScreen} />
 
       <Route
         path="/user/profile"
-        component={UserProfileRoute}
+        component={UserProfileScreen}
         sidebarComponent={SidebarModule}
         headerComponent={HeaderSection}
         footerComponent={FooterFixedSection}
@@ -49,7 +49,7 @@ export const Routes = () => {
       />
       <Route
         path="/user/edit"
-        component={UserEditRoute}
+        component={UserEditScreen}
         sidebarComponent={SidebarModule}
         headerComponent={HeaderSection}
         footerComponent={FooterFixedSection}
@@ -58,7 +58,7 @@ export const Routes = () => {
 
       <Route
         path="/page"
-        component={InnerPageRoute}
+        component={InnerPageScreen}
         sidebarComponent={SidebarModule}
         headerComponent={HeaderSection}
         footerComponent={FooterFixedSection}
@@ -66,7 +66,7 @@ export const Routes = () => {
       />
 
       <Route
-        component={NotFoundRoute}
+        component={NotFoundScreen}
         sidebarComponent={SidebarModule}
         headerComponent={HeaderSection}
         footerComponent={FooterFixedSection}

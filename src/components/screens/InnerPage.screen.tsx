@@ -1,18 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { View } from 'react-native';
-import { Button, Text, ThemeContext } from 'react-native-elements';
+import { Button, Text } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { Helmet } from '../lib/Helmet';
 import { useRouter } from '../lib/Routing';
 import { LogoModule } from '../modules/Logo.module';
 
-export const SettingsRoute = () => {
+export const InnerPageScreen = () => {
   const { history } = useRouter();
-  const theme = useContext(ThemeContext).theme;
 
   return (
     <>
-      <Helmet title="Settings" />
+      <Helmet title="Inner Page" />
       <View
         style={{
           flex: 1,
@@ -23,9 +22,9 @@ export const SettingsRoute = () => {
       >
         <LogoModule />
         <Text h4 style={styles.text}>
-          This is the settings page, coming soon.
+          This is an inner page, to demonstrate routing and SEO.
         </Text>
-        <Button onPress={() => history.push('page')} title="Goto Inner Page" />
+        <Button onPress={() => history.goBack()} title="Go Back" />
       </View>
     </>
   );

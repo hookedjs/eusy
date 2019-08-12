@@ -20,6 +20,8 @@ import { SidebarState } from '../../state/Sidebar.state';
 import { WindowState } from '../../state/Window.state';
 import { ThemeContext } from 'react-native-elements';
 
+// Extend Route to sync sidebar and wrap in scrollview
+// This is identical to Routing.web.tsx, but copied here to eliminate need for another file
 class Route extends React.PureComponent<
   RouteProps & {
     headerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;

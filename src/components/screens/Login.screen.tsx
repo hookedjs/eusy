@@ -1,14 +1,14 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Button, Image, Input, Text } from 'react-native-elements';
-import { StyleSheet } from 'react-native';
 import { observer } from 'mobx-react-lite';
+import { StyleSheet } from 'react-native';
 import { Helmet } from '../lib/Helmet';
 import { TextLink, useRouter } from '../lib/Routing';
 import { WindowState } from '../../state/Window.state';
 import { LogoModule } from '../modules/Logo.module';
 
-export const RegisterRoute = observer(() => {
+export const LoginScreen = observer(() => {
   const { history } = useRouter();
 
   return (
@@ -27,10 +27,10 @@ export const RegisterRoute = observer(() => {
         >
           <LogoModule width={100} height={100} style={{ marginBottom: 20 }} />
           <Text h4 style={styles.text}>
-            Register
+            Log In
           </Text>
           <Text style={styles.text}>
-            Already have an EUSY account? <TextLink to="/register">Log In</TextLink>
+            Need a EUSY account? <TextLink to="/register">Create an account</TextLink>
           </Text>
           <Input
             placeholder="Email"
@@ -39,9 +39,6 @@ export const RegisterRoute = observer(() => {
             autoCorrect={false}
             keyboardType="default"
             returnKeyType="next"
-            containerStyle={{
-              marginBottom: 18
-            }}
             // ref={input => (this.password2Input = input)}
             // onSubmitEditing={() => {
             //   this.confirmPassword2Input.focus();
@@ -60,10 +57,10 @@ export const RegisterRoute = observer(() => {
             }}
           />
           <Button
-            title="Register"
+            title="Log In"
             // icon={{ type: 'feather', name: 'arrow-right', color: 'white' }}
             // iconRight
-            onPress={() => history.push('/user/profile')}
+            onPress={() => history.push('/register')}
             containerStyle={{ width: '100%' }}
           />
           <Text style={styles.text}>

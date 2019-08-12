@@ -5,7 +5,7 @@ import { StyleSheet } from 'react-native';
 import { Helmet } from '../lib/Helmet';
 import { useRouter } from '../lib/Routing';
 
-export const UserProfileRoute = () => {
+export const UserProfileScreen = () => {
   const { history } = useRouter();
 
   return (
