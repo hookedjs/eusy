@@ -37,7 +37,6 @@ This app is also the bases of the frontend of our full-stack starter, [HookedJS]
 
 ## TODOs
 
-- [ ] Implement basic role permissions
 - [ ] Implement form validation
 - [ ] Implement profile UX
 - [ ] Implement notification UX

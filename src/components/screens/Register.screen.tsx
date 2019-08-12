@@ -47,6 +47,7 @@ export const RegisterScreen = observer(() => {
           </Text>
           <Input
             placeholder="Email"
+            value="marie@antoinette.com"
             leftIcon={{ type: 'feather', name: 'mail', color: '#2D3C56' }}
             autoCapitalize="none"
             autoCorrect={false}
@@ -62,6 +63,7 @@ export const RegisterScreen = observer(() => {
           />
           <Input
             placeholder="Password"
+            value="password"
             leftIcon={{ type: 'feather', name: 'lock' }}
             autoCapitalize="none"
             secureTextEntry={true}
