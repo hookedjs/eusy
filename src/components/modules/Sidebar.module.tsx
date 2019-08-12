@@ -72,10 +72,9 @@ export const SidebarModule = () => {
     >
       <View>
         <SidebarHeader />
-        <SidebarMenuItem to="/" text="Home" featherIconName="home" />
-        <SidebarMenuItem to="/login" text="Login" featherIconName="power" />
-        <SidebarMenuItem to="/user/edit" text="Edit Profile" featherIconName="user" />
-        <SidebarMenuItem to="/user/profile" text="View Profile" featherIconName="user" />
+        <SidebarMenuItem to="/home" text="Home" featherIconName="home" />
+        <SidebarMenuItem to="/notifications" text="Notifications" featherIconName="activity" />
+        <SidebarMenuItem to="/user" text="My Account" featherIconName="user" />
       </View>
       <View>
         <SidebarMenuItem to="/settings" text="Settings" featherIconName="settings" />

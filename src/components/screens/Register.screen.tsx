@@ -1,15 +1,28 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Button, Image, Input, Text } from 'react-native-elements';
-import { StyleSheet } from 'react-native';
+import { set } from 'mobx';
 import { observer } from 'mobx-react-lite';
+import qs from 'query-string';
+import { Image, StyleSheet, View } from 'react-native';
+import { Button, Input, Text } from 'react-native-elements';
+import { WindowState } from '../../state/Window.state';
+import { UserState } from '../../state/User.state';
 import { Helmet } from '../lib/Helmet';
 import { TextLink, useRouter } from '../lib/Routing';
-import { WindowState } from '../../state/Window.state';
 import { LogoModule } from '../modules/Logo.module';
 
 export const RegisterScreen = observer(() => {
-  const { history } = useRouter();
+  const { location, history } = useRouter();
+  const redirectFromUrl = qs.parse(location.search).redirectTo as string;
+
+  const handleSubmit = async () => {
+    set(UserState, {
+      email: 'marie@antoinette.com',
+      nameFirst: 'Marie',
+      nameLast: 'Antoinette',
+      roles: ['Identified']
+    });
+    history.push(redirectFromUrl || '/home');
+  };
 
   return (
     <>
@@ -59,22 +72,20 @@ export const RegisterScreen = observer(() => {
               marginBottom: 30
             }}
           />
-          <Button
-            title="Register"
-            // icon={{ type: 'feather', name: 'arrow-right', color: 'white' }}
-            // iconRight
-            onPress={() => history.push('/user/profile')}
-            containerStyle={{ width: '100%' }}
-          />
+          <Button title="Register" onPress={handleSubmit} containerStyle={{ width: '100%' }} />
           <Text style={styles.text}>
-            <TextLink to="/register">Forgot username?</TextLink>
+            <TextLink to={{ pathname: '/user/login', search: `?redirectTo=${redirectFromUrl}` }}>
+              Forgot username?
+            </TextLink>
             {' · '}
-            <TextLink to="/register">Forgot password?</TextLink>
+            <TextLink to={{ pathname: '/user/login', search: `?redirectTo=${redirectFromUrl}` }}>
+              Forgot password?
+            </TextLink>
           </Text>
 
           {WindowState.isLarge && (
             <Text style={{ ...styles.text, marginTop: 30 }}>
-              ©2001–2019 All Rights Reserved. EUSY® is a registered trademark of HookedJS.org.{' '}
+              ©2019 All Rights Reserved. EUSY® is a registered trademark of HookedJS.org.{' '}
               <TextLink to="/register">Cookie Preferences</TextLink>, Privacy, and Terms.
               {', '}
               <TextLink to="/register">Privacy</TextLink>
@@ -88,7 +99,7 @@ export const RegisterScreen = observer(() => {
         {WindowState.isLarge && (
           <View
             style={{
-              flex: 2,
+              flex: WindowState.width > 900 ? 2 : 1,
               height: WindowState.heightUnsafe
             }}
           >

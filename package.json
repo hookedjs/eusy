@@ -77,6 +77,7 @@
     "mobx": "^5.13.0",
     "mobx-react-lite": "^1.4.1",
     "morgan": "^1.9.0",
+    "query-string": "^6.8.2",
     "react": "^16.8.6",
     "react-dom": "npm:@hot-loader/react-dom",
     "react-helmet": "^5.2.1",

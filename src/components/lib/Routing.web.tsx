@@ -1,21 +1,25 @@
 import React, { useContext } from 'react';
+import { toJS } from 'mobx';
+import { ScrollView, View } from 'react-native';
+import { TextProps, ThemeContext } from 'react-native-elements';
 import {
   BrowserRouter as Router,
+  matchPath,
   Link as LinkOrig,
+  Redirect,
   Route as RouteOrig,
   RouteProps,
-  Redirect,
   Switch,
   withRouter,
   RouteComponentProps,
   LinkProps
 } from 'react-router-dom';
 import Stack from 'react-router-native-stack';
-import { ScrollView, View } from 'react-native';
 import useRouter from 'use-react-router';
 import { SidebarState } from '../../state/Sidebar.state';
-import { ThemeContext } from 'react-native-elements';
 import { WindowState } from '../../state/Window.state';
+import { UserState } from '../../state/User.state';
+import { ArrayIntersection } from '../../lib/Polyfills';
 
 // Extend Route to sync sidebar and wrap in scrollview
 // This is identical to Routing.tsx, but copied here to eliminate need for another file
@@ -25,32 +29,56 @@ class Route extends React.PureComponent<
     footerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
     footerEndComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
     sidebarComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
+    animationType?: string;
+    requiresRole?: string[];
   }
 > {
+  // If page permissions fail, redirect to login
+  redirectIfUnderprivileged = currentPath => {
+    console.dir(toJS(UserState.roles));
+    console.dir(this.props.requiresRole);
+    if (
+      this.props.requiresRole &&
+      this.props.requiresRole.length &&
+      ArrayIntersection(toJS(UserState.roles), this.props.requiresRole).length
+    ) {
+      console.log(`Route: Permission denied for ${currentPath}.`);
+      return <Redirect to={{ pathname: '/user/login', search: `?redirectTo=${currentPath}` }} />;
+    } else console.log(`Route: Permission granted for ${currentPath}.`);
+  };
+
   render() {
+    // Create routeProps to be passed to RouteOrig
     let routeProps = { ...this.props };
     delete routeProps.component;
     delete routeProps.footerEndComponent;
     delete routeProps.sidebarComponent;
+    delete routeProps.requiresRole;
 
+    // Set the sidebar component
     SidebarState.sidebarComponent = this.props.sidebarComponent;
 
     return (
       <RouteOrig
         render={routerProps => (
-          <ScrollView>
-            <View
-              style={{
-                flex: 1,
-                minHeight: '100%',
-                paddingTop: this.props.headerComponent ? 0 : WindowState.heightStatusBar,
-                paddingBottom: this.props.footerComponent ? 0 : WindowState.heightBottomSpeaker
-              }}
-            >
-              <this.props.component {...routerProps} />
-              {this.props.footerEndComponent && <this.props.footerEndComponent {...routerProps} />}
-            </View>
-          </ScrollView>
+          <>
+            {this.redirectIfUnderprivileged(routerProps.match.path)}
+            <ScrollView>
+              <View
+                style={{
+                  flex: 1,
+                  minHeight: '100%',
+                  paddingTop: this.props.headerComponent ? 0 : WindowState.heightStatusBar,
+                  paddingBottom: this.props.footerComponent ? 0 : WindowState.heightBottomSpeaker
+                }}
+              >
+                <this.props.component {...routerProps} />
+                {this.props.footerEndComponent && (
+                  <this.props.footerEndComponent {...routerProps} />
+                )}
+              </View>
+            </ScrollView>
+          </>
         )}
         {...routeProps}
       />
@@ -70,16 +98,18 @@ const Link = ({ style, ...props }: LinkProps) =>
     <LinkOrig style={{ textDecorationLine: 'none', ...style }} {...props} />
   );
 
-const TextLink = (props: LinkProps) => {
+const TextLink = (props: LinkProps & TextProps) => {
   const theme = useContext(ThemeContext).theme;
 
   const color = (props.style && props.style.color) || theme.colors.primary;
   const colorVisited = (props.style && props.style.color) || theme.colors.primaryDark;
 
+  const toPath = typeof props.to === 'string' ? props.to : props.to.pathname;
+
   return (
     <div style={{ display: 'inline-block' }}>
-      {typeof props.to === 'string' && props.to.includes('.') ? (
-        <a href={props.to} target="_blank" {...props} />
+      {toPath.includes('.') ? (
+        <a href={toPath} target="_blank" {...props} />
       ) : (
         <LinkOrig {...props} />
       )}
@@ -98,4 +128,4 @@ const TextLink = (props: LinkProps) => {
 
 // const Stack = ({ children }: { children: React.ReactNode }) => <Switch>{children}</Switch>;
 
-export { Link, Route, Redirect, Router, Switch, Stack, TextLink, withRouter, useRouter };
+export { Link, matchPath, Route, Redirect, Router, Switch, Stack, TextLink, withRouter, useRouter };

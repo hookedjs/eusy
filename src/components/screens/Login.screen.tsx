@@ -1,15 +1,28 @@
 import React from 'react';
-import { View } from 'react-native';
-import { Button, Image, Input, Text } from 'react-native-elements';
+import { set } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import { StyleSheet } from 'react-native';
+import qs from 'query-string';
+import { Image, StyleSheet, View } from 'react-native';
+import { Button, Input, Text } from 'react-native-elements';
 import { Helmet } from '../lib/Helmet';
-import { TextLink, useRouter } from '../lib/Routing';
+import { UserState } from '../../state/User.state';
 import { WindowState } from '../../state/Window.state';
+import { TextLink, useRouter } from '../lib/Routing';
 import { LogoModule } from '../modules/Logo.module';
 
 export const LoginScreen = observer(() => {
-  const { history } = useRouter();
+  const { location, history } = useRouter();
+  const redirectFromUrl = qs.parse(location.search).redirectTo as string;
+
+  const handleSubmit = async () => {
+    set(UserState, {
+      email: 'marie@antoinette.com',
+      nameFirst: 'Marie',
+      nameLast: 'Antoinette',
+      roles: ['Identified']
+    });
+    history.push(redirectFromUrl || '/home');
+  };
 
   return (
     <>
@@ -30,10 +43,14 @@ export const LoginScreen = observer(() => {
             Log In
           </Text>
           <Text style={styles.text}>
-            Need a EUSY account? <TextLink to="/register">Create an account</TextLink>
+            Need a EUSY account?{' '}
+            <TextLink to={{ pathname: '/user/register', search: `?redirectTo=${redirectFromUrl}` }}>
+              Create an account
+            </TextLink>
           </Text>
           <Input
             placeholder="Email"
+            value="marie@antoinette.com"
             leftIcon={{ type: 'feather', name: 'mail', color: '#2D3C56' }}
             autoCapitalize="none"
             autoCorrect={false}
@@ -46,6 +63,7 @@ export const LoginScreen = observer(() => {
           />
           <Input
             placeholder="Password"
+            value="password"
             leftIcon={{ type: 'feather', name: 'lock' }}
             autoCapitalize="none"
             secureTextEntry={true}
@@ -56,22 +74,20 @@ export const LoginScreen = observer(() => {
               marginBottom: 30
             }}
           />
-          <Button
-            title="Log In"
-            // icon={{ type: 'feather', name: 'arrow-right', color: 'white' }}
-            // iconRight
-            onPress={() => history.push('/register')}
-            containerStyle={{ width: '100%' }}
-          />
+          <Button title="Log In" onPress={handleSubmit} containerStyle={{ width: '100%' }} />
           <Text style={styles.text}>
-            <TextLink to="/register">Forgot username?</TextLink>
+            <TextLink to={{ pathname: '/user/register', search: `?redirectTo=${redirectFromUrl}` }}>
+              Forgot username?
+            </TextLink>
             {' · '}
-            <TextLink to="/register">Forgot password?</TextLink>
+            <TextLink to={{ pathname: '/user/register', search: `?redirectTo=${redirectFromUrl}` }}>
+              Forgot password?
+            </TextLink>
           </Text>
 
           {WindowState.isLarge && (
             <Text style={{ ...styles.text, marginTop: 30 }}>
-              ©2001–2019 All Rights Reserved. EUSY® is a registered trademark of HookedJS.org.{' '}
+              ©2019 All Rights Reserved. EUSY® is a registered trademark of HookedJS.org.{' '}
               <TextLink to="/register">Cookie Preferences</TextLink>, Privacy, and Terms.
               {', '}
               <TextLink to="/register">Privacy</TextLink>
@@ -85,7 +101,7 @@ export const LoginScreen = observer(() => {
         {WindowState.isLarge && (
           <View
             style={{
-              flex: 2,
+              flex: WindowState.width > 900 ? 2 : 1,
               height: WindowState.heightUnsafe
             }}
           >

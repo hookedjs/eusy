@@ -40,9 +40,9 @@ export const HomeScreen = () => {
           </TextLink>
           .
         </Text>
-        <Link to="/page">
+        <Link to="/home/page">
           <Button
-            onPress={() => Platform.OS !== 'web' && history.push('/page')}
+            onPress={() => Platform.OS !== 'web' && history.push('/home/page')}
             title="Goto Inner Page"
           />
         </Link>

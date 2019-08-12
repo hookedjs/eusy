@@ -55,19 +55,19 @@ export const FooterFixedSection = observer(() => {
         toggledIcon="x"
       />
       <FooterMenuItem
-        toggled={location.pathname === '/'}
+        toggled={location.pathname === '/home'}
         icon="home"
-        onPress={() => history.push('/')}
+        onPress={() => history.push('/home')}
       />
       <FooterMenuItem
-        toggled={location.pathname === '/login'}
-        icon="power"
-        onPress={() => history.push('/login')}
+        toggled={location.pathname === '/notifications'}
+        icon="activity"
+        onPress={() => history.push('/notifications')}
       />
       <FooterMenuItem
-        toggled={location.pathname === '/user/profile'}
+        toggled={location.pathname === '/user'}
         icon="user"
-        onPress={() => history.push('/user/profile')}
+        onPress={() => history.push('/user')}
       />
       <FooterMenuItem
         toggled={location.pathname === '/settings'}

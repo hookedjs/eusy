@@ -6,13 +6,13 @@ import { Helmet } from '../lib/Helmet';
 import { Link, useRouter } from '../lib/Routing';
 import { LogoModule } from '../modules/Logo.module';
 
-export const SettingsScreen = () => {
+export const NotificationsScreen = () => {
   const { history } = useRouter();
   const theme = useContext(ThemeContext).theme;
 
   return (
     <>
-      <Helmet title="Settings" />
+      <Helmet title="Notifications" />
       <View
         style={{
           flex: 1,
@@ -23,11 +23,11 @@ export const SettingsScreen = () => {
       >
         <LogoModule />
         <Text h4 style={styles.text}>
-          This is the settings page, coming soon.
+          This is the notifications page, coming soon.
         </Text>
-        <Link to="/settings/page">
+        <Link to="/home/page">
           <Button
-            onPress={() => Platform.OS !== 'web' && history.push('/settings/page')}
+            onPress={() => Platform.OS !== 'web' && history.push('/home/page')}
             title="Goto Inner Page"
           />
         </Link>

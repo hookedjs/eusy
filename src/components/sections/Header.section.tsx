@@ -6,7 +6,7 @@ import { Feather } from '@expo/vector-icons';
 import { observable } from 'mobx';
 import { SearchBar } from 'react-native-elements';
 import { WindowState } from '../../state/Window.state';
-import { useRouter } from '../lib/Routing';
+import { Link, useRouter } from '../lib/Routing';
 import { SidebarState } from '../../state/Sidebar.state';
 import { LogoModule } from '../modules/Logo.module';
 
@@ -21,7 +21,7 @@ export const HeaderSection = observer(() => {
 
   useEffect(() => {
     return history.listen((location, action) => {
-      if (['/', '/settings', '/login', '/user/profile'].includes(location.pathname))
+      if (['/home', '/settings', '/notifications', '/user'].includes(location.pathname))
         HeaderState.numberOfBackSteps = 0;
       else if (action === 'PUSH') HeaderState.numberOfBackSteps = HeaderState.numberOfBackSteps + 1;
       else if (action === 'POP') HeaderState.numberOfBackSteps = HeaderState.numberOfBackSteps - 1;
@@ -72,12 +72,14 @@ export const HeaderSection = observer(() => {
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         {WindowState.isLarge && (
-          <Avatar
-            rounded
-            showEditButton
-            source={require('../../assets/img/brian-eus-author.jpg')}
-            containerStyle={{ marginLeft: 10 }}
-          />
+          <Link to="/settings">
+            <Avatar
+              rounded
+              showEditButton
+              source={require('../../assets/img/brian-eus-author.jpg')}
+              containerStyle={{ marginLeft: 10 }}
+            />
+          </Link>
         )}
         {WindowState.isSmallWeb && (
           <Feather

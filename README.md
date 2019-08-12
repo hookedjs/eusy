@@ -34,11 +34,13 @@ This app is also the bases of the frontend of our full-stack starter, [HookedJS]
 - [x] Includes a production-grade web server, built on [Express](https://www.npmjs.com/package/express) 
 - [x] Continuous Integration and Deployment thanks to [Zeit's Now Service](https://zeit.co/now)
 - [ ] [Jest](https://www.npmjs.com/package/jest) The most popular JS testing framework
+
+## TODOs
+
+- [ ] Implement basic role permissions
 - [ ] Implement form validation
 - [ ] Implement profile UX
 - [ ] Implement notification UX
-- [ ] Extend react-router-native-stack to allow for horizontal animation-direction control.
-- [ ] Extend react-router-native-stack to treat sidebar like header and footer wrt animations
 - [ ] Implement Gitbook. Good example: https://github.com/router5/router5
 - [ ] Get in Apple Store
 - [ ] Make typescript strict

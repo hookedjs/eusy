@@ -26,7 +26,8 @@ export const UserProfileScreen = () => {
         <Text h4 style={styles.text}>
           User Profile
         </Text>
-        <Button onPress={() => history.goBack()} title="Go Back" />
+        <Button onPress={() => history.push('/user/edit')} title="Edit Profile" />
+        <Button onPress={() => history.push('/user/logout')} title="Log Out" />
       </View>
     </>
   );
