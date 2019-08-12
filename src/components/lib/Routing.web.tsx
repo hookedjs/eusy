@@ -35,16 +35,12 @@ class Route extends React.PureComponent<
 > {
   // If page permissions fail, redirect to login
   redirectIfUnderprivileged = currentPath => {
-    console.dir(toJS(UserState.roles));
-    console.dir(this.props.requiresRole);
     if (
       this.props.requiresRole &&
       this.props.requiresRole.length &&
-      ArrayIntersection(toJS(UserState.roles), this.props.requiresRole).length
-    ) {
-      console.log(`Route: Permission denied for ${currentPath}.`);
+      !ArrayIntersection(toJS(UserState.roles), this.props.requiresRole).length
+    )
       return <Redirect to={{ pathname: '/user/login', search: `?redirectTo=${currentPath}` }} />;
-    } else console.log(`Route: Permission granted for ${currentPath}.`);
   };
 
   render() {

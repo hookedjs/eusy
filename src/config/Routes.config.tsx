@@ -119,6 +119,7 @@ export const RoutesConfig = () => {
         headerComponent={HeaderSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
+        requiresRole={['Identified']}
       />
     </Stack>
   );
