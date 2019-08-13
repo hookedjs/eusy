@@ -20,7 +20,7 @@
     "gen:env": "dotenvi -f .env.yml -s ${APP_ENV:-development} && cat .env | npx envfile2json > .env.json",
     "gen:index": "node utils/create-indexes.js",
     "gen:svgTsx": "find src -name \"*.svg\" -exec ./utils/tsxify-svg.sh {} src/components/svgs \\;",
-    "build": "yarn clean && run-p gen:env && expo build:web",
+    "build": "yarn clean && run-p gen:env && BUILD_ENV=production expo build:web",
     "bootstrap": "yarn build",
     "start": "yarn gen:env && node server.js",
     "start:dev": "yarn gen:env && expo start --web",

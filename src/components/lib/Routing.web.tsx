@@ -14,7 +14,7 @@ import {
   RouteComponentProps,
   LinkProps
 } from 'react-router-dom';
-import Stack from 'react-router-native-stack';
+import StackOrig from 'react-router-native-stack';
 import useRouter from 'use-react-router';
 import { SidebarState } from '../../state/Sidebar.state';
 import { WindowState } from '../../state/Window.state';
@@ -123,5 +123,6 @@ const TextLink = (props: LinkProps & TextProps) => {
 };
 
 // const Stack = ({ children }: { children: React.ReactNode }) => <Switch>{children}</Switch>;
+const Stack = process.env.NODE_ENV === 'production' ? StackOrig : Switch;
 
 export { Link, matchPath, Route, Redirect, Router, Switch, Stack, TextLink, withRouter, useRouter };

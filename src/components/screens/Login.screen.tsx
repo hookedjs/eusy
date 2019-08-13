@@ -5,6 +5,7 @@ import qs from 'query-string';
 import { Image, StyleSheet, View } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
 import { Helmet } from '../lib/Helmet';
+import SpaceImageUrl from '../../assets/img/space.jpg';
 import { UserState } from '../../state/User.state';
 import { WindowState } from '../../state/Window.state';
 import { TextLink, useRouter } from '../lib/Routing';
@@ -106,7 +107,7 @@ export const LoginScreen = observer(() => {
             }}
           >
             <Image
-              source={require('../../assets/img/space.jpg')}
+              source={SpaceImageUrl}
               style={{
                 flex: 1,
                 resizeMode: 'cover',

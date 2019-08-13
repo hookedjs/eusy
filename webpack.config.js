@@ -4,35 +4,19 @@ const expoConfig = require('@expo/webpack-config');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-/*
-
-There is a bug in expo-cli that prevents prodenv from being set.
-Ref: https://github.com/expo/expo-cli/issues/919
-
-prodEnv = { projectRoot:
-   '/Users/briandombrowski/Dev/Node/hookedjs/hookedjs/services/react',
-  pwa: true,
-  mode: 'development',
-  https: undefined,
-  polyfill: false,
-  development: true,
-  production: false,
-  info: false }
-
-devEnv = { projectRoot:
-   '/Users/briandombrowski/Dev/Node/hookedjs/hookedjs/services/react',
-  pwa: true,
-  mode: 'development',
-  https: undefined,
-  polyfill: false,
-  development: true,
-  production: false,
-  info: false }
-
-
- */
-
 module.exports = async function(env, argv) {
+  /**
+   * There is a bug in expo-cli that prevents prodenv from being set.
+   * Ref: https://github.com/expo/expo-cli/issues/919
+   *
+   * The following will force webpack to bundle in production mode
+   */
+  if (process.env.BUILD_ENV === 'production') {
+    env.mode = 'production';
+    env.development = false;
+    env.production = true;
+  }
+
   const config = await expoConfig(env, argv);
   // config.entry.server = __dirname + "/server.ts";
   // config.entry.ssr = __dirname + '/ssr-test.js';

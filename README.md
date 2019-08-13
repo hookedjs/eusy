@@ -20,7 +20,11 @@ This app is also the bases of the frontend of our full-stack starter, [HookedJS]
   - Web Bundle analytics with [webpack-bundle-analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer), to hunt down bloated dependencies
   - Support .web.tsx and .native.tsx files, for easy platform specific overrides
   - Support for [styled-jsx](https://www.npmjs.com/package/styled-jsx) in .web.tsx files, for exceptional CSS-in-JSS
-- [x] Unified routing api extending [react-router](https://www.npmjs.com/package/react-router), and additional helpers for easy, declarative, animated routing.
+- [x] Unified routing api extending [react-router](https://www.npmjs.com/package/react-router)
+  - New unimodules: TextLink for links inside of Text elements
+  - Native-style Animated transitions with [react-router-native-stack](https://www.npmjs.com/package/react-router-native-stack). 
+    - We forked it to add unimodule support
+    - Note: Animations don't currently work on Web during development, but do in Production. See [Issue 3](https://github.com/hookedjs/eusy/issues/3).
 - [x] Universal UI Kit: [react-native-elements](https://www.npmjs.com/package/react-router). Enhanced for even easier theming. 
 - [x] SEO thanks to [React Helmet](https://www.npmjs.com/package/react-helmet)
 - [x] Package Patches that fix some critical show-stopping bugs and enable better universal support, managed with [patch-package](https://www.npmjs.com/package/patch-package)
@@ -29,7 +33,6 @@ This app is also the bases of the frontend of our full-stack starter, [HookedJS]
 - [x] [Hooks](https://reactjs.org/docs/hooks-intro.html) - Fully supported and preferred
 - [x] [MOBX](https://www.npmjs.com/package/mobx) - Popular, easy, distributed sharable app and component state
 - [x] Automated SVG to TSX file Conversion
-- [x] Automated index.tsx generation, thanks to [create-ts-index](https://www.npmjs.com/package/create-ts-index)
 - [x] Git hooks that clean code, run tests and block broken commits, thanks to [Husky](https://www.npmjs.com/package/husky) and [Lint-staged](https://www.npmjs.com/package/lint-staged)
 - [x] Includes a production-grade web server, built on [Express](https://www.npmjs.com/package/express) 
 - [x] Continuous Integration and Deployment thanks to [Zeit's Now Service](https://zeit.co/now)

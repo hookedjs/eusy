@@ -4,6 +4,7 @@ import { observer } from 'mobx-react-lite';
 import qs from 'query-string';
 import { Image, StyleSheet, View } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
+import SpaceImageUrl from '../../assets/img/space.jpg';
 import { WindowState } from '../../state/Window.state';
 import { UserState } from '../../state/User.state';
 import { Helmet } from '../lib/Helmet';
@@ -106,7 +107,7 @@ export const RegisterScreen = observer(() => {
             }}
           >
             <Image
-              source={require('../../assets/img/space.jpg')}
+              source={SpaceImageUrl}
               style={{
                 flex: 1,
                 resizeMode: 'cover',
