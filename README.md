@@ -12,6 +12,10 @@ This app is also the bases of the frontend of our full-stack starter, [HookedJS]
 - [Web](https://eusy.briandombrowski.now.sh/)
 - [Native](https://expo.io/@bdombro/eusy)
 
+#### Roadmap
+
+See Project: https://github.com/orgs/hookedjs/projects/1
+
 ## Features
 
 - [x] An optimized [Expo-CLI](https://docs.expo.io/versions/v34.0.0/workflow/expo-cli/) managed workflow easy developing and testing web and native
@@ -38,34 +42,10 @@ This app is also the bases of the frontend of our full-stack starter, [HookedJS]
 - [x] Continuous Integration and Deployment thanks to [Zeit's Now Service](https://zeit.co/now)
 - [ ] [Jest](https://www.npmjs.com/package/jest) The most popular JS testing framework
 
-## TODOs
-
-- [ ] Implement form validation
-- [ ] Implement profile UX
-- [ ] Implement notification UX
-- [ ] Implement Gitbook. Good example: https://github.com/router5/router5
-- [ ] Get in Apple Store
-- [ ] Make typescript strict
-
 
 ## What's with the name?
 
 EUSY = An acronym of "Expo Universal Starter" with a 'Y' on the end. It's intentionally misspelled 'easy', so it's a play on words.
-
-
-## Long-Term Goals
-
-- Extend react-router-native-stack to work on react-native-web
-- Find or Dev a tool to generate sitemap.xml files
-- Support for Internet Explorer. Consider using core-js.
-- Resolve bug that explodes bundle size: https://github.com/expo/expo-cli/issues/919
-- SSR:
-  - ref: https://github.com/necolas/react-native-web/blob/master/docs/guides/server-side-rendering.md
-  - feature request: https://github.com/expo/web-examples/issues/18
-  - I think it may be possible, but cannot explore further until the expo production bundler is fixed
-  - If SSR is impossible, upgrade to use prerender.io service
-- Code Splitting - I've tried but they all seem to break HMR, Typesafety and/or SSR, so we don't use them. Tried React.Lazy, @loadable/component, react-loadable
- 
 
 
 ## Get Started
