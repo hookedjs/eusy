@@ -5,6 +5,7 @@ import { ThemeContext } from 'react-native-elements';
 import { HoverObserver } from '../lib/HoverObserver';
 import { Link, useRouter } from '../lib/Routing';
 import { LogoModule } from './Logo.module';
+import { WindowState } from '../../state/Window.state';
 
 const SidebarHeader = () => {
   const theme = useContext(ThemeContext).theme;
@@ -71,7 +72,7 @@ export const SidebarModule = () => {
       }}
     >
       <View>
-        <SidebarHeader />
+        {WindowState.isLarge && <SidebarHeader />}
         <SidebarMenuItem to="/home" text="Home" featherIconName="home" />
         <SidebarMenuItem to="/notifications" text="Notifications" featherIconName="activity" />
         <SidebarMenuItem to="/user" text="My Account" featherIconName="user" />

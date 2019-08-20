@@ -12,7 +12,6 @@ import { AppLoadingScreen } from './src/components/screens/AppLoading.screen';
 import { loadFonts } from './src/lib/AssetLoading';
 import { SidebarSection } from './src/components/sections/Sidebar.section';
 import { Router } from './src/components/lib/Routing';
-import { Helmet } from './src/components/lib/Helmet';
 
 import { Theme } from './src/config/Theme.config';
 
@@ -36,8 +35,7 @@ class App extends React.PureComponent<any, state> {
   render() {
     return (
       <ThemeProvider theme={Theme}>
-        <View style={{ flex: 1, backgroundColor: 'white', width: '100%', overflow: 'hidden' }}>
-          <Helmet />
+        <View style={{ flex: 1, width: '100%', overflow: 'hidden' }}>
           {this.state.isReady ? (
             <Router>
               <SidebarSection>

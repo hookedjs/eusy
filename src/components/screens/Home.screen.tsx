@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Platform, View } from 'react-native';
+import { Platform, ScrollView, View } from 'react-native';
 import { Button, Text, ThemeContext } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { Helmet } from '../lib/Helmet';
@@ -12,11 +12,11 @@ export const HomeScreen = () => {
   const theme = useContext(ThemeContext);
 
   return (
-    <View style={{ alignItems: 'center' }}>
+    <ScrollView>
       <Helmet title="Home" />
       <View
         style={{
-          flex: 1,
+          alignSelf: 'center',
           alignItems: 'center',
           paddingVertical: 60,
           paddingHorizontal: 30,
@@ -56,7 +56,7 @@ export const HomeScreen = () => {
           title="Feeling Lucky?"
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

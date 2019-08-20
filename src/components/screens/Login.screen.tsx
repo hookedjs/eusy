@@ -2,7 +2,7 @@ import React from 'react';
 import { set } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import qs from 'query-string';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
 import { Helmet } from '../lib/Helmet';
 import SpaceImageUrl from '../../assets/img/space.jpg';
@@ -26,8 +26,8 @@ export const LoginScreen = observer(() => {
   };
 
   return (
-    <>
-      <Helmet title="Settings" />
+    <ScrollView>
+      <Helmet title="Login" />
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
         <View
           style={{
@@ -45,7 +45,12 @@ export const LoginScreen = observer(() => {
           </Text>
           <Text style={styles.text}>
             Need a EUSY account?{' '}
-            <TextLink to={{ pathname: '/user/register', search: `?redirectTo=${redirectFromUrl}` }}>
+            <TextLink
+              to={{
+                pathname: '/user/register',
+                search: redirectFromUrl && `?redirectTo=${redirectFromUrl}`
+              }}
+            >
               Create an account
             </TextLink>
           </Text>
@@ -117,7 +122,7 @@ export const LoginScreen = observer(() => {
           </View>
         )}
       </View>
-    </>
+    </ScrollView>
   );
 });
 

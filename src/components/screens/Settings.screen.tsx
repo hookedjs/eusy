@@ -1,6 +1,6 @@
-import React, { useContext } from 'react';
-import { Platform, View } from 'react-native';
-import { Button, Text, ThemeContext } from 'react-native-elements';
+import React from 'react';
+import { Platform, ScrollView, View } from 'react-native';
+import { Button, Text } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { Helmet } from '../lib/Helmet';
 import { Link, useRouter } from '../lib/Routing';
@@ -8,14 +8,13 @@ import { LogoModule } from '../modules/Logo.module';
 
 export const SettingsScreen = () => {
   const { history } = useRouter();
-  const theme = useContext(ThemeContext).theme;
 
   return (
-    <>
+    <ScrollView>
       <Helmet title="Settings" />
       <View
         style={{
-          flex: 1,
+          alignSelf: 'center',
           alignItems: 'center',
           paddingVertical: 60,
           paddingHorizontal: 30
@@ -32,7 +31,7 @@ export const SettingsScreen = () => {
           />
         </Link>
       </View>
-    </>
+    </ScrollView>
   );
 };
 

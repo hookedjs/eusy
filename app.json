@@ -6,8 +6,8 @@
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": ["ios", "android", "web"],
-    "version": "1.0.0",
-    "icon": "./src/assets/img/logo-icon.png",
+    "version": "1.0.1",
+    "icon": "./src/assets/img/logo-square.png",
     "splash": {
       "image": "./src/assets/img/splash.png",
       "resizeMode": "contain",

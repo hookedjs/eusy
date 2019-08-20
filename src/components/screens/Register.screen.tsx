@@ -2,7 +2,7 @@ import React from 'react';
 import { set } from 'mobx';
 import { observer } from 'mobx-react-lite';
 import qs from 'query-string';
-import { Image, StyleSheet, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
 import SpaceImageUrl from '../../assets/img/space.jpg';
 import { WindowState } from '../../state/Window.state';
@@ -26,8 +26,8 @@ export const RegisterScreen = observer(() => {
   };
 
   return (
-    <>
-      <Helmet title="Settings" />
+    <ScrollView>
+      <Helmet title="Register" />
       <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
         <View
           style={{
@@ -117,7 +117,7 @@ export const RegisterScreen = observer(() => {
           </View>
         )}
       </View>
-    </>
+    </ScrollView>
   );
 });
 

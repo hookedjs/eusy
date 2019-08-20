@@ -2,7 +2,7 @@
   "name": "eusy",
   "description": "Expo Universal Starter: A low-config, low-bloat, moderately opinionated starter/boilerplate for a universal web+mobile app built upon the managed Expo-CLI workflow. It comes with and demonstrates many commonly used UX patterns. All that with exceptional hot-reload support and < 150kb bundle. More info at https://github.com/hookedjs/eusy.",
   "author": "Brian Dombrowski <bdombro@gmail.com>",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "license": "ISC",
   "private": true,
   "main": "node_modules/expo/AppEntry.js",

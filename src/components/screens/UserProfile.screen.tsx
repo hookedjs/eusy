@@ -1,35 +1,33 @@
 import React from 'react';
-import { Image, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { Helmet } from '../lib/Helmet';
 import { useRouter } from '../lib/Routing';
+import { LogoModule } from '../modules/Logo.module';
 
 export const UserProfileScreen = () => {
   const { history } = useRouter();
 
   return (
-    <>
+    <ScrollView>
       <Helmet title="Settings" />
       <View
         style={{
-          flex: 1,
+          alignSelf: 'center',
           alignItems: 'center',
           paddingVertical: 60,
           paddingHorizontal: 30
         }}
       >
-        <Image
-          style={{ width: 200, height: 200 }}
-          source={require('../../assets/img/logo-icon.png')}
-        />
+        <LogoModule />
         <Text h4 style={styles.text}>
           User Profile
         </Text>
         <Button onPress={() => history.push('/user/edit')} title="Edit Profile" />
         <Button onPress={() => history.push('/user/logout')} title="Log Out" />
       </View>
-    </>
+    </ScrollView>
   );
 };
 

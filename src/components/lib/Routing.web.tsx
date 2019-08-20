@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { toJS } from 'mobx';
-import { ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { TextProps, ThemeContext } from 'react-native-elements';
 import {
   BrowserRouter as Router,
@@ -20,6 +20,7 @@ import { SidebarState } from '../../state/Sidebar.state';
 import { WindowState } from '../../state/Window.state';
 import { UserState } from '../../state/User.state';
 import { ArrayIntersection } from '../../lib/Polyfills';
+import { Helmet } from './Helmet';
 
 // Extend Route to sync sidebar and wrap in scrollview
 // This is identical to Routing.tsx, but copied here to eliminate need for another file
@@ -57,24 +58,18 @@ class Route extends React.PureComponent<
     return (
       <RouteOrig
         render={routerProps => (
-          <>
+          <View
+            style={{
+              paddingTop: this.props.headerComponent ? 0 : WindowState.heightStatusBar,
+              paddingBottom: this.props.footerComponent ? 0 : WindowState.heightBottomSpeaker
+            }}
+          >
             {this.redirectIfUnderprivileged(routerProps.match.path)}
-            <ScrollView>
-              <View
-                style={{
-                  flex: 1,
-                  minHeight: '100%',
-                  paddingTop: this.props.headerComponent ? 0 : WindowState.heightStatusBar,
-                  paddingBottom: this.props.footerComponent ? 0 : WindowState.heightBottomSpeaker
-                }}
-              >
-                <this.props.component {...routerProps} />
-                {this.props.footerEndComponent && (
-                  <this.props.footerEndComponent {...routerProps} />
-                )}
-              </View>
-            </ScrollView>
-          </>
+
+            <Helmet />
+            <this.props.component {...routerProps} />
+            {this.props.footerEndComponent && <this.props.footerEndComponent {...routerProps} />}
+          </View>
         )}
         {...routeProps}
       />

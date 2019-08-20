@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { Helmet } from '../lib/Helmet';
@@ -10,11 +10,11 @@ export const UserEditScreen = () => {
   const { history } = useRouter();
 
   return (
-    <>
+    <ScrollView>
       <Helmet title="Settings" />
       <View
         style={{
-          flex: 1,
+          alignSelf: 'center',
           alignItems: 'center',
           paddingVertical: 60,
           paddingHorizontal: 30
@@ -26,7 +26,7 @@ export const UserEditScreen = () => {
         </Text>
         <Button onPress={() => history.push('/user/profile')} title="View Profile" />
       </View>
-    </>
+    </ScrollView>
   );
 };
 

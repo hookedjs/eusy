@@ -12,3 +12,4 @@ web-report/
 .env*
 !.env.yml
 graveyard
+git

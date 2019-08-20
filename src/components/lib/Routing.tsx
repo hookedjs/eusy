@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Linking } from 'expo';
 import { toJS } from 'mobx';
-import { ScrollView, Text, TextProps, View } from 'react-native';
+import { Text, TextProps, View } from 'react-native';
 import { ThemeContext } from 'react-native-elements';
 import {
   NativeRouter as Router,
@@ -24,7 +24,7 @@ import { ArrayIntersection } from '../../lib/Polyfills';
 import { TouchableOpacity } from './Touchables';
 
 // Extend Route to sync sidebar and wrap in scrollview
-// This is identical to Routing.tsx, but copied here to eliminate need for another file
+// This is mostly identical to Routing.tsx, but footerEndComponent is abandoned.
 class Route extends React.PureComponent<
   RouteProps & {
     headerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
@@ -59,24 +59,16 @@ class Route extends React.PureComponent<
     return (
       <RouteOrig
         render={routerProps => (
-          <>
+          <View
+            style={{
+              flex: 1,
+              paddingTop: this.props.headerComponent ? 0 : WindowState.heightStatusBar,
+              paddingBottom: this.props.footerComponent ? 0 : WindowState.heightBottomSpeaker
+            }}
+          >
             {this.redirectIfUnderprivileged(routerProps.match.path)}
-            <ScrollView>
-              <View
-                style={{
-                  flex: 1,
-                  minHeight: '100%',
-                  paddingTop: this.props.headerComponent ? 0 : WindowState.heightStatusBar,
-                  paddingBottom: this.props.footerComponent ? 0 : WindowState.heightBottomSpeaker
-                }}
-              >
-                <this.props.component {...routerProps} />
-                {this.props.footerEndComponent && (
-                  <this.props.footerEndComponent {...routerProps} />
-                )}
-              </View>
-            </ScrollView>
-          </>
+            <this.props.component {...routerProps} />
+          </View>
         )}
         {...routeProps}
       />

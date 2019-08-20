@@ -1,27 +1,26 @@
 import React, { useContext } from 'react';
-import { Platform, View } from 'react-native';
+import { Platform, ScrollView, View } from 'react-native';
 import { Button, Text, ThemeContext } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { Helmet } from '../lib/Helmet';
 import { Link, useRouter } from '../lib/Routing';
-import { LogoModule } from '../modules/Logo.module';
 
 export const NotificationsScreen = () => {
   const { history } = useRouter();
   const theme = useContext(ThemeContext).theme;
 
   return (
-    <>
+    <ScrollView>
       <Helmet title="Notifications" />
+
       <View
         style={{
-          flex: 1,
-          alignItems: 'center',
+          maxWidth: 900,
+          alignSelf: 'center',
           paddingVertical: 60,
           paddingHorizontal: 30
         }}
       >
-        <LogoModule />
         <Text h4 style={styles.text}>
           This is the notifications page, coming soon.
         </Text>
@@ -32,7 +31,7 @@ export const NotificationsScreen = () => {
           />
         </Link>
       </View>
-    </>
+    </ScrollView>
   );
 };
 
