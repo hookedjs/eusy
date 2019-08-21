@@ -76,7 +76,7 @@ const SidebarMenuItem = ({
                     position: 'relative',
                     top: -8,
                     left: 19,
-                    marginBottom: -9
+                    marginBottom: -8
                   }}
                 />
               )}

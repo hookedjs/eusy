@@ -76,26 +76,26 @@ export const HeaderSection = observer(() => {
         {WindowState.isLarge && (
           <>
             <Link to="/notifications">
-              <Avatar
-                icon={{
-                  size: 22,
-                  name: 'bell',
-                  type: 'feather',
-                  color: theme.colors.primaryDark,
-                  underlayStyle: { backgroundColor: 'transparent' }
-                }}
-                size={28}
-                iconStyle={{}}
-                overlayContainerStyle={{ backgroundColor: 'transparent' }}
-                containerStyle={{ marginLeft: 10, backgroundColor: 'transparent' }}
-                showEditButton={!!NotificationsState.unreadCount}
-                editButton={{
-                  name: 'activity',
-                  type: 'feather',
-                  size: 10,
-                  style: { backgroundColor: 'red' }
-                }}
-              />
+              <View>
+                <Feather name="bell" size={22} color={theme.colors.primaryDark} />
+                {!!NotificationsState.unreadCount && (
+                  <Feather
+                    name="activity"
+                    size={7}
+                    color="white"
+                    style={{
+                      backgroundColor: 'red',
+                      borderRadius: 4,
+                      width: 8,
+                      height: 8,
+                      position: 'relative',
+                      top: -6,
+                      left: 13,
+                      marginBottom: -8
+                    }}
+                  />
+                )}
+              </View>
             </Link>
             <Link to="/settings">
               <Avatar
