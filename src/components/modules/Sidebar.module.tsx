@@ -6,6 +6,8 @@ import { HoverObserver } from '../lib/HoverObserver';
 import { Link, useRouter } from '../lib/Routing';
 import { LogoModule } from './Logo.module';
 import { WindowState } from '../../state/Window.state';
+import { observer } from 'mobx-react-lite';
+import { NotificationsState } from '../../state/Notifications.state';
 
 const SidebarHeader = () => {
   const theme = useContext(ThemeContext).theme;
@@ -33,7 +35,17 @@ const SidebarHeader = () => {
   );
 };
 
-const SidebarMenuItem = ({ to, text, featherIconName }) => {
+const SidebarMenuItem = ({
+  to,
+  text,
+  featherIconName,
+  showActivityBubble
+}: {
+  to: any;
+  text: string;
+  featherIconName: string;
+  showActivityBubble?: boolean;
+}) => {
   const { location } = useRouter();
   const theme = useContext(ThemeContext).theme;
   const isActive = location.pathname === to;
@@ -50,7 +62,25 @@ const SidebarMenuItem = ({ to, text, featherIconName }) => {
               backgroundColor: isHovering || isActive ? theme.colors.primaryLight : 'transparent'
             }}
           >
-            <Feather name={featherIconName} size={28} color="white" />
+            <View>
+              <Feather name={featherIconName} size={28} color="white" />
+              {!!showActivityBubble && (
+                <Feather
+                  name="activity"
+                  size={8}
+                  color="white"
+                  style={{
+                    backgroundColor: 'red',
+                    borderRadius: 4,
+                    width: 9,
+                    position: 'relative',
+                    top: -8,
+                    left: 19,
+                    marginBottom: -9
+                  }}
+                />
+              )}
+            </View>
             <View style={{ alignContent: 'center', justifyContent: 'center' }}>
               <Text style={{ fontSize: 16, color: 'white', paddingLeft: 22 }}>{text}</Text>
             </View>
@@ -61,7 +91,7 @@ const SidebarMenuItem = ({ to, text, featherIconName }) => {
   );
 };
 
-export const SidebarModule = () => {
+export const SidebarModule = observer(() => {
   const theme = useContext(ThemeContext).theme;
   return (
     <View
@@ -74,7 +104,12 @@ export const SidebarModule = () => {
       <View>
         {WindowState.isLarge && <SidebarHeader />}
         <SidebarMenuItem to="/home" text="Home" featherIconName="home" />
-        <SidebarMenuItem to="/notifications" text="Notifications" featherIconName="bell" />
+        <SidebarMenuItem
+          to="/notifications"
+          text="Notifications"
+          featherIconName="bell"
+          showActivityBubble={!!NotificationsState.unreadCount}
+        />
         <SidebarMenuItem to="/user" text="My Account" featherIconName="user" />
       </View>
       <View>
@@ -82,4 +117,4 @@ export const SidebarModule = () => {
       </View>
     </View>
   );
-};
+});
