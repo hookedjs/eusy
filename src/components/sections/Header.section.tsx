@@ -6,9 +6,11 @@ import { Feather } from '@expo/vector-icons';
 import { observable } from 'mobx';
 import { SearchBar } from 'react-native-elements';
 import { WindowState } from '../../state/Window.state';
+import { UserState } from '../../state/User.state';
 import { Link, useRouter } from '../lib/Routing';
 import { SidebarState } from '../../state/Sidebar.state';
 import { LogoModule } from '../modules/Logo.module';
+import { NotificationsState } from '../../state/Notifications.state';
 
 export const HeaderState = observable({
   numberOfBackSteps: 0,
@@ -72,14 +74,37 @@ export const HeaderSection = observer(() => {
       </View>
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         {WindowState.isLarge && (
-          <Link to="/settings">
-            <Avatar
-              rounded
-              showEditButton
-              source={require('../../assets/img/brian-eus-author.jpg')}
-              containerStyle={{ marginLeft: 10 }}
-            />
-          </Link>
+          <>
+            <Link to="/notifications">
+              <Avatar
+                icon={{
+                  size: 22,
+                  name: 'bell',
+                  type: 'feather',
+                  color: theme.colors.primaryDark,
+                  underlayStyle: { backgroundColor: 'transparent' }
+                }}
+                size={28}
+                iconStyle={{}}
+                overlayContainerStyle={{ backgroundColor: 'transparent' }}
+                containerStyle={{ marginLeft: 10, backgroundColor: 'transparent' }}
+                showEditButton={!!NotificationsState.unreadCount}
+                editButton={{
+                  name: 'activity',
+                  type: 'feather',
+                  size: 10,
+                  style: { backgroundColor: 'red' }
+                }}
+              />
+            </Link>
+            <Link to="/settings">
+              <Avatar
+                rounded
+                source={{ uri: UserState.avatar }}
+                containerStyle={{ marginLeft: 10 }}
+              />
+            </Link>
+          </>
         )}
         {WindowState.isSmallWeb && (
           <Feather

@@ -4,7 +4,8 @@ const UserStateDefault = {
   roles: [],
   nameFirst: '',
   nameLast: '',
-  email: ''
+  email: '',
+  avatar: ''
 };
 
 export const UserState = observable(UserStateDefault);

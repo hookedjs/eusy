@@ -3,12 +3,10 @@ import { ScrollView, View } from 'react-native';
 import { Button, Text } from 'react-native-elements';
 import { StyleSheet } from 'react-native';
 import { Helmet } from '../lib/Helmet';
-import { useRouter } from '../lib/Routing';
+import { Link } from '../lib/Routing';
 import { LogoModule } from '../modules/Logo.module';
 
 export const NotFoundScreen = () => {
-  const { history } = useRouter();
-
   return (
     <ScrollView>
       <Helmet title="404" />
@@ -24,7 +22,9 @@ export const NotFoundScreen = () => {
         <Text h4 style={styles.text}>
           Uh oh, the url you entered does not exist.
         </Text>
-        <Button onPress={() => history.push('/')} title="Go Home?" />
+        <Link to="/">
+          <Button title="Go Home?" />
+        </Link>
       </View>
     </ScrollView>
   );

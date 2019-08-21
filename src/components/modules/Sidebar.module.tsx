@@ -36,6 +36,7 @@ const SidebarHeader = () => {
 const SidebarMenuItem = ({ to, text, featherIconName }) => {
   const { location } = useRouter();
   const theme = useContext(ThemeContext).theme;
+  const isActive = location.pathname === to;
 
   return (
     <HoverObserver
@@ -46,8 +47,7 @@ const SidebarMenuItem = ({ to, text, featherIconName }) => {
               flexDirection: 'row',
               paddingLeft: 20,
               paddingVertical: 20,
-              backgroundColor:
-                isHovering || location.pathname === to ? theme.colors.primaryLight : 'inherit'
+              backgroundColor: isHovering || isActive ? theme.colors.primaryLight : 'transparent'
             }}
           >
             <Feather name={featherIconName} size={28} color="white" />
@@ -74,7 +74,7 @@ export const SidebarModule = () => {
       <View>
         {WindowState.isLarge && <SidebarHeader />}
         <SidebarMenuItem to="/home" text="Home" featherIconName="home" />
-        <SidebarMenuItem to="/notifications" text="Notifications" featherIconName="activity" />
+        <SidebarMenuItem to="/notifications" text="Notifications" featherIconName="bell" />
         <SidebarMenuItem to="/user" text="My Account" featherIconName="user" />
       </View>
       <View>

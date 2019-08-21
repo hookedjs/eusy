@@ -20,6 +20,7 @@ export const LoginScreen = observer(() => {
       email: 'marie@antoinette.com',
       nameFirst: 'Marie',
       nameLast: 'Antoinette',
+      avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/kaelifa/128.jpg',
       roles: ['Identified']
     });
     history.push(redirectFromUrl || '/home');

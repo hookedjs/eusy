@@ -9,6 +9,8 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "strict": false
+    "strict": false,
+    "resolveJsonModule": true,
+    "typeRoots": ["./node_modules/@types", "./src/@types"]
   }
 }

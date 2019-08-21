@@ -61,7 +61,7 @@ export const FooterFixedSection = observer(() => {
       />
       <FooterMenuItem
         toggled={location.pathname === '/notifications'}
-        icon="activity"
+        icon="bell"
         onPress={() => history.push('/notifications')}
       />
       <FooterMenuItem

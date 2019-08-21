@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { toJS } from 'mobx';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { TextProps, ThemeContext } from 'react-native-elements';
 import {
   BrowserRouter as Router,
@@ -23,7 +23,6 @@ import { ArrayIntersection } from '../../lib/Polyfills';
 import { Helmet } from './Helmet';
 
 // Extend Route to sync sidebar and wrap in scrollview
-// This is identical to Routing.tsx, but copied here to eliminate need for another file
 class Route extends React.PureComponent<
   RouteProps & {
     headerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
@@ -55,21 +54,28 @@ class Route extends React.PureComponent<
     // Set the sidebar component
     SidebarState.sidebarComponent = this.props.sidebarComponent;
 
+    // Have to include the headercomponent on development mode for now because development mode
+    // uses Switch instead of Stack, due to an HMR bug (see Stack declaration for more info).
     return (
       <RouteOrig
         render={routerProps => (
-          <View
-            style={{
-              paddingTop: this.props.headerComponent ? 0 : WindowState.heightStatusBar,
-              paddingBottom: this.props.footerComponent ? 0 : WindowState.heightBottomSpeaker
-            }}
-          >
-            {this.redirectIfUnderprivileged(routerProps.match.path)}
+          <>
+            {this.props.headerComponent && process.env.NODE_ENV !== 'production' && (
+              <this.props.headerComponent {...routerProps} />
+            )}
+            <ScrollView
+              style={{
+                paddingTop: this.props.headerComponent ? 0 : WindowState.heightStatusBar,
+                paddingBottom: this.props.footerComponent ? 0 : WindowState.heightBottomSpeaker
+              }}
+            >
+              {this.redirectIfUnderprivileged(routerProps.match.path)}
 
-            <Helmet />
-            <this.props.component {...routerProps} />
-            {this.props.footerEndComponent && <this.props.footerEndComponent {...routerProps} />}
-          </View>
+              <Helmet />
+              <this.props.component {...routerProps} />
+              {this.props.footerEndComponent && <this.props.footerEndComponent {...routerProps} />}
+            </ScrollView>
+          </>
         )}
         {...routeProps}
       />
@@ -95,12 +101,19 @@ const TextLink = (props: LinkProps & TextProps) => {
   const color = (props.style && props.style.color) || theme.colors.primary;
   const colorVisited = (props.style && props.style.color) || theme.colors.primaryDark;
 
-  const toPath = typeof props.to === 'string' ? props.to : props.to.pathname;
+  // Handle non-route links
+  const onClick = props.onPress as () => any;
+  let target = '_blank';
+  let toPath = typeof props.to === 'string' ? props.to : props.to.pathname;
+  if (toPath === '#') {
+    toPath = 'javascript:void(0);';
+    target = '';
+  }
 
   return (
     <div style={{ display: 'inline-block' }}>
-      {toPath.includes('.') ? (
-        <a href={toPath} target="_blank" {...props} />
+      {toPath.includes('.') || toPath.includes('javascript') ? (
+        <a href={toPath} target={target} onClick={onClick} {...props} />
       ) : (
         <LinkOrig {...props} />
       )}
@@ -118,6 +131,7 @@ const TextLink = (props: LinkProps & TextProps) => {
 };
 
 // const Stack = ({ children }: { children: React.ReactNode }) => <Switch>{children}</Switch>;
+// TODO: Get HMR working with Stack.
 const Stack = process.env.NODE_ENV === 'production' ? StackOrig : Switch;
 
 export { Link, matchPath, Route, Redirect, Router, Switch, Stack, TextLink, withRouter, useRouter };

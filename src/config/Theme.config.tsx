@@ -11,6 +11,7 @@ type ColorsType = RecursivePartial<ColorsOrig> & {
   primaryDarker: string;
   primaryLight: string;
   primaryLighter: string;
+  primaryLightest: string;
 
   facebook: string;
   twitter: string;
@@ -34,6 +35,7 @@ export const getColors = (primaryHue: number): ColorsType => ({
   primary: `hsl(${primaryHue},93%,40%)`,
   primaryLight: `hsl(${primaryHue},23%,60%)`,
   primaryLighter: `hsl(${primaryHue},23%,84%)`,
+  primaryLightest: `hsl(${primaryHue},23%,90%)`,
   primaryDark: `hsl(${primaryHue},93%,14%)`,
   primaryDarker: `hsl(${primaryHue},93%,8%)`,
 

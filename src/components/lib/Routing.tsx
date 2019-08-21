@@ -23,8 +23,7 @@ import { UserState } from '../../state/User.state';
 import { ArrayIntersection } from '../../lib/Polyfills';
 import { TouchableOpacity } from './Touchables';
 
-// Extend Route to sync sidebar and wrap in scrollview
-// This is mostly identical to Routing.tsx, but footerEndComponent is abandoned.
+// Extend Route to sync sidebar
 class Route extends React.PureComponent<
   RouteProps & {
     headerComponent?: React.ComponentType<RouteComponentProps<any>> | React.ComponentType<any>;
@@ -76,18 +75,19 @@ class Route extends React.PureComponent<
   }
 }
 
-const Link = ({ to, onPress, style, ...props }: LinkProps) => {
-  return typeof to === 'string' && to.includes('.') ? (
+const Link = ({ to, onPress, ...props }: LinkProps) => {
+  const isExternal = typeof to === 'string' && to.includes('.');
+  const { history } = useRouter();
+  return (
     <TouchableOpacity
       onPress={() => {
         if (onPress) onPress();
-        Linking.openURL(to);
+        if (isExternal) Linking.openURL(to);
+        else history.push(to);
       }}
     >
-      <LinkOrig to={''} style={{ ...style }} {...props} />
+      <LinkOrig to={isExternal ? '' : to} {...props} />
     </TouchableOpacity>
-  ) : (
-    <LinkOrig to={to} style={{ ...style }} {...props} />
   );
 };
 
@@ -101,6 +101,7 @@ const TextLink = ({ to, onPress = () => null, style, ...props }: LinkProps & Tex
       onPress={e => {
         onPress(e);
         if (toPath.includes('.')) Linking.openURL(toPath);
+        else if (toPath === '#') void 0;
         else history.push(to as string);
       }}
       style={{
