@@ -71,8 +71,8 @@ const SidebarMenuItem = ({
                   color="white"
                   style={{
                     backgroundColor: 'red',
-                    borderRadius: 4,
-                    width: 9,
+                    // borderRadius: 4,
+                    width: 8,
                     position: 'relative',
                     top: -28,
                     left: 19,
@@ -110,7 +110,6 @@ export const SidebarModule = observer(() => {
           featherIconName="bell"
           showActivityBubble={!!NotificationsState.unreadCount}
         />
-        <SidebarMenuItem to="/user" text="My Account" featherIconName="user" />
       </View>
       <View>
         <SidebarMenuItem to="/settings" text="Settings" featherIconName="settings" />

@@ -29,6 +29,7 @@ const MenuItem = ({
             style={{
               flexDirection: 'row',
               paddingVertical: 20,
+              paddingLeft: WindowState.isLargeWeb ? 10 : 0,
               backgroundColor: isHovering ? theme.colors.primaryLighter : 'transparent'
             }}
           >
@@ -41,8 +42,8 @@ const MenuItem = ({
                   color="white"
                   style={{
                     backgroundColor: 'red',
-                    borderRadius: 4,
-                    width: 9,
+                    // borderRadius: 4,
+                    width: 8,
                     position: 'relative',
                     top: -28,
                     left: 19,
@@ -85,7 +86,6 @@ export const MenuScreen = () => {
             showActivityBubble={!!NotificationsState.unreadCount}
           />
           <MenuItem to="/search" text="Search" featherIconName="search" />
-          <MenuItem to="/user" text="My Account" featherIconName="user" />
           <MenuItem to="/settings" text="Settings" featherIconName="settings" />
         </View>
       </ScrollView>

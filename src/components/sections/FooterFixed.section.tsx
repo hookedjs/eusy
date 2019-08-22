@@ -44,7 +44,7 @@ export const FooterFixedSection = observer(() => {
             color="white"
             style={{
               backgroundColor: 'red',
-              borderRadius: 4,
+              // borderRadius: 4,
               width: 9,
               height: 9,
               position: 'relative',
@@ -83,11 +83,6 @@ export const FooterFixedSection = observer(() => {
         toggled={location.pathname.startsWith('/search')}
         icon="search"
         onPress={() => history.push('/search')}
-      />
-      <FooterMenuItem
-        toggled={location.pathname.startsWith('/user')}
-        icon="user"
-        onPress={() => history.push('/user')}
       />
       <FooterMenuItem
         toggled={location.pathname.startsWith('/menu')}

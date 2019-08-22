@@ -132,19 +132,19 @@ export const FooterEndSection = observer(() => {
               </Text>
             </View>
           </View>
-
-          <View
-            style={{
-              paddingTop: 20,
-              paddingBottom: 10,
-              alignItems: 'center',
-              backgroundColor: theme.colors.primaryDark
-            }}
-          >
-            <Text style={styles.text}>© 2019 Eusy Org</Text>
-          </View>
         </View>
       )}
+
+      <View
+        style={{
+          paddingTop: 20,
+          paddingBottom: 10,
+          alignItems: 'center',
+          backgroundColor: theme.colors.primaryDark
+        }}
+      >
+        <Text style={styles.text}>© 2019 Eusy Org</Text>
+      </View>
     </View>
   );
 });

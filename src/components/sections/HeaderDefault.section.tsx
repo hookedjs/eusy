@@ -6,7 +6,6 @@ import { Feather } from '@expo/vector-icons';
 import { observable } from 'mobx';
 import { WindowState } from '../../state/Window.state';
 import { UserState } from '../../state/User.state';
-import { SidebarState } from '../../state/Sidebar.state';
 import { Link, useRouter } from '../lib/Routing';
 import { LogoModule } from '../modules/Logo.module';
 import { NotificationsState } from '../../state/Notifications.state';
@@ -69,8 +68,8 @@ export const HeaderDefaultSection = observer(() => {
                     color="white"
                     style={{
                       backgroundColor: 'red',
-                      borderRadius: 4,
-                      width: 8,
+                      // borderRadius: 4,
+                      width: 7,
                       height: 8,
                       position: 'relative',
                       top: -22,
@@ -81,7 +80,7 @@ export const HeaderDefaultSection = observer(() => {
                 )}
               </View>
             </Link>
-            <Link to="/settings">
+            <Link to="/settings/user">
               <Avatar
                 rounded
                 source={{ uri: UserState.avatar }}
@@ -91,13 +90,9 @@ export const HeaderDefaultSection = observer(() => {
           </>
         )}
         {WindowState.isSmallWeb && (
-          <Feather
-            name="menu"
-            size={24}
-            color="#2D3C56"
-            onPress={() => (SidebarState.toggled = !SidebarState.toggled)}
-            style={{ paddingLeft: 10 }}
-          />
+          <Link to="/menu">
+            <Feather name="menu" size={24} color="#2D3C56" style={{ paddingLeft: 10 }} />
+          </Link>
         )}
       </View>
     </View>

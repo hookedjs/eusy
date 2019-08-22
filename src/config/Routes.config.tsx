@@ -13,7 +13,6 @@ import { SettingsScreen } from '../components/screens/Settings.screen';
 import { UserEditScreen } from '../components/screens/UserEdit.screen';
 import { HomeScreen } from '../components/screens/Home.screen';
 import { InnerPageScreen } from '../components/screens/InnerPage.screen';
-import { UserProfileScreen } from '../components/screens/UserProfile.screen';
 import { NotificationsScreen } from '../components/screens/Notifications.screen';
 import { WindowState } from '../state/Window.state';
 import { UserStateReset } from '../state/User.state';
@@ -45,36 +44,33 @@ export const RoutesConfig = () => {
       />
 
       <Route
-        title="Menu"
         path="/menu"
         exact
         component={MenuScreen}
         sidebarComponent={SidebarModule}
         headerComponent={HeaderDefaultSection}
         footerComponent={FooterFixedSection}
-        footerEndComponent={FooterEndSection}
+        // footerEndComponent={FooterEndSection}
         requiresRole={['Identified']}
       />
 
       <Route
-        title="Settings"
         path="/settings"
         exact
         component={SettingsScreen}
         sidebarComponent={SidebarModule}
         headerComponent={HeaderDefaultSection}
         footerComponent={FooterFixedSection}
-        footerEndComponent={FooterEndSection}
+        // footerEndComponent={FooterEndSection}
         requiresRole={['Identified']}
       />
       <Route
-        title="Inner Page"
-        path="/settings/page"
-        component={InnerPageScreen}
+        path="/settings/user"
+        component={UserEditScreen}
         sidebarComponent={SidebarModule}
         headerComponent={WindowState.isSmallNative ? HeaderInnerPageSection : HeaderDefaultSection}
         footerComponent={FooterFixedSection}
-        footerEndComponent={FooterEndSection}
+        // footerEndComponent={FooterEndSection}
         requiresRole={['Identified']}
       />
 
@@ -99,16 +95,6 @@ export const RoutesConfig = () => {
         requiresRole={['Identified']}
       />
 
-      <Route
-        path="/user"
-        exact
-        component={UserProfileScreen}
-        sidebarComponent={SidebarModule}
-        headerComponent={HeaderDefaultSection}
-        footerComponent={FooterFixedSection}
-        footerEndComponent={FooterEndSection}
-        requiresRole={['Identified']}
-      />
       <Route path="/user/login" component={LoginScreen} />
       <Route
         path="/user/logout"
@@ -118,15 +104,6 @@ export const RoutesConfig = () => {
         }}
       />
       <Route path="/user/register" component={RegisterScreen} />
-      <Route
-        path="/user/edit"
-        component={UserEditScreen}
-        sidebarComponent={SidebarModule}
-        headerComponent={WindowState.isSmallNative ? HeaderInnerPageSection : HeaderDefaultSection}
-        footerComponent={FooterFixedSection}
-        footerEndComponent={FooterEndSection}
-        requiresRole={['Identified']}
-      />
 
       <Route
         component={NotFoundScreen}

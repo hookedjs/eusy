@@ -39,7 +39,7 @@ export const LoginScreen = observer(() => {
               alignItems: 'center',
               paddingTop: WindowState.isLarge ? 20 : 40,
               paddingBottom: WindowState.isLarge ? 0 : 60,
-              paddingHorizontal: 30
+              paddingHorizontal: WindowState.isLarge ? 30 : 10
             }}
           >
             <LogoModule width={100} height={100} style={{ marginBottom: 20 }} />
