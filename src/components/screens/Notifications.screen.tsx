@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { ScrollView, View } from 'react-native';
 import { Avatar, Text, ThemeContext } from 'react-native-elements';
-import { StyleSheet } from 'react-native';
 import {
   ClearNotification,
   ClearNotifications,
@@ -10,14 +9,14 @@ import {
   ToggleNotification
 } from '../../state/Notifications.state';
 import { Helmet } from '../lib/Helmet';
-import { Link, TextLink } from '../lib/Routing';
+import { Link, TextLink, useRouter } from '../lib/Routing';
 import { HoverObserver } from '../lib/HoverObserver';
 import { observer, useAsObservableSource } from 'mobx-react-lite';
 import Markdown from 'react-native-markdown-renderer';
 import { WindowState } from '../../state/Window.state';
 
 const NotificationRow = observer(({ notification }) => {
-  const theme = useContext(ThemeContext).theme;
+  const { theme } = useContext(ThemeContext);
   // When passing an observable as a prop, you sometimes need to use useAsObservableSource
   useAsObservableSource(notification);
 
@@ -30,9 +29,9 @@ const NotificationRow = observer(({ notification }) => {
               flexDirection: 'row',
               alignItems: 'flex-start',
               paddingLeft: 10,
-              paddingVertical: 5,
+              paddingVertical: 8,
               borderBottomColor: theme.colors.grey4,
-              borderBottomWidth: 1,
+              borderBottomWidth: WindowState.isLarge ? 1 : 0,
               backgroundColor: isHovering
                 ? theme.colors.primaryLighter
                 : notification.new
@@ -47,8 +46,9 @@ const NotificationRow = observer(({ notification }) => {
                   paddingLeft: 14,
                   paddingRight: 14,
                   marginTop: -10,
+                  marginBottom: -8,
                   // width: "100%", maxWidth: 900,
-                  width: WindowState.isLarge ? WindowState.width - 400 : WindowState.width - 50
+                  width: WindowState.isLarge ? WindowState.width - 400 : WindowState.width - 44
                 }
               }}
             >
@@ -81,58 +81,71 @@ const NotificationRow = observer(({ notification }) => {
 });
 
 export const NotificationsScreen = observer(() => {
-  const theme = useContext(ThemeContext).theme;
+  const title = 'Notifications';
+  const { history } = useRouter();
+  const { theme } = useContext(ThemeContext);
 
   return (
-    <ScrollView>
-      <Helmet title="Notifications" />
-
-      <View
-        style={{
-          // maxWidth: 900,
-          alignSelf: 'center',
-          paddingVertical: WindowState.isLarge ? 60 : 0
-        }}
-      >
-        {WindowState.isLarge && (
+    <>
+      <Helmet title={title} />
+      <ScrollView>
+        <View
+          style={{
+            // maxWidth: 900,
+            alignSelf: WindowState.isLarge ? 'center' : '',
+            paddingVertical: WindowState.isLarge ? 60 : 30
+          }}
+        >
           <View
             style={{
               flexDirection: 'row',
               justifyContent: 'space-between',
-              borderBottomColor: theme.colors.grey4,
+              borderBottomColor: WindowState.isLarge ? theme.colors.grey3 : theme.colors.grey5,
               borderBottomWidth: 1,
-              marginBottom: WindowState.isLarge ? 8 : 0,
-              paddingHorizontal: 10
+              paddingHorizontal: 10,
+              marginBottom: WindowState.isLarge ? 10 : 0
             }}
           >
-            <Text h4 style={styles.text}>
-              Your notifications ({NotificationsState.unreadCount})
-            </Text>
-            <Text>
-              <TextLink
-                to="#"
-                onPress={ClearNotifications}
-                style={{
-                  textDecorationLine: 'none',
-                  color: theme.colors.primary
-                }}
-              >
-                Mark All Read
-              </TextLink>
-            </Text>
+            {WindowState.isLarge ? (
+              <>
+                <Text h4 style={{ marginBottom: 24, fontWeight: 'bold' }}>
+                  Your notifications ({NotificationsState.unreadCount})
+                </Text>
+                <Text>
+                  <TextLink
+                    to="#"
+                    onPress={ClearNotifications}
+                    style={{
+                      textDecorationLine: 'none',
+                      color: theme.colors.primary
+                    }}
+                  >
+                    Mark All Read
+                  </TextLink>
+                </Text>
+              </>
+            ) : (
+              <>
+                <Text h4 style={{ marginBottom: 24, fontWeight: 'bold' }}>
+                  Notifications ({NotificationsState.unreadCount})
+                </Text>
+                <Feather
+                  name="settings"
+                  size={30}
+                  color={theme.colors.grey2}
+                  onPress={() => {
+                    history.push('/settings');
+                  }}
+                />
+              </>
+            )}
           </View>
-        )}
 
-        {NotificationsState.notifications.slice(0, 20).map((n, i) => (
-          <NotificationRow key={`notification-${i}`} notification={n} />
-        ))}
-      </View>
-    </ScrollView>
+          {NotificationsState.notifications.slice(0, 20).map((n, i) => (
+            <NotificationRow key={`notification-${i}`} notification={n} />
+          ))}
+        </View>
+      </ScrollView>
+    </>
   );
-});
-
-const styles = StyleSheet.create({
-  text: {
-    marginBottom: 24
-  }
 });

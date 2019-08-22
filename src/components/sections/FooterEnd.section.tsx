@@ -6,7 +6,7 @@ import { TextLink } from '../lib/Routing';
 import { WindowState } from '../../state/Window.state';
 
 export const FooterEndSection = observer(() => {
-  const theme = useContext(ThemeContext).theme;
+  const { theme } = useContext(ThemeContext);
 
   return (
     <View style={{ backgroundColor: theme.colors.primaryDarker }}>

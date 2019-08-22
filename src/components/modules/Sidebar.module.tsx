@@ -10,7 +10,7 @@ import { observer } from 'mobx-react-lite';
 import { NotificationsState } from '../../state/Notifications.state';
 
 const SidebarHeader = () => {
-  const theme = useContext(ThemeContext).theme;
+  const { theme } = useContext(ThemeContext);
 
   return (
     <HoverObserver
@@ -47,8 +47,8 @@ const SidebarMenuItem = ({
   showActivityBubble?: boolean;
 }) => {
   const { location } = useRouter();
-  const theme = useContext(ThemeContext).theme;
-  const isActive = location.pathname === to;
+  const { theme } = useContext(ThemeContext);
+  const isActive = location.pathname.startsWith(to);
 
   return (
     <HoverObserver
@@ -74,7 +74,7 @@ const SidebarMenuItem = ({
                     borderRadius: 4,
                     width: 9,
                     position: 'relative',
-                    top: -8,
+                    top: -28,
                     left: 19,
                     marginBottom: -8
                   }}
@@ -92,7 +92,7 @@ const SidebarMenuItem = ({
 };
 
 export const SidebarModule = observer(() => {
-  const theme = useContext(ThemeContext).theme;
+  const { theme } = useContext(ThemeContext);
   return (
     <View
       style={{

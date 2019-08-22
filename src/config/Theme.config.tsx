@@ -45,7 +45,7 @@ export const getColors = (primaryHue: number): ColorsType => ({
   // grey2: '#5e6977',
   // grey3: '#86939e',
   // grey4: '#bdc6cf',
-  // grey5: '#e1e8ee',
+  grey5: '#e1e8ee',
   // greyOutline: '#bbb',
   // searchBg: '#303337',
   // success: '#52c41a',

@@ -1,31 +1,26 @@
 import React from 'react';
-import { Redirect, Route, Stack, useRouter } from '../components/lib/Routing';
-import { HeaderSection } from '../components/sections/Header.section';
+import { Redirect, Route, Stack } from '../components/lib/Routing';
+import { HeaderDefaultSection } from '../components/sections/HeaderDefault.section';
 import { FooterFixedSection } from '../components/sections/FooterFixed.section';
 import { SidebarModule } from '../components/modules/Sidebar.module';
 import { FooterEndSection } from '../components/sections/FooterEnd.section';
 
 import { NotFoundScreen } from '../components/screens/NotFound.screen';
-import { HomeScreen } from '../components/screens/Home.screen';
 import { LoginScreen } from '../components/screens/Login.screen';
 import { RegisterScreen } from '../components/screens/Register.screen';
-import { InnerPageScreen } from '../components/screens/InnerPage.screen';
+import { MenuScreen } from '../components/screens/Menu.screen';
 import { SettingsScreen } from '../components/screens/Settings.screen';
 import { UserEditScreen } from '../components/screens/UserEdit.screen';
+import { HomeScreen } from '../components/screens/Home.screen';
+import { InnerPageScreen } from '../components/screens/InnerPage.screen';
 import { UserProfileScreen } from '../components/screens/UserProfile.screen';
 import { NotificationsScreen } from '../components/screens/Notifications.screen';
 import { WindowState } from '../state/Window.state';
 import { UserStateReset } from '../state/User.state';
+import { SearchScreen } from '../components/screens/Search.screen';
+import { HeaderInnerPageSection } from '../components/sections/HeaderInnerPage.section';
 
 export const RoutesConfig = () => {
-  const { location } = useRouter();
-
-  function getTabAnimationType(path: string): string {
-    return location.pathname !== path && (location.pathname.startsWith(path) || WindowState.isLarge)
-      ? 'slide-horizontal'
-      : 'none';
-  }
-
   return (
     <Stack animationType="slide-horizontal">
       <Route path="/" exact render={() => <Redirect to="/home" />} />
@@ -34,40 +29,62 @@ export const RoutesConfig = () => {
         exact
         component={HomeScreen}
         sidebarComponent={SidebarModule}
-        headerComponent={HeaderSection}
+        headerComponent={HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
-        animationType={getTabAnimationType('/home')}
         requiresRole={['Identified']}
       />
       <Route
         path="/home/page"
         component={InnerPageScreen}
         sidebarComponent={SidebarModule}
-        headerComponent={HeaderSection}
+        headerComponent={WindowState.isSmallNative ? HeaderInnerPageSection : HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
         requiresRole={['Identified']}
       />
 
       <Route
+        title="Menu"
+        path="/menu"
+        exact
+        component={MenuScreen}
+        sidebarComponent={SidebarModule}
+        headerComponent={HeaderDefaultSection}
+        footerComponent={FooterFixedSection}
+        footerEndComponent={FooterEndSection}
+        requiresRole={['Identified']}
+      />
+
+      <Route
+        title="Settings"
         path="/settings"
         exact
         component={SettingsScreen}
         sidebarComponent={SidebarModule}
-        headerComponent={HeaderSection}
+        headerComponent={HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
-        animationType={getTabAnimationType('/settings')}
         requiresRole={['Identified']}
       />
       <Route
+        title="Inner Page"
         path="/settings/page"
         component={InnerPageScreen}
         sidebarComponent={SidebarModule}
-        headerComponent={HeaderSection}
+        headerComponent={WindowState.isSmallNative ? HeaderInnerPageSection : HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
+        requiresRole={['Identified']}
+      />
+
+      <Route
+        path="/search"
+        component={SearchScreen}
+        sidebarComponent={SidebarModule}
+        headerComponent={HeaderDefaultSection}
+        footerComponent={FooterFixedSection}
+        // footerEndComponent={FooterEndSection}
         requiresRole={['Identified']}
       />
 
@@ -76,10 +93,9 @@ export const RoutesConfig = () => {
         exact
         component={NotificationsScreen}
         sidebarComponent={SidebarModule}
-        headerComponent={HeaderSection}
+        headerComponent={HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
-        animationType={getTabAnimationType('/notifications')}
         requiresRole={['Identified']}
       />
 
@@ -88,10 +104,9 @@ export const RoutesConfig = () => {
         exact
         component={UserProfileScreen}
         sidebarComponent={SidebarModule}
-        headerComponent={HeaderSection}
+        headerComponent={HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
-        animationType={getTabAnimationType('/user')}
         requiresRole={['Identified']}
       />
       <Route path="/user/login" component={LoginScreen} />
@@ -107,7 +122,7 @@ export const RoutesConfig = () => {
         path="/user/edit"
         component={UserEditScreen}
         sidebarComponent={SidebarModule}
-        headerComponent={HeaderSection}
+        headerComponent={WindowState.isSmallNative ? HeaderInnerPageSection : HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
         requiresRole={['Identified']}
@@ -116,7 +131,7 @@ export const RoutesConfig = () => {
       <Route
         component={NotFoundScreen}
         sidebarComponent={SidebarModule}
-        headerComponent={HeaderSection}
+        headerComponent={HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
         requiresRole={['Identified']}

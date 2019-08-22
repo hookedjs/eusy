@@ -7,26 +7,30 @@ import { Link } from '../lib/Routing';
 import { LogoModule } from '../modules/Logo.module';
 
 export const UserEditScreen = () => {
+  const title = 'User Edit';
+
   return (
-    <ScrollView>
-      <Helmet title="Settings" />
-      <View
-        style={{
-          alignSelf: 'center',
-          alignItems: 'center',
-          paddingVertical: 60,
-          paddingHorizontal: 30
-        }}
-      >
-        <LogoModule />
-        <Text h4 style={styles.text}>
-          User Edit
-        </Text>
-        <Link to="/user/profile">
-          <Button title="View Profile" />
-        </Link>
-      </View>
-    </ScrollView>
+    <>
+      <Helmet title={title} />
+      <ScrollView>
+        <View
+          style={{
+            alignSelf: 'center',
+            alignItems: 'center',
+            paddingVertical: 60,
+            paddingHorizontal: 30
+          }}
+        >
+          <LogoModule />
+          <Text h4 style={styles.text}>
+            User Edit
+          </Text>
+          <Link to="/user/profile">
+            <Button title="View Profile" />
+          </Link>
+        </View>
+      </ScrollView>
+    </>
   );
 };
 

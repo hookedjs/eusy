@@ -13,7 +13,7 @@ import { SidebarState } from '../../state/Sidebar.state';
 
 export const SidebarSection = observer(({ children }: { children: React.ReactElement }) => {
   const { history } = useRouter();
-  const theme = useContext(ThemeContext).theme;
+  const { theme } = useContext(ThemeContext);
 
   const sidebarWidthFull = 210;
   const sidebarWidthClosed = WindowState.isLarge ? 70 : 0;

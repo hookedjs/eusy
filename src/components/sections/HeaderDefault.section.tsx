@@ -1,14 +1,13 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { View } from 'react-native';
-import { Avatar, ThemeContext } from 'react-native-elements';
+import { Avatar, SearchBar, ThemeContext } from 'react-native-elements';
 import { observer } from 'mobx-react-lite';
 import { Feather } from '@expo/vector-icons';
 import { observable } from 'mobx';
-import { SearchBar } from 'react-native-elements';
 import { WindowState } from '../../state/Window.state';
 import { UserState } from '../../state/User.state';
-import { Link, useRouter } from '../lib/Routing';
 import { SidebarState } from '../../state/Sidebar.state';
+import { Link, useRouter } from '../lib/Routing';
 import { LogoModule } from '../modules/Logo.module';
 import { NotificationsState } from '../../state/Notifications.state';
 
@@ -17,18 +16,9 @@ export const HeaderState = observable({
   search: ''
 });
 
-export const HeaderSection = observer(() => {
-  const { history } = useRouter();
-  const theme = useContext(ThemeContext).theme;
-
-  useEffect(() => {
-    return history.listen((location, action) => {
-      if (['/home', '/settings', '/notifications', '/user'].includes(location.pathname))
-        HeaderState.numberOfBackSteps = 0;
-      else if (action === 'PUSH') HeaderState.numberOfBackSteps = HeaderState.numberOfBackSteps + 1;
-      else if (action === 'POP') HeaderState.numberOfBackSteps = HeaderState.numberOfBackSteps - 1;
-    });
-  }, []);
+export const HeaderDefaultSection = observer(() => {
+  const { history, location } = useRouter();
+  const { theme } = useContext(ThemeContext);
 
   return (
     <View
@@ -42,29 +32,22 @@ export const HeaderSection = observer(() => {
         paddingTop: WindowState.heightStatusBar + 6
       }}
     >
-      <View
-        style={{
-          minWidth: WindowState.isLarge ? 48 : 0
-        }}
-      >
-        {WindowState.isSmallWeb ? (
-          <LogoModule width={28} height={28} style={{ marginRight: 10 }} />
-        ) : (
-          !!HeaderState.numberOfBackSteps && (
-            <Feather
-              name="chevron-left"
-              size={24}
-              color="#2D3C56"
-              onPress={() => history.goBack()}
-              style={{ paddingLeft: 10, paddingRight: 14 }}
-            />
-          )
-        )}
-      </View>
+      {WindowState.isSmallWeb && <LogoModule width={28} height={28} style={{ marginRight: 10 }} />}
+
+      {WindowState.isLarge && (
+        <Feather
+          name="chevron-left"
+          size={24}
+          color={location.pathname.split('/').length > 2 ? '#2D3C56' : 'transparent'}
+          onPress={() => history.goBack()}
+          style={{ paddingLeft: 10, paddingRight: 14 }}
+        />
+      )}
+
       <View style={{ flex: 1, maxWidth: 500 }}>
         <SearchBar
           showLoading={false}
-          onFocus={() => console.log('focus')}
+          onFocus={() => history.push('/search')}
           onBlur={() => console.log('blur')}
           onCancel={() => console.log('cancel')}
           onClear={() => console.log('cleared')}
@@ -72,11 +55,12 @@ export const HeaderSection = observer(() => {
           onChangeText={s => (HeaderState.search = s)}
         />
       </View>
+
       <View style={{ flexDirection: 'row', alignItems: 'center' }}>
         {WindowState.isLarge && (
           <>
             <Link to="/notifications">
-              <View>
+              <View style={{ marginLeft: 10 }}>
                 <Feather name="bell" size={22} color={theme.colors.primaryDark} />
                 {!!NotificationsState.unreadCount && (
                   <Feather
@@ -89,8 +73,8 @@ export const HeaderSection = observer(() => {
                       width: 8,
                       height: 8,
                       position: 'relative',
-                      top: -6,
-                      left: 13,
+                      top: -22,
+                      left: 14,
                       marginBottom: -8
                     }}
                   />

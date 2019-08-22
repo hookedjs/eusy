@@ -83,47 +83,43 @@ class Route extends React.PureComponent<
   }
 }
 
-const Link = ({ style, ...props }: LinkProps) =>
-  typeof props.to === 'string' && props.to.includes('.') ? (
-    <a
-      href={props.to}
-      target="_blank"
-      style={{ textDecorationLine: 'none', ...style }}
-      {...props}
-    />
-  ) : (
-    <LinkOrig style={{ textDecorationLine: 'none', ...style }} {...props} />
-  );
+const Link = ({
+  style = {},
+  onPress = () => null,
+  ...props
+}: LinkProps & {
+  onPress: () => any;
+}) => {
+  style.textDecorationLine = 'none';
 
-const TextLink = (props: LinkProps & TextProps) => {
-  const theme = useContext(ThemeContext).theme;
+  if (typeof props.to === 'string' && props.to[0] !== '/')
+    return <a href={props.to} target="_blank" onClick={onPress} style={style} {...props} />;
+  else return <LinkOrig onClick={onPress} style={style} {...props} />;
+};
 
-  const color = (props.style && props.style.color) || theme.colors.primary;
-  const colorVisited = (props.style && props.style.color) || theme.colors.primaryDark;
-
-  // Handle non-route links
-  const onClick = props.onPress as () => any;
-  let target = '_blank';
-  let toPath = typeof props.to === 'string' ? props.to : props.to.pathname;
-  if (toPath === '#') {
-    toPath = 'javascript:void(0);';
-    target = '';
-  }
+const TextLink = ({
+  onPress = () => null,
+  ...props
+}: LinkProps &
+  TextProps & {
+    onPress: () => any;
+  }) => {
+  const { theme } = useContext(ThemeContext);
 
   return (
     <div style={{ display: 'inline-block' }}>
-      {toPath.includes('.') || toPath.includes('javascript') ? (
-        <a href={toPath} target={target} onClick={onClick} {...props} />
+      {typeof props.to === 'string' && props.to[0] !== '/' ? (
+        <a href={props.to} target="_blank" onClick={onPress} {...props} />
       ) : (
-        <LinkOrig {...props} />
+        <LinkOrig onClick={onPress} {...props} />
       )}
 
       <style jsx>{`
         div :global(a) {
-          color: ${color};
+          color: ${(props.style && props.style.color) || theme.colors.primary};
         }
         div :global(a:visited) {
-          color: ${colorVisited};
+          color: ${(props.style && props.style.color) || theme.colors.primaryDark};
         }
       `}</style>
     </div>

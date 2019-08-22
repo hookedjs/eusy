@@ -4,13 +4,12 @@ import { Feather } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 import { ThemeContext } from 'react-native-elements';
 import { useRouter } from '../lib/Routing';
-import { SidebarState } from '../../state/Sidebar.state';
 import { WindowState } from '../../state/Window.state';
 import { NotificationsState } from '../../state/Notifications.state';
 
 export const FooterFixedSection = observer(() => {
   const { history, location } = useRouter();
-  const theme = useContext(ThemeContext).theme;
+  const { theme } = useContext(ThemeContext);
 
   const FooterMenuItem = ({
     toggled,
@@ -25,7 +24,7 @@ export const FooterFixedSection = observer(() => {
     toggledIcon?: string;
     showActivityBubble?: boolean;
   }) => {
-    const theme = useContext(ThemeContext).theme;
+    const { theme } = useContext(ThemeContext);
     return (
       <TouchableOpacity
         onPress={onPress}
@@ -49,7 +48,7 @@ export const FooterFixedSection = observer(() => {
               width: 9,
               height: 9,
               position: 'relative',
-              top: -6,
+              top: -24,
               left: 8,
               marginBottom: -8
             }}
@@ -70,31 +69,30 @@ export const FooterFixedSection = observer(() => {
       }}
     >
       <FooterMenuItem
-        toggled={SidebarState.toggled}
-        icon="menu"
-        onPress={() => (SidebarState.toggled = !SidebarState.toggled)}
-        toggledIcon="x"
-      />
-      <FooterMenuItem
-        toggled={location.pathname === '/home'}
+        toggled={location.pathname.startsWith('/home')}
         icon="home"
         onPress={() => history.push('/home')}
       />
       <FooterMenuItem
-        toggled={location.pathname === '/notifications'}
+        toggled={location.pathname.startsWith('/notifications')}
         icon="bell"
         onPress={() => history.push('/notifications')}
         showActivityBubble={!!NotificationsState.unreadCount}
       />
       <FooterMenuItem
-        toggled={location.pathname === '/user'}
+        toggled={location.pathname.startsWith('/search')}
+        icon="search"
+        onPress={() => history.push('/search')}
+      />
+      <FooterMenuItem
+        toggled={location.pathname.startsWith('/user')}
         icon="user"
         onPress={() => history.push('/user')}
       />
       <FooterMenuItem
-        toggled={location.pathname === '/settings'}
-        icon="settings"
-        onPress={() => history.push('/settings')}
+        toggled={location.pathname.startsWith('/menu')}
+        icon="menu"
+        onPress={() => history.push('/menu')}
       />
     </View>
   );

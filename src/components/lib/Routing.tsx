@@ -76,32 +76,33 @@ class Route extends React.PureComponent<
 }
 
 const Link = ({ to, onPress, ...props }: LinkProps) => {
-  const isExternal = typeof to === 'string' && to.includes('.');
   const { history } = useRouter();
+
   return (
     <TouchableOpacity
-      onPress={() => {
-        if (onPress) onPress();
-        if (isExternal) Linking.openURL(to);
-        else history.push(to);
+      onPress={e => {
+        if (onPress) onPress(e);
+        if (typeof to === 'string' && to[0] === '#') void 0;
+        else if (typeof to === 'string' && to[0] !== '/') Linking.openURL(to);
+        else history.push(to as string);
       }}
     >
-      <LinkOrig to={isExternal ? '' : to} {...props} />
+      <LinkOrig to="" {...props} />
     </TouchableOpacity>
   );
 };
 
-const TextLink = ({ to, onPress = () => null, style, ...props }: LinkProps & TextProps) => {
+const TextLink = ({ to, onPress, style, ...props }: LinkProps & TextProps) => {
   const { history } = useRouter();
-  const theme = useContext(ThemeContext).theme;
-  const toPath = typeof to === 'string' ? to : to.pathname;
+  const { theme } = useContext(ThemeContext);
 
   return (
     <Text
       onPress={e => {
-        onPress(e);
-        if (toPath.includes('.')) Linking.openURL(toPath);
-        else if (toPath === '#') void 0;
+        if (onPress) onPress(e);
+        console.log(typeof to);
+        if (typeof to === 'string' && to[0] === '#') void 0;
+        else if (typeof to === 'string' && to[0] !== '/') Linking.openURL(to);
         else history.push(to as string);
       }}
       style={{
