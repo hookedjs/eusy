@@ -1,5 +1,5 @@
 import React from 'react';
-import { WindowState } from '../../state/Window.state';
+import { GlobalState } from '../../GlobalState';
 import { LogoIcon } from '../svgs/LogoIcon';
 import { SvgProps } from 'react-native-svg';
 
@@ -7,8 +7,8 @@ import { SvgProps } from 'react-native-svg';
 export const LogoModule = ({ width, height, ...props }: Partial<SvgProps>) => {
   return (
     <LogoIcon
-      width={width || (WindowState.isLarge ? 200 : 120)}
-      height={height || (WindowState.isLarge ? 200 : 120)}
+      width={width || (GlobalState.viewportInfo.isLarge ? 200 : 120)}
+      height={height || (GlobalState.viewportInfo.isLarge ? 200 : 120)}
       {...props}
     />
   );

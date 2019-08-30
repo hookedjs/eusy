@@ -1,15 +1,29 @@
 import React, { useContext } from 'react';
+import { gql } from 'apollo-boost';
 import { View, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 import { ThemeContext } from 'react-native-elements';
 import { useRouter } from '../lib/Routing';
-import { WindowState } from '../../state/Window.state';
-import { NotificationsState } from '../../state/Notifications.state';
+import { GlobalState } from '../../GlobalState';
+import { useQuery } from '../../lib/mockApi/hooks/useQuery';
+import { NotificationType } from '../../model/notifications/type';
+
+const NOTIFICATION_COUNT = gql`
+  query($id: string) {
+    notifications(where: { id: $id, unread: true }) {
+      id
+    }
+  }
+`;
 
 export const FooterFixedSection = observer(() => {
   const { history, location } = useRouter();
   const { theme } = useContext(ThemeContext);
+  const notificationQuery = useQuery<NotificationType[]>(NOTIFICATION_COUNT, {
+    variables: { userId: GlobalState.user.id },
+    pollInterval: 2000
+  });
 
   const FooterMenuItem = ({
     toggled,
@@ -59,13 +73,19 @@ export const FooterFixedSection = observer(() => {
     );
   };
 
-  if (!WindowState.isSmallNative) return <></>;
+  if (notificationQuery.error.message || notificationQuery.error.graphQLErrors.length) {
+    console.dir(notificationQuery.error);
+    return <></>;
+  }
+  if (!Array.isArray(notificationQuery.data)) return <></>;
+
+  if (!GlobalState.viewportInfo.isSmallNative) return <></>;
   return (
     <View
       style={{
         flexDirection: 'row',
         backgroundColor: theme.colors.primaryLighter,
-        paddingBottom: WindowState.heightBottomSpeaker
+        paddingBottom: GlobalState.viewportInfo.heightBottomSpeaker
       }}
     >
       <FooterMenuItem
@@ -77,7 +97,7 @@ export const FooterFixedSection = observer(() => {
         toggled={location.pathname.startsWith('/notifications')}
         icon="bell"
         onPress={() => history.push('/notifications')}
-        showActivityBubble={!!NotificationsState.unreadCount}
+        showActivityBubble={!notificationQuery.loading && !!notificationQuery.data.length}
       />
       <FooterMenuItem
         toggled={location.pathname.startsWith('/search')}

@@ -3,8 +3,7 @@ import { View } from 'react-native';
 import { Text, ThemeContext } from 'react-native-elements';
 import { observer } from 'mobx-react-lite';
 import { Feather } from '@expo/vector-icons';
-import { WindowState } from '../../state/Window.state';
-import { RoutingState } from '../../state/Routing.state';
+import { GlobalState } from '../../GlobalState';
 import { useRouter } from '../lib/Routing';
 
 export const HeaderInnerPageSection = observer(() => {
@@ -21,7 +20,7 @@ export const HeaderInnerPageSection = observer(() => {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: WindowState.heightStatusBar + 13
+        paddingTop: GlobalState.viewportInfo.heightStatusBar + 13
       }}
     >
       <View>
@@ -34,7 +33,7 @@ export const HeaderInnerPageSection = observer(() => {
         />
       </View>
 
-      <Text>{RoutingState.pageTitle}</Text>
+      <Text>{GlobalState.currentPageTitle}</Text>
 
       <View style={{ width: 48 }} />
     </View>

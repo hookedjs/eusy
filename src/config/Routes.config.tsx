@@ -1,4 +1,7 @@
 import React from 'react';
+
+import { GlobalState } from '../GlobalState';
+
 import { Redirect, Route, Stack } from '../components/lib/Routing';
 import { HeaderDefaultSection } from '../components/sections/HeaderDefault.section';
 import { FooterFixedSection } from '../components/sections/FooterFixed.section';
@@ -14,8 +17,6 @@ import { UserEditScreen } from '../components/screens/UserEdit.screen';
 import { HomeScreen } from '../components/screens/Home.screen';
 import { InnerPageScreen } from '../components/screens/InnerPage.screen';
 import { NotificationsScreen } from '../components/screens/Notifications.screen';
-import { WindowState } from '../state/Window.state';
-import { UserStateReset } from '../state/User.state';
 import { SearchScreen } from '../components/screens/Search.screen';
 import { HeaderInnerPageSection } from '../components/sections/HeaderInnerPage.section';
 
@@ -31,16 +32,18 @@ export const RoutesConfig = () => {
         headerComponent={HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
-        requiresRole={['Identified']}
+        requiresRole={['identified']}
       />
       <Route
         path="/home/page"
         component={InnerPageScreen}
         sidebarComponent={SidebarModule}
-        headerComponent={WindowState.isSmallNative ? HeaderInnerPageSection : HeaderDefaultSection}
+        headerComponent={
+          GlobalState.viewportInfo.isSmallNative ? HeaderInnerPageSection : HeaderDefaultSection
+        }
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
-        requiresRole={['Identified']}
+        requiresRole={['identified']}
       />
 
       <Route
@@ -51,7 +54,7 @@ export const RoutesConfig = () => {
         headerComponent={HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         // footerEndComponent={FooterEndSection}
-        requiresRole={['Identified']}
+        requiresRole={['identified']}
       />
 
       <Route
@@ -62,16 +65,18 @@ export const RoutesConfig = () => {
         headerComponent={HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         // footerEndComponent={FooterEndSection}
-        requiresRole={['Identified']}
+        requiresRole={['identified']}
       />
       <Route
         path="/settings/user"
         component={UserEditScreen}
         sidebarComponent={SidebarModule}
-        headerComponent={WindowState.isSmallNative ? HeaderInnerPageSection : HeaderDefaultSection}
+        headerComponent={
+          GlobalState.viewportInfo.isSmallNative ? HeaderInnerPageSection : HeaderDefaultSection
+        }
         footerComponent={FooterFixedSection}
         // footerEndComponent={FooterEndSection}
-        requiresRole={['Identified']}
+        requiresRole={['identified']}
       />
 
       <Route
@@ -81,7 +86,7 @@ export const RoutesConfig = () => {
         headerComponent={HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         // footerEndComponent={FooterEndSection}
-        requiresRole={['Identified']}
+        requiresRole={['identified']}
       />
 
       <Route
@@ -92,18 +97,18 @@ export const RoutesConfig = () => {
         headerComponent={HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
-        requiresRole={['Identified']}
+        requiresRole={['identified']}
       />
 
       <Route path="/user/login" component={LoginScreen} />
+      <Route path="/user/register" component={RegisterScreen} />
       <Route
         path="/user/logout"
         component={() => {
-          UserStateReset();
+          GlobalState.logout();
           return <Redirect to="/user/login" />;
         }}
       />
-      <Route path="/user/register" component={RegisterScreen} />
 
       <Route
         component={NotFoundScreen}
@@ -111,7 +116,7 @@ export const RoutesConfig = () => {
         headerComponent={HeaderDefaultSection}
         footerComponent={FooterFixedSection}
         footerEndComponent={FooterEndSection}
-        requiresRole={['Identified']}
+        requiresRole={['identified']}
       />
     </Stack>
   );

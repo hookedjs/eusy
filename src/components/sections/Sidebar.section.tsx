@@ -7,23 +7,22 @@ import { ThemeContext } from 'react-native-elements';
 import { SidebarModule } from '../modules/Sidebar.module';
 import { HoverObserver } from '../lib/HoverObserver';
 import { TouchableOpacity } from '../lib/Touchables';
-import { WindowState } from '../../state/Window.state';
+import { GlobalState } from '../../GlobalState';
 import { useRouter } from '../lib/Routing';
-import { SidebarState } from '../../state/Sidebar.state';
 
 export const SidebarSection = observer(({ children }: { children: React.ReactElement }) => {
   const { history } = useRouter();
   const { theme } = useContext(ThemeContext);
 
   const sidebarWidthFull = 210;
-  const sidebarWidthClosed = WindowState.isLarge ? 70 : 0;
+  const sidebarWidthClosed = GlobalState.viewportInfo.isLarge ? 70 : 0;
 
   useEffect(() => {
-    SidebarState.toggled = WindowState.isLarge;
-    return history.listen(() => WindowState.isSmall && (SidebarState.toggled = false));
+    GlobalState.toggled = GlobalState.viewportInfo.isLarge;
+    return history.listen(() => GlobalState.viewportInfo.isSmall && (GlobalState.toggled = false));
   }, []);
 
-  if (!SidebarState.sidebarComponent) return <>{children}</>;
+  if (!GlobalState.sidebarComponent) return <>{children}</>;
   return (
     <View style={{ flex: 1, flexDirection: 'row' }}>
       <Animatable.View
@@ -32,7 +31,9 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
         easing="ease-in-out-quad"
         style={{
           width:
-            SidebarState.toggled && WindowState.isLarge ? sidebarWidthFull : sidebarWidthClosed,
+            GlobalState.sidebarToggled && GlobalState.viewportInfo.isLarge
+              ? sidebarWidthFull
+              : sidebarWidthClosed,
           backgroundColor: '#C5CCD7',
           zIndex: 1
         }}
@@ -46,8 +47,10 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                 zIndex: 2,
                 // View types don't allow 'fixed', but it's actually allowed and needed for web. Need to enhance typings
                 position: Platform.OS === 'web' ? 'fixed' : 'relative',
-                top: WindowState.isLarge ? 0 : WindowState.heightHeader,
-                height: WindowState.isLarge ? WindowState.heightUnsafe : WindowState.heightBody
+                top: GlobalState.viewportInfo.isLarge ? 0 : GlobalState.viewportInfo.heightHeader,
+                height: GlobalState.viewportInfo.isLarge
+                  ? GlobalState.viewportInfo.heightUnsafe
+                  : GlobalState.viewportInfo.heightBody
               }}
             >
               <Animatable.View
@@ -55,7 +58,10 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                 duration={400}
                 easing="ease-in-out-quad"
                 style={{
-                  width: SidebarState.toggled || isHovering ? sidebarWidthFull : sidebarWidthClosed,
+                  width:
+                    GlobalState.sidebarToggled || isHovering
+                      ? sidebarWidthFull
+                      : sidebarWidthClosed,
                   height: '100%',
                   overflow: 'hidden'
                 }}
@@ -65,32 +71,32 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                 </View>
               </Animatable.View>
 
-              {WindowState.isLarge && (
+              {isHovering && GlobalState.viewportInfo.isLarge && (
                 <View
                   style={{
                     position: 'absolute',
-                    top: Platform.OS === 'web' ? 70 : 86,
-                    right: -30
+                    bottom: 40,
+                    right: -25
                   }}
                 >
                   <HoverObserver
                     children={touchableHoverResults => (
                       <TouchableOpacity
-                        onPress={() => (SidebarState.toggled = !SidebarState.toggled)}
+                        onPress={() => (GlobalState.toggled = !GlobalState.sidebarToggled)}
                         style={{
                           backgroundColor: touchableHoverResults.isHovering
                             ? theme.colors.primaryDarker
                             : theme.colors.primaryDark,
-                          borderTopRightRadius: 99,
-                          borderBottomRightRadius: 99,
-                          paddingLeft: 4,
-                          paddingRight: 6,
-                          paddingVertical: 6,
+                          borderTopRightRadius: 8,
+                          borderBottomRightRadius: 8,
+                          paddingLeft: 2,
+                          paddingRight: 3,
+                          paddingVertical: 20,
                           zIndex: 4
                         }}
                       >
                         <View style={{ zIndex: 5 }}>
-                          {SidebarState.toggled ? (
+                          {GlobalState.sidebarToggled ? (
                             <Feather name="arrow-left" size={20} color="white" />
                           ) : isHovering ? (
                             <Feather name="lock" size={20} color="white" />

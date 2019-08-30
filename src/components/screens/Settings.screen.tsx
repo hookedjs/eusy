@@ -5,7 +5,7 @@ import { Text, ThemeContext } from 'react-native-elements';
 import { Helmet } from '../lib/Helmet';
 import { Link } from '../lib/Routing';
 import { HoverObserver } from '../lib/HoverObserver';
-import { WindowState } from '../../state/Window.state';
+import { GlobalState } from '../../GlobalState';
 
 const MenuItem = ({
   to,
@@ -28,7 +28,7 @@ const MenuItem = ({
             style={{
               flexDirection: 'row',
               paddingVertical: 20,
-              paddingLeft: WindowState.isLargeWeb ? 10 : 0,
+              paddingLeft: GlobalState.viewportInfo.isLargeWeb ? 10 : 0,
               backgroundColor: isHovering ? theme.colors.primaryLighter : 'transparent'
             }}
           >
@@ -71,13 +71,14 @@ export const SettingsScreen = () => {
         <View
           style={{
             paddingVertical: 30,
-            paddingHorizontal: WindowState.isLarge ? 60 : 30
+            paddingHorizontal: 30
           }}
         >
           <Text h4 style={{ marginBottom: 14, fontWeight: 'bold' }}>
             Settings
           </Text>
           <MenuItem to="/settings/user" text="My Account" featherIconName="settings" />
+          <MenuItem to="/user/logout" text="Log Out" featherIconName="log-out" />
         </View>
       </ScrollView>
     </>

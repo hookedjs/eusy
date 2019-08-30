@@ -17,9 +17,7 @@ import {
 } from 'react-router-native';
 import Stack from 'react-router-native-stack';
 import useRouter from 'use-react-router';
-import { SidebarState } from '../../state/Sidebar.state';
-import { WindowState } from '../../state/Window.state';
-import { UserState } from '../../state/User.state';
+import { GlobalState } from '../../GlobalState';
 import { ArrayIntersection } from '../../lib/Polyfills';
 import { TouchableOpacity } from './Touchables';
 
@@ -37,11 +35,14 @@ class Route extends React.PureComponent<
   // If page permissions fail, redirect to login
   redirectIfUnderprivileged = currentPath => {
     if (
+      !GlobalState.user.roles.includes('admin') &&
       this.props.requiresRole &&
       this.props.requiresRole.length &&
-      !ArrayIntersection(toJS(UserState.roles), this.props.requiresRole).length
-    )
+      !ArrayIntersection(toJS(GlobalState.user.roles), this.props.requiresRole).length
+    ) {
+      console.log(`Current user fails permissions for ${this.props.path}`);
       return <Redirect to={{ pathname: '/user/login', search: `?redirectTo=${currentPath}` }} />;
+    }
   };
 
   render() {
@@ -53,7 +54,7 @@ class Route extends React.PureComponent<
     delete routeProps.requiresRole;
 
     // Set the sidebar component
-    SidebarState.sidebarComponent = this.props.sidebarComponent;
+    GlobalState.sidebarComponent = this.props.sidebarComponent;
 
     return (
       <RouteOrig
@@ -61,8 +62,10 @@ class Route extends React.PureComponent<
           <View
             style={{
               flex: 1,
-              paddingTop: this.props.headerComponent ? 0 : WindowState.heightStatusBar,
-              paddingBottom: this.props.footerComponent ? 0 : WindowState.heightBottomSpeaker
+              paddingTop: this.props.headerComponent ? 0 : GlobalState.viewportInfo.heightStatusBar,
+              paddingBottom: this.props.footerComponent
+                ? 0
+                : GlobalState.viewportInfo.heightBottomSpeaker
             }}
           >
             {this.redirectIfUnderprivileged(routerProps.match.path)}

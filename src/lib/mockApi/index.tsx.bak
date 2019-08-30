@@ -1,0 +1,43 @@
+class MockApiClass {
+  apis = {
+    users: require('./models/users'),
+    posts: require('./models/posts'),
+    notifications: require('./models/notifications')
+  };
+
+  parsePath = (path) => {
+    const [, model, arg] = path.split('/');
+    if (!model)
+      return {error: {message: "API endpoint not found."}};
+    if (!this.apis[model])
+      return {error: {message: "API endpoint not found."}};
+    return {model, arg};
+  };
+
+  get = (path: string) => {
+    const {model, arg, error} = this.parsePath(path);
+    if (error) return {error};
+    return this.apis[model].get(arg);
+  };
+
+  post = (path: string, data: any) => {
+    const {model, error} = this.parsePath(path);
+    if (error) return {error};
+    return this.apis[model].post(data);
+  };
+
+  patch = (path: string, data: any) => {
+    const {model, arg, error} = this.parsePath(path);
+    if (error) return {error};
+    return this.apis[model].patch(arg, data);
+  };
+
+  delete = (path: string) => {
+    const {model, arg, error} = this.parsePath(path);
+    if (error) return {error};
+    return this.apis[model].delete(arg);
+  };
+
+}
+
+export const MockApi = new MockApiClass();

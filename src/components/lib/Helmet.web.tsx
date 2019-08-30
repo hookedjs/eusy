@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet as HelmetCore } from 'react-helmet';
 import { AppName, AppDescription } from '../../config/App.config';
-import { RoutingState } from '../../state/Routing.state';
+import { GlobalState } from '../../GlobalState';
 
 export class Helmet extends React.Component<{
   title?: string;
@@ -16,8 +16,7 @@ export class Helmet extends React.Component<{
   render() {
     // const url = `${config.baseUrl}${location.pathname}${location.search}${location.hash}`;
     const { title, description } = this.props;
-    RoutingState.pageTitle = title;
-    RoutingState.pageDescription = description;
+    GlobalState.currentPageTitle = title;
 
     return (
       <HelmetCore>

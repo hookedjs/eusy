@@ -1,8 +1,7 @@
-import { observable, set } from 'mobx';
 import { Dimensions, Platform } from 'react-native';
 import Constants from 'expo-constants';
 
-export function getCurrentDims() {
+export function getViewportInfo() {
   const width = Dimensions.get('window').width;
   const height = Dimensions.get('window').height;
   const isSmall = width < 720;
@@ -39,12 +38,3 @@ export function getCurrentDims() {
     isLargeNative: !isSmall && Platform.OS !== 'web'
   };
 }
-
-export const WindowState = observable(getCurrentDims());
-
-setInterval(() => {
-  const width = Dimensions.get('window').width;
-  const height = Dimensions.get('window').height;
-  if (width != WindowState.width || height != WindowState.height)
-    set(WindowState, getCurrentDims());
-}, 400);

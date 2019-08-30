@@ -1,31 +1,42 @@
 import React from 'react';
-import { set } from 'mobx';
-import { observer } from 'mobx-react-lite';
+import { observer, useLocalStore } from 'mobx-react-lite';
 import qs from 'query-string';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
-import { Helmet } from '../lib/Helmet';
 import SpaceImageUrl from '../../assets/img/space.jpg';
-import { UserState } from '../../state/User.state';
-import { WindowState } from '../../state/Window.state';
+import { GlobalState } from '../../GlobalState';
+import { MockOrm } from '../../lib/mockApi/MockOrm';
+import { Helmet } from '../lib/Helmet';
 import { TextLink, useRouter } from '../lib/Routing';
 import { LogoModule } from '../modules/Logo.module';
+import Markdown from 'react-native-markdown-renderer';
 
 export const LoginScreen = observer(() => {
   const title = 'Log In';
-  const { location, history } = useRouter();
+  const { history, location } = useRouter();
   const redirectFromUrl = qs.parse(location.search).redirectTo as string;
 
-  const handleSubmit = async () => {
-    set(UserState, {
-      email: 'marie@antoinette.com',
-      nameFirst: 'Marie',
-      nameLast: 'Antoinette',
-      avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/kaelifa/128.jpg',
-      roles: ['Identified']
-    });
-    history.push(redirectFromUrl || '/home');
-  };
+  const formStore = useLocalStore(() => ({
+    loading: false,
+    data: { email: MockOrm.users.db[0].email, password: 'password' },
+    serverError: '',
+    submit: async () => {
+      formStore.loading = true;
+      formStore.serverError = '';
+      const res = await MockOrm.users.login(formStore.data);
+
+      formStore.loading = false;
+      formStore.serverError = res.error;
+      if (!res.error) {
+        GlobalState.user = {
+          id: res.data.id,
+          token: res.data.token,
+          roles: JSON.parse(res.data.roles)
+        };
+        history.push(redirectFromUrl || '/home');
+      }
+    }
+  }));
 
   return (
     <>
@@ -37,9 +48,9 @@ export const LoginScreen = observer(() => {
               flex: 1,
               maxWidth: 540,
               alignItems: 'center',
-              paddingTop: WindowState.isLarge ? 20 : 40,
-              paddingBottom: WindowState.isLarge ? 0 : 60,
-              paddingHorizontal: WindowState.isLarge ? 30 : 10
+              paddingTop: GlobalState.viewportInfo.isLarge ? 20 : 40,
+              paddingBottom: GlobalState.viewportInfo.isLarge ? 0 : 60,
+              paddingHorizontal: GlobalState.viewportInfo.isLarge ? 30 : 10
             }}
           >
             <LogoModule width={100} height={100} style={{ marginBottom: 20 }} />
@@ -47,7 +58,7 @@ export const LoginScreen = observer(() => {
               Log In
             </Text>
             <Text style={styles.text}>
-              Need a EUSY account?{' '}
+              Need an EUSY account?{' '}
               <TextLink
                 to={{
                   pathname: '/user/register',
@@ -59,7 +70,8 @@ export const LoginScreen = observer(() => {
             </Text>
             <Input
               placeholder="Email"
-              value="marie@antoinette.com"
+              value={formStore.data.email}
+              onChangeText={val => (formStore.data.email = val)}
               leftIcon={{ type: 'feather', name: 'mail', color: '#2D3C56' }}
               autoCapitalize="none"
               autoCorrect={false}
@@ -72,7 +84,8 @@ export const LoginScreen = observer(() => {
             />
             <Input
               placeholder="Password"
-              value="password"
+              value={formStore.data.password}
+              onChangeText={val => (formStore.data.password = val)}
               leftIcon={{ type: 'feather', name: 'lock' }}
               autoCapitalize="none"
               secureTextEntry={true}
@@ -83,7 +96,17 @@ export const LoginScreen = observer(() => {
                 marginBottom: 30
               }}
             />
-            <Button title="Log In" onPress={handleSubmit} containerStyle={{ width: '100%' }} />
+            <Button
+              title={formStore.loading ? 'Working...' : 'Log In'}
+              onPress={formStore.submit}
+              containerStyle={{ width: '100%' }}
+            />
+            {!!formStore.serverError && (
+              <Markdown>
+                Please correct the following issue:{'\n'}- {formStore.serverError}
+              </Markdown>
+            )}
+
             <Text style={styles.text}>
               <TextLink
                 to={{ pathname: '/user/register', search: `?redirectTo=${redirectFromUrl}` }}
@@ -98,7 +121,7 @@ export const LoginScreen = observer(() => {
               </TextLink>
             </Text>
 
-            {WindowState.isLarge && (
+            {GlobalState.viewportInfo.isLarge && (
               <Text style={{ ...styles.text, marginTop: 30 }}>
                 ©2019 All Rights Reserved. EUSY® is a registered trademark of HookedJS.org.{' '}
                 <TextLink to="/register">Cookie Preferences</TextLink>, Privacy, and Terms.
@@ -111,11 +134,11 @@ export const LoginScreen = observer(() => {
             )}
           </View>
 
-          {WindowState.isLarge && (
+          {GlobalState.viewportInfo.isLarge && (
             <View
               style={{
-                flex: WindowState.width > 900 ? 2 : 1,
-                height: WindowState.heightUnsafe
+                flex: GlobalState.viewportInfo.width > 900 ? 2 : 1,
+                height: GlobalState.viewportInfo.heightUnsafe
               }}
             >
               <Image
@@ -123,7 +146,7 @@ export const LoginScreen = observer(() => {
                 style={{
                   flex: 1,
                   resizeMode: 'cover',
-                  height: WindowState.heightUnsafe
+                  height: GlobalState.viewportInfo.heightUnsafe
                 }}
               />
             </View>

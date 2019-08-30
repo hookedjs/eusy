@@ -1,4 +1,5 @@
 /**
+ * This is the main entry-point into the app, which is determined by expo.cli.
  * Tips:
  * - You should use non-functional components for higher level stuff, b/c fc's tend to break hot reload
  * - Use the assets features on this page to load fonts and stuff
@@ -14,40 +15,50 @@ import { SidebarSection } from './src/components/sections/Sidebar.section';
 import { Router } from './src/components/lib/Routing';
 
 import { Theme } from './src/config/Theme.config';
+import { GlobalState } from './src/GlobalState';
+import { Observer } from 'mobx-react-lite';
 
 interface state {
-  isReady: boolean;
+  assetsLoaded: boolean;
 }
 
 class App extends React.PureComponent<any, state> {
   constructor(props) {
     super(props);
-    this.state = { isReady: false };
+    this.state = {
+      assetsLoaded: false
+    };
   }
 
-  static async _loadAssetsAsync() {
+  static _loadAssets = async () => {
     const fontAssets = loadFonts({
       // "Somefont": require('./font/somefont.ttf')
     });
     await Promise.all([fontAssets]);
-  }
+  };
 
   render() {
     return (
       <ThemeProvider theme={Theme}>
         <View style={{ flex: 1, width: '100%', overflow: 'hidden' }}>
-          {this.state.isReady ? (
-            <Router>
-              <SidebarSection>
-                <RoutesConfig />
-              </SidebarSection>
-            </Router>
-          ) : (
-            <AppLoadingScreen
-              startAsync={App._loadAssetsAsync}
-              onFinish={() => this.setState({ isReady: true })}
-            />
-          )}
+          <Observer>
+            {() => (
+              <>
+                {this.state.assetsLoaded && GlobalState.isHydrated ? (
+                  <Router>
+                    <SidebarSection>
+                      <RoutesConfig />
+                    </SidebarSection>
+                  </Router>
+                ) : (
+                  <AppLoadingScreen
+                    startAsync={App._loadAssets}
+                    onFinish={() => this.setState({ assetsLoaded: true })}
+                  />
+                )}
+              </>
+            )}
+          </Observer>
         </View>
       </ThemeProvider>
     );

@@ -3,14 +3,14 @@ import { View, StyleSheet } from 'react-native';
 import { Text, ThemeContext } from 'react-native-elements';
 import { observer } from 'mobx-react-lite';
 import { TextLink } from '../lib/Routing';
-import { WindowState } from '../../state/Window.state';
+import { GlobalState } from '../../GlobalState';
 
 export const FooterEndSection = observer(() => {
   const { theme } = useContext(ThemeContext);
 
   return (
     <View style={{ backgroundColor: theme.colors.primaryDarker }}>
-      {WindowState.isSmall ? (
+      {GlobalState.viewportInfo.isSmall ? (
         <View style={{ paddingVertical: 30, alignItems: 'center' }}>
           <Text style={styles.titleText}>Quick Links</Text>
           <Text style={styles.text}>
