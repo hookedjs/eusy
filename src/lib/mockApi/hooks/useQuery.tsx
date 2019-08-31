@@ -2,13 +2,15 @@
  * THis is a mock replacement for { useQuery } from '@apollo/react-hooks';
  */
 import * as React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { ApolloError } from 'apollo-client';
 import { OperationVariables, QueryResult } from '@apollo/react-common';
 import { QueryHookOptions } from '@apollo/react-hooks';
+import { diff } from 'deep-object-diff';
 import { gqlReturnType } from '../../../@types/graphql-tag';
 import { MockOrm } from '../MockOrm';
 import { createApolloError } from './errorHelpers';
-import { ApolloError } from 'apollo-client';
+import { useLocalStore } from 'mobx-react-lite';
 
 export function useQuery<TData = any, TVariables = OperationVariables>(
   query: gqlReturnType,
@@ -32,7 +34,7 @@ export function useQuery<TData = any, TVariables = OperationVariables>(
 
   const ormHandler = MockOrm[model][action];
 
-  const stateDefault: {
+  const resultDefault: {
     data: any;
     loading: boolean;
     error: ApolloError;
@@ -41,37 +43,39 @@ export function useQuery<TData = any, TVariables = OperationVariables>(
     loading: true,
     error: createApolloError()
   };
-  const [state, setState] = useState(stateDefault);
-
-  const refetch = async () => {
-    // setState({
-    //   data: state.data,
-    //   loading: true,
-    //   error: createApolloError(),
-    // });
-    const res = await ormHandler({ ...variableConstants, ...options.variables });
-    setState({
-      data: res.data,
-      loading: false,
-      error: createApolloError(res.errors)
-    });
-  };
+  const state = useLocalStore(() => ({
+    result: resultDefault,
+    refetch: async () => {
+      // setState({
+      //   data: state.data,
+      //   loading: true,
+      //   error: createApolloError(),
+      // });
+      const res = await ormHandler({ ...variableConstants, ...options.variables });
+      const nextState = {
+        data: res.data,
+        loading: false,
+        error: createApolloError(res.errors)
+      };
+      if (Object.keys(diff(state.result.data, nextState.data)).length) state.result = nextState;
+    }
+  }));
 
   useEffect(() => {
-    refetch();
+    state.refetch();
   }, []);
 
   useEffect(() => {
     if (options.pollInterval) {
-      const interval = setInterval(refetch, options.pollInterval);
+      const interval = setInterval(state.refetch, options.pollInterval * 10);
       return () => clearInterval(interval);
     }
   }, []);
 
   return {
-    ...state,
+    ...state.result,
     // @ts-ignore: refetch signature mismatch
-    refetch,
+    refetch: state.refetch,
     networkStatus: 1
   };
 }

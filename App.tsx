@@ -16,19 +16,27 @@ import { Router } from './src/components/lib/Routing';
 
 import { Theme } from './src/config/Theme.config';
 import { GlobalState } from './src/GlobalState';
-import { Observer } from 'mobx-react-lite';
+import { Sleep } from './src/lib/Polyfills';
 
 interface state {
   assetsLoaded: boolean;
+  mobxHydrated: boolean;
 }
 
 class App extends React.PureComponent<any, state> {
   constructor(props) {
     super(props);
     this.state = {
-      assetsLoaded: false
+      assetsLoaded: false,
+      mobxHydrated: false
     };
+    this.watchHydrate();
   }
+
+  watchHydrate = async () => {
+    while (!GlobalState.isHydrated) await Sleep(20);
+    this.setState({ mobxHydrated: true });
+  };
 
   static _loadAssets = async () => {
     const fontAssets = loadFonts({
@@ -38,27 +46,24 @@ class App extends React.PureComponent<any, state> {
   };
 
   render() {
+    if (!this.state.assetsLoaded)
+      return (
+        <AppLoadingScreen
+          startAsync={App._loadAssets}
+          onFinish={() => this.setState({ assetsLoaded: true })}
+        />
+      );
+
+    if (!this.state.mobxHydrated) return <></>;
+
     return (
       <ThemeProvider theme={Theme}>
         <View style={{ flex: 1, width: '100%', overflow: 'hidden' }}>
-          <Observer>
-            {() => (
-              <>
-                {this.state.assetsLoaded && GlobalState.isHydrated ? (
-                  <Router>
-                    <SidebarSection>
-                      <RoutesConfig />
-                    </SidebarSection>
-                  </Router>
-                ) : (
-                  <AppLoadingScreen
-                    startAsync={App._loadAssets}
-                    onFinish={() => this.setState({ assetsLoaded: true })}
-                  />
-                )}
-              </>
-            )}
-          </Observer>
+          <Router>
+            <SidebarSection>
+              <RoutesConfig />
+            </SidebarSection>
+          </Router>
         </View>
       </ThemeProvider>
     );

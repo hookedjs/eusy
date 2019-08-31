@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Feather } from '@expo/vector-icons';
 import { updatedDiff } from 'deep-object-diff';
 import { observer, useLocalStore } from 'mobx-react-lite';
 import Markdown from 'react-native-markdown-renderer';
@@ -11,6 +12,7 @@ import { gql } from 'apollo-boost';
 import { useQuery } from '../../lib/mockApi/hooks/useQuery';
 import { useMutation } from '../../lib/mockApi/hooks/useMutation';
 import { UserSanitizer } from '../../model/users/sanitizer';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const USER = gql`
   query($id: String!) {
@@ -120,20 +122,37 @@ export const UserEditScreen = observer(() => {
             My Account
           </Text>
 
-          <Avatar
-            rounded
-            title={
-              !formStore.next.avatar &&
-              formStore.next.nameGiven &&
-              formStore.next.nameGiven.slice(0, 1) + formStore.next.nameFamily &&
-              formStore.next.nameFamily.slice(0, 1)
-            }
-            showEditButton
-            editButton={{ name: 'edit-2', type: 'feather', color: '#fff', size: 30 }}
-            size="xlarge"
-            source={{ uri: formStore.next.avatar }}
-            containerStyle={{ marginBottom: 20 }}
-          />
+          <TouchableOpacity onPress={e => {}}>
+            <View>
+              <Avatar
+                rounded
+                title={
+                  !formStore.next.avatar &&
+                  formStore.next.nameGiven &&
+                  formStore.next.nameGiven.slice(0, 1) + formStore.next.nameFamily &&
+                  formStore.next.nameFamily.slice(0, 1)
+                }
+                size="xlarge"
+                source={{ uri: formStore.next.avatar }}
+                containerStyle={{ marginBottom: 20 }}
+              />
+              <Feather
+                name="edit-2"
+                size={29}
+                color="white"
+                style={{
+                  backgroundColor: '#aaa',
+                  // borderRadius: 4,
+                  width: 29,
+                  height: 30,
+                  position: 'relative',
+                  top: -52,
+                  left: 120,
+                  marginBottom: -30
+                }}
+              />
+            </View>
+          </TouchableOpacity>
 
           <Input
             placeholder="Email"

@@ -1,9 +1,9 @@
 import { toJS, autorun } from 'mobx';
 import { set } from 'mobx';
-import { LocalStorage } from './LocalStorage';
+import { OfflineStorage } from './LocalStorage';
 
 export const MobxPersistObject = async (key, observableInstance) => {
-  const v = await LocalStorage.getItem(key);
+  const v = await OfflineStorage.getItem(key);
   if (v) {
     // if (observableInstance.replace) observableInstance.replace(v);
     // else if (typeof v === "object") {
@@ -14,6 +14,6 @@ export const MobxPersistObject = async (key, observableInstance) => {
   autorun(() => {
     // LocalStorage.setItem(key, change.object.toJSON());
     // LocalStorage.setItem(key, change.newValue);
-    LocalStorage.setItem(key, toJS(observableInstance));
+    OfflineStorage.setItem(key, toJS(observableInstance));
   });
 };

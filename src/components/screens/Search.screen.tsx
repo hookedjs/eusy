@@ -98,7 +98,7 @@ export const SearchScreen = observer(() => {
       <ScrollView>
         <View
           style={{
-            alignSelf: GlobalState.viewportInfo.isLarge ? 'left' : '',
+            // alignSelf: GlobalState.viewportInfo.isLarge ? 'left' : '',
             paddingHorizontal: GlobalState.viewportInfo.isLarge ? 30 : 0,
             paddingVertical: 30
           }}
@@ -145,7 +145,7 @@ export const SearchScreen = observer(() => {
                 Recent Searches ({recentSearches.length})
               </Text>
               {recentSearches.map(search => (
-                <RecentItem search={search} />
+                <RecentItem key={search} search={search} />
               ))}
             </>
           )}

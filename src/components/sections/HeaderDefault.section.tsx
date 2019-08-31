@@ -146,8 +146,9 @@ export const HeaderDefaultSection = observer(() => {
               <Avatar
                 rounded
                 title={
-                  !userQuery.data.avatar &&
-                  userQuery.data.nameGiven.slice(0, 1) + userQuery.data.nameFamily.slice(0, 1)
+                  userQuery.data.avatar
+                    ? ''
+                    : userQuery.data.nameGiven.slice(0, 1) + userQuery.data.nameFamily.slice(0, 1)
                 }
                 source={{ uri: userQuery.data.avatar }}
                 containerStyle={{ marginLeft: 10 }}

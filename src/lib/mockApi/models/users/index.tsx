@@ -1,5 +1,3 @@
-const bcrypt = require('bcryptjs');
-
 import { BaseModel } from '../BaseModel';
 import { UserSanitizer } from '../../../../model/users/sanitizer';
 import { UserType as modelType } from '../../../../model/users/type';
@@ -21,8 +19,9 @@ export class UserModel extends BaseModel {
     },
     password: value => {
       let [sanitized, error] = UserSanitizer.fields.password(value);
-      sanitized =
-        typeof sanitized === 'string' && bcrypt.hashSync(sanitized, bcrypt.genSaltSync(10));
+      // In a real backend, you should hash the password here.
+      // sanitized =
+      //   typeof sanitized === 'string' && bcrypt.hashSync(sanitized, bcrypt.genSaltSync(10));
       return [sanitized, error];
     },
     handle: value => {
@@ -38,7 +37,9 @@ export class UserModel extends BaseModel {
 
   login = ({ email, password }: { email: string; password: string }) => {
     let user = this.db.find(row => row.email === email);
-    if (!user || !bcrypt.compareSync(password, user.password))
+    // In a real backend, password would be hashed so you'd need to compare hashes.
+    // if (!user || !bcrypt.compareSync(password, user.password))
+    if (!user || password !== user.password)
       return { error: `login: Email not found and/or password doesn't match.` };
     return { data: { id: user.id, roles: user.roles, token: 'tokenplaceholder' } };
   };
