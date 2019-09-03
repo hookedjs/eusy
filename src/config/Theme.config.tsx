@@ -4,9 +4,9 @@
  * Instead of statically defining the theme, we employ helper functions to enable
  * better code-reuse
  */
-import { Theme as ThemeOrig, Colors as ColorsOrig } from 'react-native-elements';
+import { Theme as RNETheme, Colors as RRNColors } from 'react-native-elements';
 
-type ColorsType = RecursivePartial<ColorsOrig> & {
+type ColorsType = RecursivePartial<RRNColors> & {
   primaryDark: string;
   primaryDarker: string;
   primaryLight: string;
@@ -27,7 +27,7 @@ type ColorsType = RecursivePartial<ColorsOrig> & {
   wordpress: string;
   stumbleupon: string;
 };
-type ThemeType = ThemeOrig & {
+type ThemeType = RNETheme & {
   colors: ColorsType;
 };
 

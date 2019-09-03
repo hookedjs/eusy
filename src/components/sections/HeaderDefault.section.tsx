@@ -107,13 +107,18 @@ export const HeaderDefaultSection = observer(() => {
       <View style={{ flex: 1, maxWidth: 500 }}>
         <SearchBar
           showLoading={false}
-          onFocus={() => history.push('/search')}
-          onBlur={() => console.log('blur')}
-          onCancel={() => console.log('cancel')}
-          onClear={() => history.push('/search')}
+          onFocus={() => {
+            if (location.pathname !== '/search') history.push('/search');
+          }}
+          // onBlur={() => console.log('blur')}
+          // onCancel={() => console.log('cancel')}
+          onClear={() => console.log('cleared')}
           onSubmitEditing={pushRecentSearch}
           value={GlobalState.search}
-          onChangeText={s => (GlobalState.search = s)}
+          onChangeText={s => {
+            GlobalState.search = s;
+            if (location.pathname !== '/search') history.push('/search');
+          }}
         />
       </View>
 

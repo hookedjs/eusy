@@ -59,6 +59,7 @@ export const UserEditScreen = observer(() => {
     watchErrors: false, // If true, validates continuously
     errors: { avatar: '', email: '', nameGiven: '', nameFamily: '' },
     submitButtonText: 'Loading...',
+    loading: true,
     validate() {
       [formStore.next, formStore.errors] = UserSanitizer.sanitizer(formStore.next, true) as any;
       return !!Object.values(formStore.errors).length;
@@ -87,7 +88,7 @@ export const UserEditScreen = observer(() => {
   }, [formStore.next]);
 
   useEffect(() => {
-    if (!userQuery.data) return;
+    if (!Object.keys(userQuery.data).length) return;
     let next = {
       avatar: userQuery.data.avatar,
       email: userQuery.data.email,
@@ -97,13 +98,14 @@ export const UserEditScreen = observer(() => {
     formStore.orig = next;
     formStore.next = next;
     formStore.submitButtonText = 'Save';
+    formStore.loading = false;
   }, [userQuery.data]);
 
   if (userQuery.error.message || userQuery.error.graphQLErrors.length) {
     console.dir(userQuery.error);
     return <></>;
   }
-  if (!Object.keys(userQuery.data).length) return <></>;
+  if (formStore.loading) return <></>;
 
   return (
     <>
@@ -127,10 +129,11 @@ export const UserEditScreen = observer(() => {
               <Avatar
                 rounded
                 title={
-                  !formStore.next.avatar &&
-                  formStore.next.nameGiven &&
-                  formStore.next.nameGiven.slice(0, 1) + formStore.next.nameFamily &&
-                  formStore.next.nameFamily.slice(0, 1)
+                  (!formStore.next.avatar &&
+                    formStore.next.nameGiven &&
+                    formStore.next.nameGiven.slice(0, 1) + formStore.next.nameFamily &&
+                    formStore.next.nameFamily.slice(0, 1)) ||
+                  ''
                 }
                 size="xlarge"
                 source={{ uri: formStore.next.avatar }}
@@ -158,7 +161,7 @@ export const UserEditScreen = observer(() => {
             placeholder="Email"
             value={formStore.next.email}
             onChangeText={val => (formStore.next.email = val)}
-            errorMessage={formStore.watchErrors && formStore.errors.email}
+            errorMessage={formStore.watchErrors ? formStore.errors.email : ''}
             leftIcon={{ type: 'feather', name: 'mail', color: '#2D3C56' }}
             autoCapitalize="none"
             autoCorrect={false}
@@ -177,7 +180,7 @@ export const UserEditScreen = observer(() => {
             placeholder="First Name"
             value={formStore.next.nameGiven}
             onChangeText={val => (formStore.next.nameGiven = val)}
-            errorMessage={formStore.watchErrors && formStore.errors.nameGiven}
+            errorMessage={formStore.watchErrors ? formStore.errors.nameGiven : ''}
             leftIcon={{ type: 'feather', name: 'mail', color: '#2D3C56' }}
             autoCapitalize="none"
             autoCorrect={false}
@@ -196,7 +199,7 @@ export const UserEditScreen = observer(() => {
             placeholder="Last Name"
             value={formStore.next.nameFamily}
             onChangeText={val => (formStore.next.nameFamily = val)}
-            errorMessage={formStore.watchErrors && formStore.errors.nameFamily}
+            errorMessage={formStore.watchErrors ? formStore.errors.nameFamily : ''}
             leftIcon={{ type: 'feather', name: 'mail', color: '#2D3C56' }}
             autoCapitalize="none"
             autoCorrect={false}

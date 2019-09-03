@@ -5,10 +5,10 @@ import { Text, TextProps, View } from 'react-native';
 import { ThemeContext } from 'react-native-elements';
 import {
   NativeRouter as Router,
-  Link as LinkOrig,
+  Link as RRNLink,
   matchPath,
   Redirect,
-  Route as RouteOrig,
+  Route as RRNRoute,
   Switch,
   withRouter,
   RouteComponentProps,
@@ -46,7 +46,7 @@ class Route extends React.PureComponent<
   };
 
   render() {
-    // Create routeProps to be passed to RouteOrig
+    // Create routeProps to be passed to RRNRoute
     let routeProps = { ...this.props };
     delete routeProps.component;
     delete routeProps.footerEndComponent;
@@ -57,7 +57,7 @@ class Route extends React.PureComponent<
     GlobalState.sidebarComponent = this.props.sidebarComponent;
 
     return (
-      <RouteOrig
+      <RRNRoute
         render={routerProps => (
           <View
             style={{
@@ -90,7 +90,7 @@ const Link = ({ to, onPress, ...props }: LinkProps) => {
         else history.push(to as string);
       }}
     >
-      <LinkOrig to="" {...props} />
+      <RRNLink to="" {...props} />
     </TouchableOpacity>
   );
 };

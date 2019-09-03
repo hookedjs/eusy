@@ -1,64 +1,39 @@
-diff --git a/node_modules/react-native-elements/src/config/ThemeProvider.js b/node_modules/react-native-elements/src/config/ThemeProvider.js
-index 04221c0..df7a2e0 100644
---- a/node_modules/react-native-elements/src/config/ThemeProvider.js
-+++ b/node_modules/react-native-elements/src/config/ThemeProvider.js
-@@ -4,7 +4,7 @@ import deepmerge from 'deepmerge';
- 
- import colors from './colors';
- 
--const ThemeContext = React.createContext();
-+export const ThemeContext = React.createContext();
- 
- export default class ThemeProvider extends React.Component {
-   constructor(props) {
-diff --git a/node_modules/react-native-elements/src/config/index.js b/node_modules/react-native-elements/src/config/index.js
-index 6d82a5c..c928648 100644
---- a/node_modules/react-native-elements/src/config/index.js
-+++ b/node_modules/react-native-elements/src/config/index.js
-@@ -5,7 +5,7 @@ import BackgroundImage from './BackgroundImage';
- import colors from './colors';
- import ViewPropTypes from './ViewPropTypes';
- import fonts from './fonts';
--import ThemeProvider, { ThemeConsumer } from './ThemeProvider';
-+import ThemeProvider, { ThemeConsumer, ThemeContext } from './ThemeProvider';
- import withTheme from './withTheme';
- 
- const TextPropTypes = Text.propTypes;
-@@ -19,5 +19,6 @@ export {
-   fonts,
-   ThemeProvider,
-   ThemeConsumer,
-+  ThemeContext,
-   withTheme,
- };
-diff --git a/node_modules/react-native-elements/src/index.d.ts b/node_modules/react-native-elements/src/index.d.ts
-index ff9ff85..36d87d8 100644
---- a/node_modules/react-native-elements/src/index.d.ts
-+++ b/node_modules/react-native-elements/src/index.d.ts
-@@ -2062,3 +2062,5 @@ export class ThemeConsumer<T> extends React.Component<ThemeConsumerProps<T>> {}
- export function withTheme<P = {}, T = {}>(
-   component: React.ComponentType<P & ThemeProps<T>>
- ): React.ComponentClass<P>;
-+
-+export const ThemeContext = React.createContext<ThemeProps>({});
-diff --git a/node_modules/react-native-elements/src/index.js b/node_modules/react-native-elements/src/index.js
-index 40c6645..8097b56 100644
---- a/node_modules/react-native-elements/src/index.js
-+++ b/node_modules/react-native-elements/src/index.js
-@@ -38,7 +38,7 @@ import {
- 
- // helpers
- import Text from './text/Text';
--import { colors, ThemeProvider, ThemeConsumer, withTheme } from './config';
-+import { colors, ThemeProvider, ThemeConsumer, ThemeContext, withTheme } from './config';
- import getIconType, { registerCustomIconType } from './helpers/getIconType';
- import normalize from './helpers/normalizeText';
- 
-@@ -73,6 +73,7 @@ export {
-   Overlay,
-   ThemeProvider,
-   ThemeConsumer,
-+  ThemeContext,
-   withBadge,
-   withTheme,
-   Image,
+diff --git a/node_modules/react-native-elements/src/input/Input.js b/node_modules/react-native-elements/src/input/Input.js
+index e727fad..b28b153 100644
+--- a/node_modules/react-native-elements/src/input/Input.js
++++ b/node_modules/react-native-elements/src/input/Input.js
+@@ -76,6 +76,8 @@ class Input extends React.Component {
+       labelStyle,
+       labelProps,
+       theme,
++      updateTheme,
++      replaceTheme,
+       ...attributes
+     } = this.props;
+
+diff --git a/node_modules/react-native-elements/src/searchbar/SearchBar-default.js b/node_modules/react-native-elements/src/searchbar/SearchBar-default.js
+index 39b7ebc..3712342 100644
+--- a/node_modules/react-native-elements/src/searchbar/SearchBar-default.js
++++ b/node_modules/react-native-elements/src/searchbar/SearchBar-default.js
+@@ -75,6 +75,7 @@ class SearchBar extends React.Component {
+       showLoading,
+       loadingProps,
+       placeholderTextColor = theme.colors.grey3,
++      onClear,
+       ...attributes
+     } = rest;
+
+diff --git a/node_modules/react-native-elements/src/text/Text.js b/node_modules/react-native-elements/src/text/Text.js
+index b1b26c2..c738e34 100644
+--- a/node_modules/react-native-elements/src/text/Text.js
++++ b/node_modules/react-native-elements/src/text/Text.js
+@@ -17,6 +17,9 @@ const TextElement = props => {
+     h2Style,
+     h3Style,
+     h4Style,
++    theme,
++    updateTheme,
++    replaceTheme,
+     ...rest
+   } = props;
+

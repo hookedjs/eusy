@@ -5,9 +5,9 @@ import { TextProps, ThemeContext } from 'react-native-elements';
 import {
   BrowserRouter as Router,
   matchPath,
-  Link as LinkOrig,
+  Link as RRNLink,
   Redirect,
-  Route as RouteOrig,
+  Route as RRNRoute,
   RouteProps,
   Switch,
   withRouter,
@@ -45,7 +45,7 @@ class Route extends React.PureComponent<
   };
 
   render() {
-    // Create routeProps to be passed to RouteOrig
+    // Create routeProps to be passed to RRNRoute
     let routeProps = { ...this.props };
     delete routeProps.component;
     delete routeProps.footerEndComponent;
@@ -58,7 +58,7 @@ class Route extends React.PureComponent<
     // Have to include the headercomponent on development mode for now because development mode
     // uses Switch instead of Stack, due to an HMR bug (see Stack declaration for more info).
     return (
-      <RouteOrig
+      <RRNRoute
         render={routerProps => (
           <>
             {this.props.headerComponent && process.env.NODE_ENV !== 'production' && (
@@ -102,7 +102,7 @@ const Link = ({
   } else if (typeof props.to === 'string' && props.to[0] !== '/') {
     return <a href={props.to} target="_blank" onClick={onPress} style={style} {...props} />;
   } else {
-    return <LinkOrig onClick={onPress} style={style} {...props} />;
+    return <RRNLink onClick={onPress} style={style} {...props} />;
   }
 };
 
@@ -148,7 +148,7 @@ const TextLink = ({
   } else {
     return (
       <div style={{ display: 'inline-block' }}>
-        <LinkOrig onClick={onPress} {...props} />
+        <RRNLink onClick={onPress} {...props} />
 
         <style jsx>{`
           div :global(a) {

@@ -108,7 +108,7 @@ export const RegisterScreen = observer(() => {
               placeholder="First Name"
               value={formStore.data.nameGiven}
               onChangeText={val => (formStore.data.nameGiven = val)}
-              errorMessage={formStore.watchErrors && formStore.errors.nameGiven}
+              errorMessage={formStore.watchErrors ? formStore.errors.nameGiven : ''}
               leftIcon={{ type: 'feather', name: 'user', color: '#2D3C56' }}
               // autoCapitalize="none"
               // autoCorrect={false}
@@ -126,7 +126,7 @@ export const RegisterScreen = observer(() => {
               placeholder="Last Name"
               value={formStore.data.nameFamily}
               onChangeText={val => (formStore.data.nameFamily = val)}
-              errorMessage={formStore.watchErrors && formStore.errors.nameFamily}
+              errorMessage={formStore.watchErrors ? formStore.errors.nameFamily : ''}
               leftIcon={{ type: 'feather', name: 'user-plus', color: '#2D3C56' }}
               // autoCapitalize="none"
               // autoCorrect={false}
@@ -143,7 +143,7 @@ export const RegisterScreen = observer(() => {
             <Input
               placeholder="Email"
               value={formStore.data.email}
-              errorMessage={formStore.watchErrors && formStore.errors.email}
+              errorMessage={formStore.watchErrors ? formStore.errors.email : ''}
               onChangeText={val => (formStore.data.email = val)}
               leftIcon={{ type: 'feather', name: 'mail', color: '#2D3C56' }}
               autoCapitalize="none"
@@ -162,7 +162,7 @@ export const RegisterScreen = observer(() => {
               placeholder="Password"
               value={formStore.data.password}
               onChangeText={val => (formStore.data.password = val)}
-              errorMessage={formStore.watchErrors && formStore.errors.password}
+              errorMessage={formStore.watchErrors ? formStore.errors.password : ''}
               leftIcon={{ type: 'feather', name: 'lock' }}
               autoCapitalize="none"
               secureTextEntry={true}
