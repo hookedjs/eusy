@@ -1,10 +1,16 @@
 import { BaseModel } from '../BaseModel';
-import { UserSanitizer } from '../../../../model/users/sanitizer';
-import { UserType as modelType } from '../../../../model/users/type';
+import { UserSanitizer } from '../../../model/users/sanitizer';
+import { UserType as modelType } from '../../../model/users/type';
 import seed from './db.json';
 
 export class UserModel extends BaseModel {
   db: modelType[] = seed;
+  searchFields = [
+    { name: 'nameGiven', boost: 10 },
+    { name: 'nameFamily', boost: 20 },
+    { name: 'handle', boost: 30 },
+    { name: 'email', boost: 20 }
+  ];
 
   sanitizers: { [fieldName: string]: (any) => [any, string] } = {
     // Client-side validations

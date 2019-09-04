@@ -1,12 +1,18 @@
 const slugify = require('slugify');
 import { BaseModel } from '../BaseModel';
+
 const UserApi = require('../users');
 import seed from './db.json';
-import { PostType as modelType } from '../../../../model/posts/type';
-import { PostSanitizer } from '../../../../model/posts/sanitizer';
+import { PostType as modelType } from '../../../model/posts/type';
+import { PostSanitizer } from '../../../model/posts/sanitizer';
 
 export class PostsModel extends BaseModel {
   db: modelType[] = seed;
+  searchFields = [
+    { name: 'title', boost: 10 },
+    { name: 'body', boost: 20 },
+    { name: 'userId', boost: 1 }
+  ];
 
   sanitizers: { [fieldName: string]: (any) => [any, string] } = {
     // Client-side validations
@@ -32,4 +38,9 @@ export class PostsModel extends BaseModel {
       return [sanitized, error];
     }
   };
+
+  constructor() {
+    super();
+    // this.initSearchService();
+  }
 }

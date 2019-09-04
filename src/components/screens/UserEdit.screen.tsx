@@ -9,8 +9,8 @@ import { Helmet } from '../lib/Helmet';
 import { GlobalState } from '../../GlobalState';
 import { UserType } from '../../model/users/type';
 import { gql } from 'apollo-boost';
-import { useQuery } from '../../lib/mockApi/hooks/useQuery';
-import { useMutation } from '../../lib/mockApi/hooks/useMutation';
+import { useQuery } from '../../mockApi/hooks/useQuery';
+import { useMutation } from '../../mockApi/hooks/useMutation';
 import { UserSanitizer } from '../../model/users/sanitizer';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 

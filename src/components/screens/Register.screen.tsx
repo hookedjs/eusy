@@ -11,9 +11,9 @@ import { Helmet } from '../lib/Helmet';
 import { TextLink, useRouter } from '../lib/Routing';
 import { LogoModule } from '../modules/Logo.module';
 import Markdown from 'react-native-markdown-renderer';
-import { useMutation } from '../../lib/mockApi/hooks/useMutation';
+import { useMutation } from '../../mockApi/hooks/useMutation';
 import { gql } from 'apollo-boost';
-import { MockOrm } from '../../lib/mockApi/MockOrm';
+import { MockOrm } from '../../mockApi/MockOrm';
 
 const USER_CREATE = gql`
   mutation UserCreate($id: String!, $email: String!, $nameGiven: String!, $nameFamily: String!) {

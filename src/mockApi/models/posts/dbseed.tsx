@@ -3,7 +3,7 @@ const faker = require('faker');
 const uuid = require('uuid/v4');
 const slugify = require('slugify');
 import UsersDb from '../users/db.json';
-import { PostType } from '../../../../model/posts/type';
+import { PostType } from '../../../model/posts/type';
 
 module.exports = async function() {
   let db: PostType[] = [];

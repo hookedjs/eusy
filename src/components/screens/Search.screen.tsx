@@ -1,17 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { gql } from 'apollo-boost';
 import { Feather } from '@expo/vector-icons';
-import { observer } from 'mobx-react-lite';
+import { observer, useLocalStore } from 'mobx-react-lite';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Text, ThemeContext } from 'react-native-elements';
+import { Avatar, Text, ThemeContext } from 'react-native-elements';
+import Markdown from 'react-native-markdown-renderer';
+import str_shorten from 'str_shorten';
 import { GlobalState } from '../../GlobalState';
 import { Helmet } from '../lib/Helmet';
 import { Link } from '../lib/Routing';
 import { HoverObserver } from '../lib/HoverObserver';
-import { useQuery } from '../../lib/mockApi/hooks/useQuery';
+import { useQuery } from '../../mockApi/hooks/useQuery';
 import { UserType } from '../../model/users/type';
-import { useMutation } from '../../lib/mockApi/hooks/useMutation';
+import { useMutation } from '../../mockApi/hooks/useMutation';
 import { Sleep } from '../../lib/Polyfills';
+import { MockOrm } from '../../mockApi/MockOrm';
 
 const USER = gql`
   query($id: String!) {
@@ -40,13 +43,33 @@ export const SearchScreen = observer(() => {
   });
   const [updateRecentSearches] = useMutation(USER_UPDATE_RECENT_SEARCHES);
 
+  const searchStore = useLocalStore(() => ({
+    results: { users: [], posts: [] },
+    refetch: async () => {
+      if (GlobalState.search.length >= 3) {
+        Promise.all([
+          MockOrm.users.search(GlobalState.search),
+          MockOrm.posts.search(GlobalState.search)
+        ]).then(([usersResponse, postsResponse]) => {
+          searchStore.results = {
+            users: usersResponse.data,
+            posts: postsResponse.data
+          };
+        });
+      } else {
+        searchStore.results = { users: [], posts: [] };
+      }
+    }
+  }));
+
   const pushRecentSearch = async () => {
     while (userQuery.loading) {
       console.log('Waiting for userQuery...');
       await Sleep(1000);
     }
     let recentSearches = JSON.parse(userQuery.data.recentSearches);
-    recentSearches.push(GlobalState.search);
+    recentSearches.unshift(GlobalState.search);
+    recentSearches.splice(10);
     updateRecentSearches({
       variables: {
         id: GlobalState.user.id,
@@ -55,13 +78,38 @@ export const SearchScreen = observer(() => {
     });
   };
 
+  const ResultSectionHeader = ({ children }) => (
+    <View
+      style={{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        borderBottomColor: GlobalState.viewportInfo.isLarge
+          ? theme.colors.grey3
+          : theme.colors.grey5,
+        borderBottomWidth: 1,
+        paddingHorizontal: 10,
+        marginBottom: GlobalState.viewportInfo.isLarge ? 10 : 0
+      }}
+    >
+      <Text h4 style={styles.text}>
+        {children}
+      </Text>
+    </View>
+  );
+
   const RecentItem = ({ search }: { search: string }) => {
     const { theme } = useContext(ThemeContext);
 
     return (
       <HoverObserver
         children={({ isHovering }) => (
-          <Link to="#" onPress={pushRecentSearch}>
+          <Link
+            to="#"
+            onPress={() => {
+              pushRecentSearch();
+              GlobalState.search = search;
+            }}
+          >
             <View
               style={{
                 flexDirection: 'row',
@@ -81,12 +129,61 @@ export const SearchScreen = observer(() => {
     );
   };
 
-  let results = [];
-  // if (GlobalState.search.length >= 3) {
-  //   results = GlobalState.notifications
-  //     .filter(n => n.text.includes(GlobalState.search))
-  //     .slice(0, 20);
-  // }
+  const SearchResultRow = ({
+    to,
+    avatar,
+    avatarTitle,
+    children
+  }: {
+    to: string;
+    avatar: string;
+    avatarTitle: string;
+    children: any;
+  }) => {
+    const { theme } = useContext(ThemeContext);
+
+    return (
+      <HoverObserver
+        children={({ isHovering }) => (
+          <Link to={to} onPress={pushRecentSearch}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'flex-start',
+                paddingLeft: 10,
+                paddingVertical: 8,
+                borderBottomColor: theme.colors.grey4,
+                borderBottomWidth: GlobalState.viewportInfo.isLarge ? 1 : 0,
+                backgroundColor: isHovering ? theme.colors.primaryLighter : 'transparent'
+              }}
+            >
+              <Avatar rounded title={avatarTitle} source={{ uri: avatar }} />
+              <Markdown
+                style={{
+                  text: {
+                    paddingLeft: 14,
+                    paddingRight: 14,
+                    marginTop: -10,
+                    marginBottom: -8,
+                    // width: "100%", maxWidth: 900,
+                    width: GlobalState.viewportInfo.isLarge
+                      ? GlobalState.viewportInfo.width - 400
+                      : GlobalState.viewportInfo.width - 44
+                  }
+                }}
+              >
+                {children}
+              </Markdown>
+            </View>
+          </Link>
+        )}
+      />
+    );
+  };
+
+  useEffect(() => {
+    searchStore.refetch();
+  }, [GlobalState.search]);
 
   if (userQuery.loading) return <></>;
 
@@ -98,32 +195,57 @@ export const SearchScreen = observer(() => {
       <ScrollView>
         <View
           style={{
-            // alignSelf: GlobalState.viewportInfo.isLarge ? 'left' : '',
             paddingHorizontal: GlobalState.viewportInfo.isLarge ? 30 : 0,
             paddingVertical: 30
           }}
         >
           {GlobalState.search.length >= 3 && (
             <>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                  borderBottomColor: GlobalState.viewportInfo.isLarge
-                    ? theme.colors.grey3
-                    : theme.colors.grey5,
-                  borderBottomWidth: 1,
-                  paddingHorizontal: 10,
-                  marginBottom: GlobalState.viewportInfo.isLarge ? 10 : 0
-                }}
-              >
-                <Text h4 style={styles.text}>
-                  Search Results ({results.length})
-                </Text>
-              </View>
-              {results.slice(0, 20).map((r, i) => (
-                <></>
-              ))}
+              {!searchStore.results.users.length && !searchStore.results.posts.length && (
+                <ResultSectionHeader>Search Results (0)</ResultSectionHeader>
+              )}
+
+              {!!searchStore.results.users.length && (
+                <View style={{ marginBottom: 40 }}>
+                  <ResultSectionHeader>
+                    People ({searchStore.results.users.length})
+                  </ResultSectionHeader>
+
+                  {searchStore.results.users.slice(0, 8).map((user, i) => (
+                    <SearchResultRow
+                      key={`search-${i}`}
+                      to={`/user/${user.handle}`}
+                      avatarTitle={
+                        user.avatar ? '' : user.nameGiven.slice(0, 1) + user.nameFamily.slice(0, 1)
+                      }
+                      avatar={user.avatar}
+                    >
+                      **{user.nameGiven} {user.nameFamily}**{'\n'}
+                      {user.email}
+                    </SearchResultRow>
+                  ))}
+                </View>
+              )}
+
+              {!!searchStore.results.posts.length && (
+                <View style={{ marginBottom: 40 }}>
+                  <ResultSectionHeader>
+                    Posts ({searchStore.results.posts.length})
+                  </ResultSectionHeader>
+
+                  {searchStore.results.posts.slice(0, 8).map((post, i) => (
+                    <SearchResultRow
+                      key={`search-${i}`}
+                      to={`/post/${post.slug}`}
+                      avatarTitle={post.image ? '' : post.title.slice(0, 2)}
+                      avatar={post.image}
+                    >
+                      **{post.title}**{'\n'}
+                      {str_shorten(post.body.replace(/\n/g, ' '), 260)}
+                    </SearchResultRow>
+                  ))}
+                </View>
+              )}
             </>
           )}
 
@@ -142,10 +264,10 @@ export const SearchScreen = observer(() => {
           {!GlobalState.search.length && !!recentSearches.length && (
             <>
               <Text h4 style={styles.text}>
-                Recent Searches ({recentSearches.length})
+                Recent Searches
               </Text>
-              {recentSearches.map(search => (
-                <RecentItem key={search} search={search} />
+              {recentSearches.map((search, i) => (
+                <RecentItem key={`recent-${i}`} search={search} />
               ))}
             </>
           )}

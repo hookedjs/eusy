@@ -2,7 +2,7 @@ const fs = require('fs');
 const faker = require('faker');
 const uuid = require('uuid/v4');
 import validator from 'validator';
-import { UserType } from '../../../../model/users/type';
+import { UserType } from '../../../model/users/type';
 
 module.exports = async function() {
   let db: UserType[] = [];

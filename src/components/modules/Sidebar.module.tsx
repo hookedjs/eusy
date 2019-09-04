@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { Text, View } from 'react-native';
 import { ThemeContext } from 'react-native-elements';
 import { GlobalState } from '../../GlobalState';
-import { useQuery } from '../../lib/mockApi/hooks/useQuery';
+import { useQuery } from '../../mockApi/hooks/useQuery';
 import { NotificationType } from '../../model/notifications/type';
 import { HoverObserver } from '../lib/HoverObserver';
 import { Link, useRouter } from '../lib/Routing';

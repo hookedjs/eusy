@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite';
 import { ThemeContext } from 'react-native-elements';
 import { useRouter } from '../lib/Routing';
 import { GlobalState } from '../../GlobalState';
-import { useQuery } from '../../lib/mockApi/hooks/useQuery';
+import { useQuery } from '../../mockApi/hooks/useQuery';
 import { NotificationType } from '../../model/notifications/type';
 
 const NOTIFICATION_COUNT = gql`

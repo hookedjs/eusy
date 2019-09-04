@@ -5,7 +5,7 @@ import { Image, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Input, Text } from 'react-native-elements';
 import SpaceImageUrl from '../../assets/img/space.jpg';
 import { GlobalState } from '../../GlobalState';
-import { MockOrm } from '../../lib/mockApi/MockOrm';
+import { MockOrm } from '../../mockApi/MockOrm';
 import { Helmet } from '../lib/Helmet';
 import { TextLink, useRouter } from '../lib/Routing';
 import { LogoModule } from '../modules/Logo.module';

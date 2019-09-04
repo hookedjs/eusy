@@ -1,10 +1,13 @@
 const uuid = require('uuid/v4');
 import { updatedDiff } from 'deep-object-diff';
+import lunr from 'lunr';
 
 import validator from 'validator';
 
 export class BaseModel {
   db: any[] = [];
+  searchService: lunr.Index;
+  searchFields: { name: string; boost: number }[] = [];
 
   sanitizersCore: { [fieldName: string]: (any) => [any, string] } = {
     id: value => {
@@ -23,12 +26,24 @@ export class BaseModel {
   };
   sanitizers: { [fieldName: string]: (any) => [any, string] } = {};
 
-  constructor() {
-    this.sanitizers = {
-      ...this.sanitizersCore,
-      ...this.sanitizers
-    };
-  }
+  // constructor() {
+  //   const that = this;
+  //   this.searchService = lunr(function () {
+  //     this.ref('id');
+  //     that.searchFields.map(sf => this.field(sf.name, {boost: sf.boost}));
+  //     that.db.forEach(doc => this.add(doc), this)
+  //   });
+  // }
+
+  // constructor() {
+  //   console.dir(this.searchFields);
+  //   const that = this;
+  //   this.searchService = lunr(function () {
+  //     this.ref('id');
+  //     that.searchFields.map(sf => this.field(sf.name, {boost: sf.boost}));
+  //     that.db.forEach(doc => this.add(doc), this)
+  //   });
+  // }
 
   sanitizer = (data: { [fieldName: string]: any }, allowPartial: boolean = false) => {
     let errors: { [column: string]: string } = {};
@@ -49,7 +64,7 @@ export class BaseModel {
   };
 
   create = async (data: { [fieldName: string]: any }) => {
-    console.dir(data);
+    this.initSearchService();
     const now = Date.now();
     const [sanitized, errors] = this.sanitizer({
       ...data,
@@ -60,6 +75,7 @@ export class BaseModel {
     if (Object.keys(errors).length) return { errors };
 
     this.db.push(sanitized);
+    this.searchService.add(sanitized);
     return { data: sanitized };
   };
 
@@ -70,6 +86,7 @@ export class BaseModel {
   };
 
   update = async ({ id, ...updates }: { id: string; data: { [fieldName: string]: any } }) => {
+    this.initSearchService();
     let rowIndex = this.db.findIndex(row => row.id === id);
     if (rowIndex === -1) return { errors: { id: `id Not Found: ${id}` } };
 
@@ -81,23 +98,27 @@ export class BaseModel {
     );
     if (Object.keys(errors).length) return { errors };
 
-    this.db[rowIndex] = {
+    const next = {
       ...before,
       ...sanitized,
       createdAt: before.createdAt, // ensure that this never changes
       updatedAt: Date.now()
     };
+    this.db[rowIndex] = next;
+    this.searchService.update(next);
     return { data: this.db[rowIndex] };
   };
 
-  delete = ({ id }) => {
+  delete = async ({ id }) => {
+    this.initSearchService();
     let rowIndex = this.db.findIndex(row => row.id === id);
     if (rowIndex === -1) return { errors: { id: `id Not Found: ${id}` } };
     this.db.splice(rowIndex, 1);
+    this.searchService.remove({ id });
     return { error: false };
   };
 
-  query = (filters: { [fieldName: string]: any }) => {
+  query = async (filters: { [fieldName: string]: any }) => {
     let rows = this.db.filter(row => {
       let match = true;
       for (let [column, value] of Object.entries(filters)) {
@@ -106,5 +127,26 @@ export class BaseModel {
       return match;
     });
     return { data: rows };
+  };
+
+  initSearchService = () => {
+    if (!this.searchService) {
+      const that = this;
+      this.searchService = lunr(function() {
+        this.ref('id');
+        that.searchFields.map(sf => this.field(sf.name, { boost: sf.boost }));
+        that.db.forEach(doc => this.add(doc), this);
+      });
+    }
+  };
+
+  search = async (search: string) => {
+    this.initSearchService();
+    const results = this.searchService
+      .search(search)
+      .filter(({ score }) => score > 1) // can limit scores this way. I try to tweak this per use case
+      // .slice(0, 100) // Can limit results in this way, to reduce response size
+      .map(({ ref }) => this.db.find(row => row.id === ref));
+    return { data: results };
   };
 }

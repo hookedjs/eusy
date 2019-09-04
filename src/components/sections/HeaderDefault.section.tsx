@@ -4,12 +4,12 @@ import { gql } from 'apollo-boost';
 import { Avatar, SearchBar, ThemeContext } from 'react-native-elements';
 import { observer } from 'mobx-react-lite';
 import { Feather } from '@expo/vector-icons';
-import { useQuery } from '../../lib/mockApi/hooks/useQuery';
+import { useQuery } from '../../mockApi/hooks/useQuery';
 import { UserType } from '../../model/users/type';
 import { NotificationType } from '../../model/notifications/type';
 import { GlobalState } from '../../GlobalState';
 import { Link, useRouter } from '../lib/Routing';
-import { useMutation } from '../../lib/mockApi/hooks/useMutation';
+import { useMutation } from '../../mockApi/hooks/useMutation';
 import { LogoModule } from '../modules/Logo.module';
 
 const NOTIFICATION_COUNT = gql`
@@ -58,7 +58,8 @@ export const HeaderDefaultSection = observer(() => {
 
   const pushRecentSearch = async () => {
     let recentSearches = JSON.parse(userQuery.data.recentSearches);
-    recentSearches.push(GlobalState.search);
+    recentSearches.unshift(GlobalState.search);
+    recentSearches.splice(10);
     updateRecentSearches({
       variables: {
         id: GlobalState.user.id,

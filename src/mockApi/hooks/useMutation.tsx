@@ -5,7 +5,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { OperationVariables } from '@apollo/react-common';
 import { MutationHookOptions, MutationTuple } from '@apollo/react-hooks';
-import { gqlReturnType } from '../../../@types/graphql-tag';
+import { gqlReturnType } from '../../@types/graphql-tag';
 import { MockOrm } from '../MockOrm';
 import { ApolloError } from 'apollo-client';
 import { createApolloError, createGraphQLErrors } from './errorHelpers';

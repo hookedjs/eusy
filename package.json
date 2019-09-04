@@ -18,7 +18,7 @@
     "postinstall": "patch-package",
     "clean": "rimraf .env .env.json web-build",
     "gen:env": "dotenvi -f .env.yml -s ${APP_ENV:-development} && cat .env | npx envfile2json > .env.json",
-    "gen:mockdb": "ts-node -T src/lib/mockApi/dbseed.tsx",
+    "gen:mockdb": "ts-node -T src/mockApi/dbseed.tsx",
     "gen:index": "node utils/create-indexes.js",
     "gen:svgTsx": "find src -name \"*.svg\" -exec ./utils/tsxify-svg.sh {} src/components/svgs \\;",
     "build": "yarn clean && run-p gen:env && BUILD_ENV=production expo build:web",
@@ -72,6 +72,7 @@
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.0.1",
+    "@types/lunr": "^2.3.2",
     "apollo-boost": "^0.4.4",
     "bcryptjs": "^2.4.3",
     "deep-object-diff": "^1.1.0",
@@ -82,6 +83,7 @@
     "express": "^4.0.0",
     "gpl": "^0.0.1",
     "graphql": "^14.5.3",
+    "lunr": "npm:lunr-mutable-indexes",
     "mobx": "^5.13.0",
     "mobx-react-lite": "^2.0.0-alpha.2",
     "mobx-utils": "^5.4.1",
@@ -107,6 +109,7 @@
     "react-router-native-stack": "https://github.com/hookedjs/react-router-native-stack.git#unimoduleUpgrade",
     "react-svg": "^10.0.14",
     "shrink-ray-current": "^4.0.0",
+    "str_shorten": "^1.0.18",
     "styled-jsx": "^3.2.1",
     "use-react-router": "^1.0.7",
     "uuid": "^3.3.3"

@@ -1,11 +1,11 @@
 const fs = require('fs');
 const faker = require('faker');
 const uuid = require('uuid/v4');
-import { NotificationType } from '../../../../model/notifications/type';
-import { PostType } from '../../../../model/posts/type';
+import { NotificationType } from '../../../model/notifications/type';
+import { PostType } from '../../../model/posts/type';
 import UsersDb from '../users/db.json';
 import PostsDb from '../posts/db.json';
-import { UserType } from '../../../../model/users/type';
+import { UserType } from '../../../model/users/type';
 
 module.exports = async function() {
   let db: NotificationType[] = [];

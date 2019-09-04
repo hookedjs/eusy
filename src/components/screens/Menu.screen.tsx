@@ -4,7 +4,7 @@ import { ScrollView, View } from 'react-native';
 import { Text, ThemeContext } from 'react-native-elements';
 import { gql } from 'apollo-boost';
 import { GlobalState } from '../../GlobalState';
-import { useQuery } from '../../lib/mockApi/hooks/useQuery';
+import { useQuery } from '../../mockApi/hooks/useQuery';
 import { NotificationType } from '../../model/notifications/type';
 import { Helmet } from '../lib/Helmet';
 import { Link } from '../lib/Routing';

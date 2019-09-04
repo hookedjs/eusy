@@ -1,0 +1,18 @@
+diff --git a/node_modules/@types/lunr/index.d.ts b/node_modules/@types/lunr/index.d.ts
+index 9350d20..1374a8f 100644
+--- a/node_modules/@types/lunr/index.d.ts
++++ b/node_modules/@types/lunr/index.d.ts
+@@ -353,6 +353,13 @@ declare namespace lunr {
+          * @param serializedIndex - A previously serialized lunr.Index
+          */
+         static load(serializedIndex: object): Index;
++
++        /**
++         * Patch to support lunr-mutable-indexes features
++         */
++        add: (any) => null;
++        remove: ({id: string}) => null;
++        update: (any) => null;
+     }
+ 
+     /**

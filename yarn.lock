@@ -1696,6 +1696,11 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.136.tgz#413e85089046b865d960c9ff1d400e04c31ab60f"
   integrity sha512-0GJhzBdvsW2RUccNHOBkabI8HZVdOXmXbXhuKlDEd5Vv12P7oAVGfomGp3Ne21o5D/qu1WmthlNKFaoZJJeErA==
 
+"@types/lunr@^2.3.2":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/@types/lunr/-/lunr-2.3.2.tgz#d4a51703315ed0e53c43257216f1014ce6491562"
+  integrity sha512-zcUZYquYDUEegRRPQtkZ068U9CoIjW6pJMYCVDRK25r76FEWvMm1oHqZQUfQh4ayIZ42lipXOpXEiAtGXc1XUg==
+
 "@types/markdown-it@^0.0.4":
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/@types/markdown-it/-/markdown-it-0.0.4.tgz#c5f67365916044b342dae8d702724788ba0b5b74"
@@ -8613,6 +8618,18 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
+"lunr@>= 2.3.0 < 2.4.0":
+  version "2.3.6"
+  resolved "https://registry.yarnpkg.com/lunr/-/lunr-2.3.6.tgz#f278beee7ffd56ad86e6e478ce02ab2b98c78dd5"
+  integrity sha512-swStvEyDqQ85MGpABCMBclZcLI/pBIlu8FFDtmX197+oEgKloJ67QnB+Tidh0340HmLMs39c4GrkPY3cmkXp6Q==
+
+"lunr@npm:lunr-mutable-indexes":
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/lunr-mutable-indexes/-/lunr-mutable-indexes-2.3.2.tgz#864253489735d598c5140f3fb75c0a5c8be2e98c"
+  integrity sha512-Han6cdWAPPFM7C2AigS2Ofl3XjAT0yVMrUixodJEpyg71zCtZ2yzXc3s+suc/OaNt4ca6WJBEzVnEIjxCTwFMw==
+  dependencies:
+    lunr ">= 2.3.0 < 2.4.0"
+
 make-dir@^1.0.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/make-dir/-/make-dir-1.3.0.tgz#79c1033b80515bd6d24ec9933e860ca75ee27f0c"
@@ -12902,6 +12919,11 @@ stealthy-require@^1.1.0, stealthy-require@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stealthy-require/-/stealthy-require-1.1.1.tgz#35b09875b4ff49f26a777e509b3090a3226bf24b"
   integrity sha1-NbCYdbT/SfJqd35QmzCQoyJr8ks=
+
+str_shorten@^1.0.18:
+  version "1.0.18"
+  resolved "https://registry.yarnpkg.com/str_shorten/-/str_shorten-1.0.18.tgz#bba215ce45135f820bb85851480dab97808e7ff7"
+  integrity sha512-r97LddCXSwamlPRbqzkNBRxjLqUsI2SMRDdGgNYWmAMkZCEHV3UASN1x0WH+/AEqEqhhffMRiOt/JZA18H3mcQ==
 
 stream-browserify@^2.0.1:
   version "2.0.2"

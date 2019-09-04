@@ -7,7 +7,7 @@ import { ApolloError } from 'apollo-client';
 import { OperationVariables, QueryResult } from '@apollo/react-common';
 import { QueryHookOptions } from '@apollo/react-hooks';
 import { diff } from 'deep-object-diff';
-import { gqlReturnType } from '../../../@types/graphql-tag';
+import { gqlReturnType } from '../../@types/graphql-tag';
 import { MockOrm } from '../MockOrm';
 import { createApolloError } from './errorHelpers';
 import { useLocalStore } from 'mobx-react-lite';

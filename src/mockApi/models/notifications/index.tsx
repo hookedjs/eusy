@@ -1,11 +1,12 @@
 import { BaseModel } from '../BaseModel';
 const UserApi = require('../users');
 import seed from './db.json';
-import { NotificationType as modelType } from '../../../../model/notifications/type';
-import { NotificationSanitizer } from '../../../../model/notifications/santizer';
+import { NotificationType as modelType } from '../../../model/notifications/type';
+import { NotificationSanitizer } from '../../../model/notifications/santizer';
 
 export class NotificationModel extends BaseModel {
   db: modelType[] = seed;
+  searchFields = [];
 
   sanitizers: { [fieldName: string]: (any) => [any, string] } = {
     // Client-side validations
