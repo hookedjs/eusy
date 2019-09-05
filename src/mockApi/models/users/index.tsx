@@ -49,4 +49,9 @@ export class UserModel extends BaseModel {
       return { error: `login: Email not found and/or password doesn't match.` };
     return { data: { id: user.id, roles: user.roles, token: 'tokenplaceholder' } };
   };
+
+  constructor() {
+    super();
+    this.initSearchService();
+  }
 }

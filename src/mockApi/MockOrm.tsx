@@ -1,9 +1,9 @@
 import { UserModel } from './models/users';
-import { PostsModel } from './models/posts';
+import { PostModel } from './models/posts';
 import { NotificationModel } from './models/notifications';
 
 export const MockOrm = {
   users: new UserModel(),
-  posts: new PostsModel(),
+  posts: new PostModel(),
   notifications: new NotificationModel()
 };

@@ -6,7 +6,7 @@ export type PostType = {
   title: string;
   slug: string;
   body: string;
-  image: string;
+  hasFeaturedImage: boolean;
 };
 
 export type PostTypeWritable = Omit<Omit<Omit<PostType, 'id'>, 'createdAt'>, 'updatedAt'>;

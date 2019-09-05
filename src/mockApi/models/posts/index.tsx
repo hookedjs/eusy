@@ -6,7 +6,7 @@ import seed from './db.json';
 import { PostType as modelType } from '../../../model/posts/type';
 import { PostSanitizer } from '../../../model/posts/sanitizer';
 
-export class PostsModel extends BaseModel {
+export class PostModel extends BaseModel {
   db: modelType[] = seed;
   searchFields = [
     { name: 'title', boost: 10 },
@@ -41,6 +41,6 @@ export class PostsModel extends BaseModel {
 
   constructor() {
     super();
-    // this.initSearchService();
+    this.initSearchService();
   }
 }

@@ -32,9 +32,8 @@ class PostSanitizerClass extends SanitizerBase {
       return [value, null];
     },
 
-    image: value => {
-      if (typeof value !== 'string') return [value, 'image is a non-string value'];
-      else if (value.length && !validator.isURL(value)) return [value, 'image is not a url'];
+    hasFeaturedImage: value => {
+      if (typeof value !== 'boolean') return [value, 'hasFeaturedImage is a non-boolean value'];
       return [value, null];
     }
   };

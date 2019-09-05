@@ -8,6 +8,7 @@ import Markdown from 'react-native-markdown-renderer';
 import str_shorten from 'str_shorten';
 import { GlobalState } from '../../GlobalState';
 import { Helmet } from '../lib/Helmet';
+import { Cloudinary } from '../../lib/Cloudinary';
 import { Link } from '../lib/Routing';
 import { HoverObserver } from '../lib/HoverObserver';
 import { useQuery } from '../../mockApi/hooks/useQuery';
@@ -15,6 +16,7 @@ import { UserType } from '../../model/users/type';
 import { useMutation } from '../../mockApi/hooks/useMutation';
 import { Sleep } from '../../lib/Polyfills';
 import { MockOrm } from '../../mockApi/MockOrm';
+import { PostType } from '../../model/posts/type';
 
 const USER = gql`
   query($id: String!) {
@@ -44,7 +46,7 @@ export const SearchScreen = observer(() => {
   const [updateRecentSearches] = useMutation(USER_UPDATE_RECENT_SEARCHES);
 
   const searchStore = useLocalStore(() => ({
-    results: { users: [], posts: [] },
+    results: { users: [] as UserType[], posts: [] as PostType[] },
     refetch: async () => {
       if (GlobalState.search.length >= 3) {
         Promise.all([
@@ -52,8 +54,8 @@ export const SearchScreen = observer(() => {
           MockOrm.posts.search(GlobalState.search)
         ]).then(([usersResponse, postsResponse]) => {
           searchStore.results = {
-            users: usersResponse.data,
-            posts: postsResponse.data
+            users: usersResponse.data as UserType[],
+            posts: postsResponse.data as PostType[]
           };
         });
       } else {
@@ -141,6 +143,7 @@ export const SearchScreen = observer(() => {
     children: any;
   }) => {
     const { theme } = useContext(ThemeContext);
+    console.dir(avatar);
 
     return (
       <HoverObserver
@@ -218,7 +221,16 @@ export const SearchScreen = observer(() => {
                       avatarTitle={
                         user.avatar ? '' : user.nameGiven.slice(0, 1) + user.nameFamily.slice(0, 1)
                       }
-                      avatar={user.avatar}
+                      avatar={
+                        user.avatar
+                          ? Cloudinary.url(user.avatar, {
+                              type: 'fetch',
+                              width: 100,
+                              height: 100,
+                              crop: 'thumb'
+                            })
+                          : ''
+                      }
                     >
                       **{user.nameGiven} {user.nameFamily}**{'\n'}
                       {user.email}
@@ -237,8 +249,16 @@ export const SearchScreen = observer(() => {
                     <SearchResultRow
                       key={`search-${i}`}
                       to={`/post/${post.slug}`}
-                      avatarTitle={post.image ? '' : post.title.slice(0, 2)}
-                      avatar={post.image}
+                      avatarTitle={post.hasFeaturedImage ? '' : post.title.slice(0, 2)}
+                      avatar={
+                        post.hasFeaturedImage
+                          ? Cloudinary.url(`posts/${post.id}`, {
+                              width: 100,
+                              height: 100,
+                              crop: 'thumb'
+                            })
+                          : ''
+                      }
                     >
                       **{post.title}**{'\n'}
                       {str_shorten(post.body.replace(/\n/g, ' '), 260)}

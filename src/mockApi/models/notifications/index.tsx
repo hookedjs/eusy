@@ -19,4 +19,9 @@ export class NotificationModel extends BaseModel {
       return [sanitized, error];
     }
   };
+
+  constructor() {
+    super();
+    this.initSearchService();
+  }
 }

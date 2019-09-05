@@ -13,18 +13,18 @@ module.exports = async function() {
 
   UsersDb.forEach(u => {
     // Generate less posts than normal to reduce bundle size
-    for (let i = 0; i < 5; i++) {
-      const createdAt = timeStart + i * dayInMilliseconds + getRandomTimeDeltaWithinDay();
+    for (let j = 0; j < 5; j++) {
+      const createdAt = timeStart + j * dayInMilliseconds + getRandomTimeDeltaWithinDay();
       const title = faker.hacker.phrase().slice(0, -1);
       db.push({
         id: uuid(),
         createdAt,
         updatedAt: createdAt + dayInMilliseconds,
         userId: u.id,
-        image: faker.image.cats(),
         title,
         slug: slugify(title),
-        body: faker.lorem.paragraph() + '\n\n' + faker.lorem.paragraph()
+        body: faker.lorem.paragraph() + '\n\n' + faker.lorem.paragraph(),
+        hasFeaturedImage: false
       });
     }
   });

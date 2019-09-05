@@ -25,26 +25,6 @@ export class BaseModel {
     }
   };
   sanitizers: { [fieldName: string]: (any) => [any, string] } = {};
-
-  // constructor() {
-  //   const that = this;
-  //   this.searchService = lunr(function () {
-  //     this.ref('id');
-  //     that.searchFields.map(sf => this.field(sf.name, {boost: sf.boost}));
-  //     that.db.forEach(doc => this.add(doc), this)
-  //   });
-  // }
-
-  // constructor() {
-  //   console.dir(this.searchFields);
-  //   const that = this;
-  //   this.searchService = lunr(function () {
-  //     this.ref('id');
-  //     that.searchFields.map(sf => this.field(sf.name, {boost: sf.boost}));
-  //     that.db.forEach(doc => this.add(doc), this)
-  //   });
-  // }
-
   sanitizer = (data: { [fieldName: string]: any }, allowPartial: boolean = false) => {
     let errors: { [column: string]: string } = {};
 
@@ -64,7 +44,6 @@ export class BaseModel {
   };
 
   create = async (data: { [fieldName: string]: any }) => {
-    this.initSearchService();
     const now = Date.now();
     const [sanitized, errors] = this.sanitizer({
       ...data,
@@ -86,7 +65,6 @@ export class BaseModel {
   };
 
   update = async ({ id, ...updates }: { id: string; data: { [fieldName: string]: any } }) => {
-    this.initSearchService();
     let rowIndex = this.db.findIndex(row => row.id === id);
     if (rowIndex === -1) return { errors: { id: `id Not Found: ${id}` } };
 
@@ -110,7 +88,6 @@ export class BaseModel {
   };
 
   delete = async ({ id }) => {
-    this.initSearchService();
     let rowIndex = this.db.findIndex(row => row.id === id);
     if (rowIndex === -1) return { errors: { id: `id Not Found: ${id}` } };
     this.db.splice(rowIndex, 1);
@@ -141,11 +118,11 @@ export class BaseModel {
   };
 
   search = async (search: string) => {
-    this.initSearchService();
     const results = this.searchService
       .search(search)
       .filter(({ score }) => score > 1) // can limit scores this way. I try to tweak this per use case
       // .slice(0, 100) // Can limit results in this way, to reduce response size
+      // TODO: Determine if it's possible to get row content from the index instead of the database
       .map(({ ref }) => this.db.find(row => row.id === ref));
     return { data: results };
   };

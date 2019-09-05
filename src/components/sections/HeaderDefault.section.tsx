@@ -11,6 +11,7 @@ import { GlobalState } from '../../GlobalState';
 import { Link, useRouter } from '../lib/Routing';
 import { useMutation } from '../../mockApi/hooks/useMutation';
 import { LogoModule } from '../modules/Logo.module';
+import { Cloudinary } from '../../lib/Cloudinary';
 
 const NOTIFICATION_COUNT = gql`
   query($id: string) {
@@ -57,6 +58,7 @@ export const HeaderDefaultSection = observer(() => {
   const [updateRecentSearches] = useMutation(USER_UPDATE_RECENT_SEARCHES);
 
   const pushRecentSearch = async () => {
+    // TODO: No-OP if already at top
     let recentSearches = JSON.parse(userQuery.data.recentSearches);
     recentSearches.unshift(GlobalState.search);
     recentSearches.splice(10);
@@ -113,7 +115,7 @@ export const HeaderDefaultSection = observer(() => {
           }}
           // onBlur={() => console.log('blur')}
           // onCancel={() => console.log('cancel')}
-          onClear={() => console.log('cleared')}
+          onClear={pushRecentSearch}
           onSubmitEditing={pushRecentSearch}
           value={GlobalState.search}
           onChangeText={s => {
@@ -156,7 +158,17 @@ export const HeaderDefaultSection = observer(() => {
                     ? ''
                     : userQuery.data.nameGiven.slice(0, 1) + userQuery.data.nameFamily.slice(0, 1)
                 }
-                source={{ uri: userQuery.data.avatar }}
+                source={{
+                  uri: userQuery.data.avatar
+                    ? Cloudinary.url(userQuery.data.avatar, {
+                        type: 'fetch',
+                        width: 100,
+                        height: 100,
+                        crop: 'thumb',
+                        gravity: 'face'
+                      })
+                    : ''
+                }}
                 containerStyle={{ marginLeft: 10 }}
               />
             </Link>
