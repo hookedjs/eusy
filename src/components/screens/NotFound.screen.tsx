@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, View } from 'react-native';
-import { Button, Text } from 'react-native-elements';
+import { Button, Text } from '../elements';
 import { StyleSheet } from 'react-native';
 import { Helmet } from '../lib/Helmet';
 import { Link } from '../lib/Routing';

@@ -3,23 +3,26 @@ import { observer } from 'mobx-react-lite';
 import { Platform, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import { Feather } from '@expo/vector-icons';
-import { ThemeContext } from 'react-native-elements';
+import { ThemeContext } from '../elements';
 import { SidebarModule } from '../modules/Sidebar.module';
 import { HoverObserver } from '../lib/HoverObserver';
 import { TouchableOpacity } from '../lib/Touchables';
 import { GlobalState } from '../../GlobalState';
 import { useRouter } from '../lib/Routing';
+import { ThemeType } from '../../config/Theme.config';
 
 export const SidebarSection = observer(({ children }: { children: React.ReactElement }) => {
   const { history } = useRouter();
-  const { theme } = useContext(ThemeContext);
+  const theme = useContext(ThemeContext).theme as ThemeType;
 
   const sidebarWidthFull = 210;
   const sidebarWidthClosed = GlobalState.viewportInfo.isLarge ? 70 : 0;
 
   useEffect(() => {
-    GlobalState.toggled = GlobalState.viewportInfo.isLarge;
-    return history.listen(() => GlobalState.viewportInfo.isSmall && (GlobalState.toggled = false));
+    GlobalState.sidebarToggled = GlobalState.viewportInfo.isLarge;
+    return history.listen(
+      () => GlobalState.viewportInfo.isSmall && (GlobalState.sidebarToggled = false)
+    );
   }, []);
 
   if (!GlobalState.sidebarComponent) return <>{children}</>;
@@ -82,7 +85,7 @@ export const SidebarSection = observer(({ children }: { children: React.ReactEle
                   <HoverObserver
                     children={touchableHoverResults => (
                       <TouchableOpacity
-                        onPress={() => (GlobalState.toggled = !GlobalState.sidebarToggled)}
+                        onPress={() => (GlobalState.sidebarToggled = !GlobalState.sidebarToggled)}
                         style={{
                           backgroundColor: touchableHoverResults.isHovering
                             ? theme.colors.primaryDarker

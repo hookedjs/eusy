@@ -3,7 +3,7 @@ import { gql } from 'apollo-boost';
 import { Feather } from '@expo/vector-icons';
 import { observer, useLocalStore } from 'mobx-react-lite';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Avatar, Text, ThemeContext } from 'react-native-elements';
+import { Avatar, Text, ThemeContext } from '../elements';
 import Markdown from 'react-native-markdown-renderer';
 import str_shorten from 'str_shorten';
 import { GlobalState } from '../../GlobalState';
@@ -17,6 +17,7 @@ import { useMutation } from '../../mockApi/hooks/useMutation';
 import { Sleep } from '../../lib/Polyfills';
 import { MockOrm } from '../../mockApi/MockOrm';
 import { PostType } from '../../model/posts/type';
+import { ThemeType } from '../../config/Theme.config';
 
 const USER = gql`
   query($id: String!) {
@@ -38,7 +39,7 @@ const USER_UPDATE_RECENT_SEARCHES = gql`
 
 export const SearchScreen = observer(() => {
   const title = 'Search';
-  const { theme } = useContext(ThemeContext);
+  const theme = useContext(ThemeContext).theme as ThemeType;
   const userQuery = useQuery<UserType>(USER, {
     variables: { id: GlobalState.user.id },
     pollInterval: 2000
@@ -103,7 +104,7 @@ export const SearchScreen = observer(() => {
   );
 
   const RecentItem = ({ search }: { search: string }) => {
-    const { theme } = useContext(ThemeContext);
+    const theme = useContext(ThemeContext).theme as ThemeType;
 
     return (
       <HoverObserver
@@ -145,7 +146,7 @@ export const SearchScreen = observer(() => {
     avatarTitle: string;
     children: any;
   }) => {
-    const { theme } = useContext(ThemeContext);
+    const theme = useContext(ThemeContext).theme as ThemeType;
 
     return (
       <HoverObserver
@@ -220,19 +221,14 @@ export const SearchScreen = observer(() => {
                     <SearchResultRow
                       key={`search-${i}`}
                       to={`/user/${user.handle}`}
-                      avatarTitle={
-                        user.hasImage
-                          ? ''
-                          : user.nameGiven.slice(0, 1) + user.nameFamily.slice(0, 1)
-                      }
+                      avatarTitle={user.nameGiven.slice(0, 1) + user.nameFamily.slice(0, 1)}
                       avatar={
-                        user.hasImage
-                          ? Cloudinary.url(`users/${user.id}/profile`, {
-                              width: 100,
-                              height: 100,
-                              crop: 'thumb'
-                            })
-                          : ''
+                        user.hasImage &&
+                        Cloudinary.url(`users/${user.id}/profile`, {
+                          width: 100,
+                          height: 100,
+                          crop: 'thumb'
+                        })
                       }
                     >
                       **{user.nameGiven} {user.nameFamily}**{'\n'}
@@ -254,13 +250,12 @@ export const SearchScreen = observer(() => {
                       to={`/post/${post.slug}`}
                       avatarTitle={post.hasFeaturedImage ? '' : post.title.slice(0, 2)}
                       avatar={
-                        post.hasFeaturedImage
-                          ? Cloudinary.url(`posts/${post.id}/featured`, {
-                              width: 100,
-                              height: 100,
-                              crop: 'thumb'
-                            })
-                          : ''
+                        post.hasFeaturedImage &&
+                        Cloudinary.url(`posts/${post.id}/featured`, {
+                          width: 100,
+                          height: 100,
+                          crop: 'thumb'
+                        })
                       }
                     >
                       **{post.title}**{'\n'}

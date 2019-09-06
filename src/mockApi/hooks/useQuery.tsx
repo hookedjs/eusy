@@ -57,7 +57,8 @@ export function useQuery<TData = any, TVariables = OperationVariables>(
         loading: false,
         error: createApolloError(res.errors)
       };
-      if (Object.keys(diff(state.result.data, nextState.data)).length) state.result = nextState;
+      if (nextState.data && Object.keys(diff(state.result.data, nextState.data)).length)
+        state.result = nextState;
     }
   }));
 

@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { ScrollView, View } from 'react-native';
-import { Button, Text, ThemeContext } from 'react-native-elements';
+import { Button, Text, ThemeContext } from '../elements';
 import { StyleSheet } from 'react-native';
 import { Helmet } from '../lib/Helmet';
 import { Link, TextLink } from '../lib/Routing';

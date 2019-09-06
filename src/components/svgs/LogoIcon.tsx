@@ -1,9 +1,10 @@
 import React, { useContext } from 'react';
 import Svg, { SvgProps, Circle, G, Path, Use, Defs, Mask } from 'react-native-svg';
-import { ThemeContext } from 'react-native-elements';
+import { ThemeContext } from '../elements';
+import { ThemeType } from '../../config/Theme.config';
 
 export const LogoIcon = (svgProps: SvgProps) => {
-  const { theme } = useContext(ThemeContext);
+  const theme = useContext(ThemeContext).theme as ThemeType;
   return (
     <Svg height="135" viewBox="0 0 135 135" width="135" {...svgProps}>
       <Defs>

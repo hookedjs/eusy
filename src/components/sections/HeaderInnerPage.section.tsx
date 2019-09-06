@@ -1,14 +1,15 @@
 import React, { useContext } from 'react';
 import { View } from 'react-native';
-import { Text, ThemeContext } from 'react-native-elements';
+import { Text, ThemeContext } from '../elements';
 import { observer } from 'mobx-react-lite';
 import { Feather } from '@expo/vector-icons';
 import { GlobalState } from '../../GlobalState';
 import { useRouter } from '../lib/Routing';
+import { ThemeType } from '../../config/Theme.config';
 
 export const HeaderInnerPageSection = observer(() => {
   const { history } = useRouter();
-  const { theme } = useContext(ThemeContext);
+  const theme = useContext(ThemeContext).theme as ThemeType;
 
   return (
     <View

@@ -1,12 +1,13 @@
 import React, { useContext } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Text, ThemeContext } from 'react-native-elements';
+import { Text, ThemeContext } from '../elements';
 import { observer } from 'mobx-react-lite';
 import { TextLink } from '../lib/Routing';
 import { GlobalState } from '../../GlobalState';
+import { ThemeType } from '../../config/Theme.config';
 
 export const FooterEndSection = observer(() => {
-  const { theme } = useContext(ThemeContext);
+  const theme = useContext(ThemeContext).theme as ThemeType;
 
   return (
     <View style={{ backgroundColor: theme.colors.primaryDarker }}>

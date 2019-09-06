@@ -19,6 +19,7 @@ import useRouter from 'use-react-router';
 import { GlobalState } from '../../GlobalState';
 import { ArrayIntersection } from '../../lib/Polyfills';
 import { Helmet } from './Helmet';
+import { ThemeType } from '../../config/Theme.config';
 
 // Extend Route to sync sidebar and wrap in scrollview
 class Route extends React.PureComponent<
@@ -113,7 +114,7 @@ const TextLink = ({
   TextProps & {
     onPress: () => any;
   }) => {
-  const { theme } = useContext(ThemeContext);
+  const theme = useContext(ThemeContext).theme as ThemeType;
 
   if (typeof props.to === 'string' && props.to[0] === '#') {
     return (

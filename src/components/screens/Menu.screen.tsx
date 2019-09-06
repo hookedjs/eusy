@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { ScrollView, View } from 'react-native';
-import { Text, ThemeContext } from 'react-native-elements';
+import { Text, ThemeContext } from '../elements';
 import { gql } from 'apollo-boost';
 import { GlobalState } from '../../GlobalState';
 import { useQuery } from '../../mockApi/hooks/useQuery';
@@ -9,6 +9,7 @@ import { NotificationType } from '../../model/notifications/type';
 import { Helmet } from '../lib/Helmet';
 import { Link } from '../lib/Routing';
 import { HoverObserver } from '../lib/HoverObserver';
+import { ThemeType } from '../../config/Theme.config';
 
 const NOTIFICATION_COUNT = gql`
   query {
@@ -35,7 +36,7 @@ export const MenuScreen = () => {
     featherIconName: string;
     showActivityBubble?: boolean;
   }) => {
-    const { theme } = useContext(ThemeContext);
+    const theme = useContext(ThemeContext).theme as ThemeType;
 
     return (
       <HoverObserver

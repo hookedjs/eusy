@@ -4,7 +4,7 @@ import { updatedDiff } from 'deep-object-diff';
 import { observer, useLocalStore } from 'mobx-react-lite';
 import Markdown from 'react-native-markdown-renderer';
 import { ScrollView, View } from 'react-native';
-import { Avatar, Button, Input, Text } from 'react-native-elements';
+import { Avatar, Button, Input, Text } from '../elements';
 import { Helmet } from '../lib/Helmet';
 import { GlobalState } from '../../GlobalState';
 import { UserType } from '../../model/users/type';

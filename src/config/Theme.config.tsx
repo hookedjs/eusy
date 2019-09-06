@@ -27,7 +27,7 @@ type ColorsType = RecursivePartial<RRNColors> & {
   wordpress: string;
   stumbleupon: string;
 };
-type ThemeType = RNETheme & {
+export type ThemeType = RNETheme & {
   colors: ColorsType;
 };
 

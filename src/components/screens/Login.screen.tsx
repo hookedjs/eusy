@@ -2,7 +2,7 @@ import React from 'react';
 import { observer, useLocalStore } from 'mobx-react-lite';
 import qs from 'query-string';
 import { Image, ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Input, Text } from 'react-native-elements';
+import { Button, Input, Text } from '../elements';
 import SpaceImageUrl from '../../assets/img/space.jpg';
 import { GlobalState } from '../../GlobalState';
 import { MockOrm } from '../../mockApi/MockOrm';

@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { Feather } from '@expo/vector-icons';
 import { ScrollView, View } from 'react-native';
-import { Text, ThemeContext } from 'react-native-elements';
+import { Text, ThemeContext } from '../elements';
 import { Helmet } from '../lib/Helmet';
 import { Link } from '../lib/Routing';
 import { HoverObserver } from '../lib/HoverObserver';
 import { GlobalState } from '../../GlobalState';
+import { ThemeType } from '../../config/Theme.config';
 
 const MenuItem = ({
   to,
@@ -18,7 +19,7 @@ const MenuItem = ({
   featherIconName: string;
   showActivityBubble?: boolean;
 }) => {
-  const { theme } = useContext(ThemeContext);
+  const theme = useContext(ThemeContext).theme as ThemeType;
 
   return (
     <HoverObserver

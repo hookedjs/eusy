@@ -3,15 +3,16 @@ import { gql } from 'apollo-boost';
 import { Feather } from '@expo/vector-icons';
 import { observer, useLocalStore } from 'mobx-react-lite';
 import { ScrollView, View } from 'react-native';
-import { Avatar, Text, ThemeContext } from 'react-native-elements';
+import { Avatar, Text, ThemeContext } from '../elements';
 import { GlobalState } from '../../GlobalState';
 import { NotificationType } from '../../model/notifications/type';
 import { useQuery } from '../../mockApi/hooks/useQuery';
 import { useMutation } from '../../mockApi/hooks/useMutation';
 import { Helmet } from '../lib/Helmet';
-import { Link, TextLink, useRouter } from '../lib/Routing';
+import { Link, useRouter } from '../lib/Routing';
 import { HoverObserver } from '../lib/HoverObserver';
 import Markdown from 'react-native-markdown-renderer';
+import { ThemeType } from '../../config/Theme.config';
 
 const NOTIFICATIONS = gql`
   query($id: string) {
@@ -44,7 +45,7 @@ const NOTIFICATION_UPDATE_NEW = gql`
 export const NotificationsScreen = observer(() => {
   const title = 'Notifications';
   const { history } = useRouter();
-  const { theme } = useContext(ThemeContext);
+  const theme = useContext(ThemeContext).theme as ThemeType;
   const notificationQuery = useQuery<NotificationType[]>(NOTIFICATIONS, {
     variables: { userId: GlobalState.user.id },
     pollInterval: 500
@@ -73,7 +74,7 @@ export const NotificationsScreen = observer(() => {
       notification: NotificationType;
       onPress?: (id: string) => any;
     }) => {
-      const { theme } = useContext(ThemeContext);
+      const theme = useContext(ThemeContext).theme as ThemeType;
       const [notificationUpdateNew] = useMutation(NOTIFICATION_UPDATE_NEW);
 
       const state = useLocalStore(() => ({
@@ -201,17 +202,8 @@ export const NotificationsScreen = observer(() => {
             </Text>
 
             {GlobalState.viewportInfo.isLarge ? (
-              <Text>
-                <TextLink
-                  to="#"
-                  onPress={ClearNotifications}
-                  style={{
-                    textDecorationLine: 'none',
-                    color: theme.colors.primary
-                  }}
-                >
-                  Mark All Read
-                </TextLink>
+              <Text onPress={ClearNotifications} style={{ color: theme.colors.primary }}>
+                Mark All Read
               </Text>
             ) : (
               <Feather

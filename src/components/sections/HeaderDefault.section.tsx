@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { View } from 'react-native';
 import { gql } from 'apollo-boost';
-import { Avatar, SearchBar, ThemeContext } from 'react-native-elements';
+import { Avatar, SearchBar, ThemeContext } from '../elements';
 import { observer } from 'mobx-react-lite';
 import { Feather } from '@expo/vector-icons';
 import { useQuery } from '../../mockApi/hooks/useQuery';
@@ -12,6 +12,7 @@ import { Link, useRouter } from '../lib/Routing';
 import { useMutation } from '../../mockApi/hooks/useMutation';
 import { LogoModule } from '../modules/Logo.module';
 import { Cloudinary } from '../../lib/Cloudinary';
+import { ThemeType } from '../../config/Theme.config';
 
 const NOTIFICATION_COUNT = gql`
   query($id: string) {
@@ -46,7 +47,7 @@ const USER_UPDATE_RECENT_SEARCHES = gql`
 
 export const HeaderDefaultSection = observer(() => {
   const { history, location } = useRouter();
-  const { theme } = useContext(ThemeContext);
+  const theme = useContext(ThemeContext).theme as ThemeType;
   const userQuery = useQuery<UserType>(USER, {
     variables: { id: GlobalState.user.id },
     pollInterval: 5 * 60
@@ -153,20 +154,16 @@ export const HeaderDefaultSection = observer(() => {
             <Link to="/settings/user">
               <Avatar
                 rounded
-                title={
-                  userQuery.data.hasImage
-                    ? ''
-                    : userQuery.data.nameGiven.slice(0, 1) + userQuery.data.nameFamily.slice(0, 1)
+                title={userQuery.data.nameGiven.slice(0, 1) + userQuery.data.nameFamily.slice(0, 1)}
+                source={
+                  userQuery.data.hasImage && {
+                    uri: Cloudinary.url(`users/${userQuery.data.id}/profile`, {
+                      width: 100,
+                      height: 100,
+                      crop: 'thumb'
+                    })
+                  }
                 }
-                source={{
-                  uri: userQuery.data.hasImage
-                    ? Cloudinary.url(`users/${userQuery.data.id}/profile`, {
-                        width: 100,
-                        height: 100,
-                        crop: 'thumb'
-                      })
-                    : ''
-                }}
                 containerStyle={{ marginLeft: 10 }}
               />
             </Link>

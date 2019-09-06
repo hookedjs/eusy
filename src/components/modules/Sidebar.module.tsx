@@ -3,13 +3,14 @@ import { gql } from 'apollo-boost';
 import { Feather } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
 import { Text, View } from 'react-native';
-import { ThemeContext } from 'react-native-elements';
+import { ThemeContext } from '../elements';
 import { GlobalState } from '../../GlobalState';
 import { useQuery } from '../../mockApi/hooks/useQuery';
 import { NotificationType } from '../../model/notifications/type';
 import { HoverObserver } from '../lib/HoverObserver';
 import { Link, useRouter } from '../lib/Routing';
 import { LogoModule } from './Logo.module';
+import { ThemeType } from '../../config/Theme.config';
 
 const NOTIFICATION_COUNT = gql`
   query($id: string) {
@@ -20,14 +21,14 @@ const NOTIFICATION_COUNT = gql`
 `;
 
 export const SidebarModule = observer(() => {
-  const { theme } = useContext(ThemeContext);
+  const theme = useContext(ThemeContext).theme as ThemeType;
   const notificationQuery = useQuery<NotificationType[]>(NOTIFICATION_COUNT, {
     variables: { userId: GlobalState.user.id },
     pollInterval: 2000
   });
 
   const SidebarHeader = () => {
-    const { theme } = useContext(ThemeContext);
+    const theme = useContext(ThemeContext).theme as ThemeType;
 
     return (
       <HoverObserver
@@ -64,7 +65,7 @@ export const SidebarModule = observer(() => {
     showActivityBubble?: boolean;
   }) => {
     const { location } = useRouter();
-    const { theme } = useContext(ThemeContext);
+    const theme = useContext(ThemeContext).theme as ThemeType;
     const isActive = location.pathname.startsWith(to);
 
     return (

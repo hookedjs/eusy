@@ -20,6 +20,7 @@ import useRouter from 'use-react-router';
 import { GlobalState } from '../../GlobalState';
 import { ArrayIntersection } from '../../lib/Polyfills';
 import { TouchableOpacity } from './Touchables';
+import { ThemeType } from '../../config/Theme.config';
 
 // Extend Route to sync sidebar
 class Route extends React.PureComponent<
@@ -97,7 +98,7 @@ const Link = ({ to, onPress, ...props }: LinkProps) => {
 
 const TextLink = ({ to, onPress, style, ...props }: LinkProps & TextProps) => {
   const { history } = useRouter();
-  const { theme } = useContext(ThemeContext);
+  const theme = useContext(ThemeContext).theme as ThemeType;
 
   return (
     <Text

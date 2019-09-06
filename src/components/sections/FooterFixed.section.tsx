@@ -3,11 +3,12 @@ import { gql } from 'apollo-boost';
 import { View, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { observer } from 'mobx-react-lite';
-import { ThemeContext } from 'react-native-elements';
+import { ThemeContext } from '../elements';
 import { useRouter } from '../lib/Routing';
 import { GlobalState } from '../../GlobalState';
 import { useQuery } from '../../mockApi/hooks/useQuery';
 import { NotificationType } from '../../model/notifications/type';
+import { ThemeType } from '../../config/Theme.config';
 
 const NOTIFICATION_COUNT = gql`
   query($id: string) {
@@ -19,7 +20,7 @@ const NOTIFICATION_COUNT = gql`
 
 export const FooterFixedSection = observer(() => {
   const { history, location } = useRouter();
-  const { theme } = useContext(ThemeContext);
+  const theme = useContext(ThemeContext).theme as ThemeType;
   const notificationQuery = useQuery<NotificationType[]>(NOTIFICATION_COUNT, {
     variables: { userId: GlobalState.user.id },
     pollInterval: 2000
@@ -38,7 +39,7 @@ export const FooterFixedSection = observer(() => {
     toggledIcon?: string;
     showActivityBubble?: boolean;
   }) => {
-    const { theme } = useContext(ThemeContext);
+    const theme = useContext(ThemeContext).theme as ThemeType;
     return (
       <TouchableOpacity
         onPress={onPress}
