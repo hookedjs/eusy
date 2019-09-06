@@ -89,20 +89,28 @@ export const getColors = (primaryHue: number): ColorsType => ({
 export const getTheme = (primaryHue: number): ThemeType => ({
   colors: getColors(primaryHue),
 
-  // Text Theming tips:
-  // - Headings are all bold, and it's currently impossible default unbold them without
-  //   patching rne.
-  // - You may need to patch if you want to override fonts for bold, italic, etc.
-  // - when setting fontSize here, use rne's normalize feature as seen in the source
-  // - some font styles do not currently work on web. For now, you may need to also add
-  //   them to index.html
-  Text: {
-    allowFontScaling: false
-    // h1Style: {},
-    // h2Style: {},
-    // h3Style: {},
-    // h4Style: {},
-    // style: {}
+  Avatar: {
+    overlayContainerStyle: {
+      backgroundColor: getColors(primaryHue).primaryDark
+    }
+  },
+
+  Button: {
+    containerStyle: {
+      marginBottom: 30,
+      paddingHorizontal: 12
+    },
+    buttonStyle: {
+      paddingHorizontal: 20,
+      paddingVertical: 10,
+      borderRadius: 44 / 2
+    }
+  },
+
+  Image: {
+    placeholderStyle: {
+      backgroundColor: 'transparent'
+    }
   },
 
   Input: {
@@ -119,8 +127,24 @@ export const getTheme = (primaryHue: number): ThemeType => ({
       marginRight: 10
     }
   },
-  // Note that SearchBar inherits Input, sadly. So we must reset.
+
+  Text: {
+    // Text Theming tips:
+    // - Headings are all bold, and it's currently impossible default unbold them without
+    //   patching rne.
+    // - You may need to patch if you want to override fonts for bold, italic, etc.
+    // - when setting fontSize here, use rne's normalize feature as seen in the source
+    // - some font styles do not currently work on web. For now, you may need to also add
+    //   them to index.html
+    allowFontScaling: false
+    // h1Style: {},
+    // h2Style: {},
+    // h3Style: {},
+    // h4Style: {},
+    // style: {}
+  },
   SearchBar: {
+    // Note that SearchBar inherits Input, sadly. So we must reset.
     placeholder: 'Search...',
     lightTheme: true,
     containerStyle: {
@@ -139,22 +163,6 @@ export const getTheme = (primaryHue: number): ThemeType => ({
     inputStyle: { minHeight: 35 },
     leftIconContainerStyle: { height: 35, marginRight: 0 },
     rightIconContainerStyle: { height: 35 }
-  },
-  Button: {
-    containerStyle: {
-      marginBottom: 30,
-      paddingHorizontal: 12
-    },
-    buttonStyle: {
-      paddingHorizontal: 20,
-      paddingVertical: 10,
-      borderRadius: 44 / 2
-    }
-  },
-  Image: {
-    placeholderStyle: {
-      backgroundColor: 'transparent'
-    }
   }
 });
 

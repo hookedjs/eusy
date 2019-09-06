@@ -8,8 +8,8 @@ export type UserType = {
   handle: string;
   nameGiven: string;
   nameFamily: string;
-  avatar: string;
   recentSearches: string;
+  hasImage: boolean;
 };
 
 export type UserTypeWritable = Omit<

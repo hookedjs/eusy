@@ -120,8 +120,8 @@ export class BaseModel {
   search = async (search: string) => {
     const results = this.searchService
       .search(search)
-      .filter(({ score }) => score > 1) // can limit scores this way. I try to tweak this per use case
-      // .slice(0, 100) // Can limit results in this way, to reduce response size
+      // .filter(({ score }) => score > 1) // can limit scores this way. I try to tweak this per use case
+      .slice(0, 100) // Can limit results in this way, to reduce response size
       // TODO: Determine if it's possible to get row content from the index instead of the database
       .map(({ ref }) => this.db.find(row => row.id === ref));
     return { data: results };

@@ -49,15 +49,18 @@ export const SearchScreen = observer(() => {
     results: { users: [] as UserType[], posts: [] as PostType[] },
     refetch: async () => {
       if (GlobalState.search.length >= 3) {
-        Promise.all([
-          MockOrm.users.search(GlobalState.search),
-          MockOrm.posts.search(GlobalState.search)
-        ]).then(([usersResponse, postsResponse]) => {
-          searchStore.results = {
-            users: usersResponse.data as UserType[],
-            posts: postsResponse.data as PostType[]
-          };
-        });
+        const searchLoose = GlobalState.search
+          .split(' ')
+          .map(word => `${word}*`)
+          .join(' ');
+        Promise.all([MockOrm.users.search(searchLoose), MockOrm.posts.search(searchLoose)]).then(
+          ([usersResponse, postsResponse]) => {
+            searchStore.results = {
+              users: usersResponse.data as UserType[],
+              posts: postsResponse.data as PostType[]
+            };
+          }
+        );
       } else {
         searchStore.results = { users: [], posts: [] };
       }
@@ -143,7 +146,6 @@ export const SearchScreen = observer(() => {
     children: any;
   }) => {
     const { theme } = useContext(ThemeContext);
-    console.dir(avatar);
 
     return (
       <HoverObserver
@@ -219,12 +221,13 @@ export const SearchScreen = observer(() => {
                       key={`search-${i}`}
                       to={`/user/${user.handle}`}
                       avatarTitle={
-                        user.avatar ? '' : user.nameGiven.slice(0, 1) + user.nameFamily.slice(0, 1)
+                        user.hasImage
+                          ? ''
+                          : user.nameGiven.slice(0, 1) + user.nameFamily.slice(0, 1)
                       }
                       avatar={
-                        user.avatar
-                          ? Cloudinary.url(user.avatar, {
-                              type: 'fetch',
+                        user.hasImage
+                          ? Cloudinary.url(`users/${user.id}/profile`, {
                               width: 100,
                               height: 100,
                               crop: 'thumb'
@@ -252,7 +255,7 @@ export const SearchScreen = observer(() => {
                       avatarTitle={post.hasFeaturedImage ? '' : post.title.slice(0, 2)}
                       avatar={
                         post.hasFeaturedImage
-                          ? Cloudinary.url(`posts/${post.id}`, {
+                          ? Cloudinary.url(`posts/${post.id}/featured`, {
                               width: 100,
                               height: 100,
                               crop: 'thumb'

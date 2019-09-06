@@ -58,9 +58,8 @@ class UserSanitizerClass extends SanitizerBase {
       return [value, null];
     },
 
-    avatar: value => {
-      if (typeof value !== 'string') return [value, 'avatar is a non-string value'];
-      if (value.length && !validator.isURL(value)) return [value, 'avatar is not a url'];
+    hasImage: value => {
+      if (typeof value !== 'boolean') return [value, 'hasImage is a non-boolean value'];
       return [value, null];
     },
 

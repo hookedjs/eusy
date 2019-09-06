@@ -30,7 +30,7 @@ module.exports = async function() {
       roles: JSON.stringify([i === 0 ? 'admin' : 'identified']),
       email: validator.normalizeEmail(userCard.email),
       password: 'password', // on a real server, passwords should be hashed
-      avatar: userCard.avatar,
+      hasImage: false,
       nameGiven: userCard.name,
       nameFamily: userCard.nameFamily,
       handle,

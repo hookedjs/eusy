@@ -154,18 +154,16 @@ export const HeaderDefaultSection = observer(() => {
               <Avatar
                 rounded
                 title={
-                  userQuery.data.avatar
+                  userQuery.data.hasImage
                     ? ''
                     : userQuery.data.nameGiven.slice(0, 1) + userQuery.data.nameFamily.slice(0, 1)
                 }
                 source={{
-                  uri: userQuery.data.avatar
-                    ? Cloudinary.url(userQuery.data.avatar, {
-                        type: 'fetch',
+                  uri: userQuery.data.hasImage
+                    ? Cloudinary.url(`users/${userQuery.data.id}/profile`, {
                         width: 100,
                         height: 100,
-                        crop: 'thumb',
-                        gravity: 'face'
+                        crop: 'thumb'
                       })
                     : ''
                 }}
