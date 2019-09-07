@@ -22,7 +22,7 @@ module.exports = async function() {
         updatedAt: createdAt + dayInMilliseconds,
         userId: u.id,
         title,
-        slug: slugify(title),
+        slug: slugify(title, { lower: true }),
         body: faker.lorem.paragraph() + '\n\n' + faker.lorem.paragraph(),
         hasFeaturedImage: false
       });

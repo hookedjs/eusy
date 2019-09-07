@@ -7,6 +7,7 @@ import { HeaderDefaultSection } from '../components/sections/HeaderDefault.secti
 import { FooterFixedSection } from '../components/sections/FooterFixed.section';
 import { SidebarModule } from '../components/modules/Sidebar.module';
 import { FooterEndSection } from '../components/sections/FooterEnd.section';
+import { HeaderInnerPageSection } from '../components/sections/HeaderInnerPage.section';
 
 import { NotFoundScreen } from '../components/screens/NotFound.screen';
 import { LoginScreen } from '../components/screens/Login.screen';
@@ -18,7 +19,7 @@ import { HomeScreen } from '../components/screens/Home.screen';
 import { InnerPageScreen } from '../components/screens/InnerPage.screen';
 import { NotificationsScreen } from '../components/screens/Notifications.screen';
 import { SearchScreen } from '../components/screens/Search.screen';
-import { HeaderInnerPageSection } from '../components/sections/HeaderInnerPage.section';
+import { PostScreen } from '../components/screens/Post.screen';
 
 export const RoutesConfig = () => {
   return (
@@ -108,6 +109,18 @@ export const RoutesConfig = () => {
           GlobalState.logout();
           return <Redirect to="/user/login" />;
         }}
+      />
+
+      <Route
+        path="/post/:slug"
+        component={PostScreen}
+        sidebarComponent={SidebarModule}
+        headerComponent={
+          GlobalState.viewportInfo.isSmallNative ? HeaderInnerPageSection : HeaderDefaultSection
+        }
+        footerComponent={FooterFixedSection}
+        footerEndComponent={FooterEndSection}
+        requiresRole={['identified']}
       />
 
       <Route

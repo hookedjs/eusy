@@ -43,6 +43,17 @@ export class BaseModel {
     return [data, errors];
   };
 
+  initSearchService = () => {
+    if (!this.searchService) {
+      const that = this;
+      this.searchService = lunr(function() {
+        this.ref('id');
+        that.searchFields.map(sf => this.field(sf.name, { boost: sf.boost }));
+        that.db.forEach(doc => this.add(doc), this);
+      });
+    }
+  };
+
   create = async (data: { [fieldName: string]: any }) => {
     const now = Date.now();
     const [sanitized, errors] = this.sanitizer({
@@ -51,22 +62,33 @@ export class BaseModel {
       createdAt: now,
       updatedAt: now
     });
-    if (Object.keys(errors).length) return { errors };
+    if (Object.keys(errors).length) return { data: {}, errors };
 
     this.db.push(sanitized);
     this.searchService.add(sanitized);
     return { data: sanitized };
   };
 
-  read = async ({ id }) => {
-    let row = this.db.find(row => row.id === id);
-    if (!row) return { errors: { id: `id Not Found: ${id}` } };
-    return { data: row };
+  query = async (filters: { [fieldName: string]: any }) => {
+    let rows = this.db.filter(row => {
+      let match = true;
+      for (let [column, value] of Object.entries(filters)) {
+        if (row[column] !== value) match = false;
+      }
+      return match;
+    });
+    return { data: rows };
+  };
+
+  read = async (filters: { [fieldName: string]: any }) => {
+    const rows = (await this.query(filters)).data;
+    if (!rows.length) return { data: {}, errors: { id: `row not found` } };
+    return { data: rows[0] };
   };
 
   update = async ({ id, ...updates }: { id: string; data: { [fieldName: string]: any } }) => {
     let rowIndex = this.db.findIndex(row => row.id === id);
-    if (rowIndex === -1) return { errors: { id: `id Not Found: ${id}` } };
+    if (rowIndex === -1) return { data: {}, errors: { id: `id Not Found: ${id}` } };
 
     let before = this.db[rowIndex];
 
@@ -89,32 +111,10 @@ export class BaseModel {
 
   delete = async ({ id }) => {
     let rowIndex = this.db.findIndex(row => row.id === id);
-    if (rowIndex === -1) return { errors: { id: `id Not Found: ${id}` } };
+    if (rowIndex === -1) return { data: {}, errors: { id: `id Not Found: ${id}` } };
     this.db.splice(rowIndex, 1);
     this.searchService.remove({ id });
-    return { error: false };
-  };
-
-  query = async (filters: { [fieldName: string]: any }) => {
-    let rows = this.db.filter(row => {
-      let match = true;
-      for (let [column, value] of Object.entries(filters)) {
-        if (row[column] !== value) match = false;
-      }
-      return match;
-    });
-    return { data: rows };
-  };
-
-  initSearchService = () => {
-    if (!this.searchService) {
-      const that = this;
-      this.searchService = lunr(function() {
-        this.ref('id');
-        that.searchFields.map(sf => this.field(sf.name, { boost: sf.boost }));
-        that.db.forEach(doc => this.add(doc), this);
-      });
-    }
+    return { data: {}, error: false };
   };
 
   search = async (search: string) => {

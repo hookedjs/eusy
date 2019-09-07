@@ -27,7 +27,7 @@ export class PostModel extends BaseModel {
     slug: value => {
       let [sanitized, error] = PostSanitizer.fields.slug(value);
       if (!error) {
-        let sanitized = slugify(value);
+        let sanitized = slugify(value, { lower: true });
         if (this.db.find(post => post.slug === sanitized)) {
           let slugBase = sanitized;
           let postFix = 2;

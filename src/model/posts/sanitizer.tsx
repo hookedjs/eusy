@@ -22,7 +22,7 @@ class PostSanitizerClass extends SanitizerBase {
       else if (!value.length) {
         return [value, 'slug is empty'];
       }
-      let sanitized = slugify(value);
+      let sanitized = slugify(value, { lower: true });
       return [sanitized, null];
     },
 

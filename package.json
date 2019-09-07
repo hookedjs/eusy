@@ -24,7 +24,7 @@
     "build": "yarn clean && run-p gen:env && BUILD_ENV=production expo build:web",
     "bootstrap": "yarn build",
     "start": "yarn gen:env && node server.js",
-    "start:dev": "yarn gen:env && expo start --web",
+    "//start:dev": "yarn gen:env && expo start --web",
     "test1": "NODE_ENV=test jest",
     "test": "NODE_ENV=test jest --config jest/jest.web.json",
     "test:ios": "NODE_ENV=test jest --config jest/jest.ios.json",

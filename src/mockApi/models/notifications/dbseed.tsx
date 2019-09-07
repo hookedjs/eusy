@@ -37,9 +37,9 @@ module.exports = async function() {
         createdAt,
         updatedAt: i < 4 ? createdAt : createdAt + dayInMilliseconds,
         userId: u.id,
-        to: `/posts/${randPost.id}`,
+        to: `/post/${randPost.slug}`,
         unread: i < 4,
-        icon: randUser.avatar,
+        icon: randUser.hasImage && randUser.id,
         iconTitle: randUser.nameGiven[0] + randUser.nameFamily[0],
         text
       });
