@@ -2,7 +2,7 @@
  * THis is a mock replacement for { useMutation } from '@apollo/react-hooks';
  */
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { OperationVariables } from '@apollo/react-common';
 import { MutationHookOptions, MutationTuple } from '@apollo/react-hooks';
 import { gqlReturnType } from '../../@types/graphql-tag';
@@ -15,6 +15,7 @@ export function useMutation<TData = any, TVariables = OperationVariables>(
   options?: MutationHookOptions<TData, TVariables>
 ): MutationTuple<TData, TVariables> {
   const mutationName = mutation.definitions[0].selectionSet.selections[0].name.value;
+  const isMounted = React.useRef(true); // used to avoid change state on unmounted
 
   const stateDefault: {
     data: any;
@@ -50,20 +51,24 @@ export function useMutation<TData = any, TVariables = OperationVariables>(
 
   const ormHandler = MockOrm[model][action];
 
+  useEffect(() => () => (isMounted.current = false), []);
+
   return [
     async options => {
-      setState({
-        ...state,
-        loading: true,
-        called: true
-      });
+      if (isMounted.current)
+        setState({
+          ...state,
+          loading: true,
+          called: true
+        });
       const res = await ormHandler({ ...variableConstants, ...options.variables });
-      setState({
-        data: res.data,
-        error: createApolloError(res.errors),
-        loading: false,
-        called: false
-      });
+      if (isMounted.current)
+        setState({
+          data: res.data,
+          error: createApolloError(res.errors),
+          loading: false,
+          called: false
+        });
       return {
         data: res.data,
         extensions: {},

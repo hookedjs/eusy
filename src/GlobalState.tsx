@@ -4,7 +4,7 @@ import { getViewportInfo } from './lib/getViewportInfo';
 import { MobxPersistClass } from './lib/MobxPersistClass';
 
 class GlobalStateClass {
-  persistedFields = ['user', 'sidebarToggled'];
+  // persistedFields = ['user', 'sidebarToggled'];
   isHydrated = false;
 
   @observable

@@ -84,8 +84,8 @@ const Link = ({ to, onPress, ...props }: LinkProps) => {
 
   return (
     <TouchableOpacity
-      onPress={e => {
-        if (onPress) onPress(e);
+      onPress={async e => {
+        if (onPress) await onPress(e);
         if (typeof to === 'string' && to[0] === '#') void 0;
         else if (typeof to === 'string' && to[0] !== '/') Linking.openURL(to);
         else history.push(to as string);

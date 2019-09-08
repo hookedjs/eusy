@@ -61,18 +61,16 @@ export function useQuery<TData = any, TVariables = OperationVariables>(
 
   useEffect(() => {
     refetch();
-    return () => (isMounted.current = false);
   }, []);
 
   useEffect(() => {
     if (options.pollInterval) {
       const interval = setInterval(refetch, options.pollInterval * 10);
-      return () => {
-        isMounted.current = false;
-        clearInterval(interval);
-      };
+      return () => clearInterval(interval);
     }
   }, []);
+
+  useEffect(() => () => (isMounted.current = false), []);
 
   return {
     ...result,

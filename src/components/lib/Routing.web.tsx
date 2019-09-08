@@ -5,7 +5,7 @@ import { TextProps, ThemeContext } from 'react-native-elements';
 import {
   BrowserRouter as Router,
   matchPath,
-  Link as RRNLink,
+  Link as RRDLink,
   Redirect,
   Route as RRNRoute,
   RouteProps,
@@ -14,7 +14,7 @@ import {
   RouteComponentProps,
   LinkProps
 } from 'react-router-dom';
-import StackOrig from 'react-router-native-stack';
+import RRNSStack from 'react-router-native-stack';
 import useRouter from 'use-react-router';
 import { GlobalState } from '../../GlobalState';
 import { ArrayIntersection } from '../../lib/Polyfills';
@@ -103,7 +103,7 @@ const Link = ({
   } else if (typeof props.to === 'string' && props.to[0] !== '/') {
     return <a href={props.to} target="_blank" onClick={onPress} style={style} {...props} />;
   } else {
-    return <RRNLink onClick={onPress} style={style} {...props} />;
+    return <RRDLink onClick={onPress} style={style} {...props} />;
   }
 };
 
@@ -149,7 +149,7 @@ const TextLink = ({
   } else {
     return (
       <div style={{ display: 'inline-block' }}>
-        <RRNLink onClick={onPress} {...props} />
+        <RRDLink onClick={onPress} {...props} />
 
         <style jsx>{`
           div :global(a) {
@@ -164,8 +164,7 @@ const TextLink = ({
   }
 };
 
-// const Stack = ({ children }: { children: React.ReactNode }) => <Switch>{children}</Switch>;
 // TODO: Get HMR working with Stack.
-const Stack = process.env.NODE_ENV === 'production' ? StackOrig : Switch;
+const Stack = process.env.NODE_ENV === 'production' ? RRNSStack : Switch;
 
 export { Link, matchPath, Route, Redirect, Router, Switch, Stack, TextLink, withRouter, useRouter };

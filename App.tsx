@@ -20,29 +20,22 @@ import { Sleep } from './src/lib/Polyfills';
 
 interface state {
   assetsLoaded: boolean;
-  mobxHydrated: boolean;
 }
 
 class App extends React.PureComponent<any, state> {
   constructor(props) {
     super(props);
     this.state = {
-      assetsLoaded: false,
-      mobxHydrated: false
+      assetsLoaded: false
     };
-    this.watchHydrate();
   }
-
-  watchHydrate = async () => {
-    while (!GlobalState.isHydrated) await Sleep(20);
-    this.setState({ mobxHydrated: true });
-  };
 
   static _loadAssets = async () => {
     const fontAssets = loadFonts({
       // "Somefont": require('./font/somefont.ttf')
     });
     await Promise.all([fontAssets]);
+    while (!GlobalState.isHydrated) await Sleep(20);
   };
 
   render() {
@@ -53,8 +46,6 @@ class App extends React.PureComponent<any, state> {
           onFinish={() => this.setState({ assetsLoaded: true })}
         />
       );
-
-    if (!this.state.mobxHydrated) return <></>;
 
     return (
       <ThemeProvider theme={Theme}>

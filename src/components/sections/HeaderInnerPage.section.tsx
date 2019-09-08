@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { View } from 'react-native';
+import str_shorten from 'str_shorten';
 import { Text, ThemeContext } from '../elements';
 import { observer } from 'mobx-react-lite';
 import { Feather } from '@expo/vector-icons';
@@ -34,7 +35,11 @@ export const HeaderInnerPageSection = observer(() => {
         />
       </View>
 
-      <Text>{GlobalState.currentPageTitle}</Text>
+      <Text>
+        {str_shorten(GlobalState.currentPageTitle, (GlobalState.viewportInfo.width - 120) / 6, {
+          wordBoundary: false
+        })}
+      </Text>
 
       <View style={{ width: 48 }} />
     </View>
