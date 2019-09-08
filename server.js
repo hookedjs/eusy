@@ -8,7 +8,7 @@ app.use(logger('dev'));
 
 app.use(shrinkRay());
 
-app.use(express.static('web-build', { index: 'MockOrm.tsx.html' }));
+app.use(express.static('web-build', { index: 'index.html' }));
 
 // Handle 404
 app.use(function(req, res) {
